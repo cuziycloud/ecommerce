@@ -45,7 +45,9 @@ Follow these steps to set up the project locally:
 - View order history and track shipments.
 
 ## Authors
-Developed by **Binh Linh Van** as part of the Design Pattern coursework.
+1. Bach Phuong Binh - 522H0001
+2. Duong Thi Thuy Linh - 522H0015
+3. Tran My Van - 522H0083
 
 ## License
 This project is licensed under the MIT License.
