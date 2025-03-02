@@ -19,6 +19,12 @@ This project incorporates several design patterns, including:
 - **Factory Method**: Dynamically creating jewelry items.
 - **Decorator**: Enhancing jewelry products with additional features.
 ...
+## Technologies Used
+- **Backend**: Java, Spring Boot 
+- **Frontend**: 
+- **Database**: MySQL
+- **Authentication**: JWT (JSON Web Token)
+- **Version Control**: Git, GitLab
 ## Installation
 Follow these steps to set up the project locally:
 1. Clone the repository:
