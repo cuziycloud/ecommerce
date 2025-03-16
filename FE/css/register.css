@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('../images/bg.png') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.register-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.ring-icon {
+    width: 20px;
+    vertical-align: middle;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn {
+    width: 100%;
+    background: #D4AF37;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #b5942e;
+}
+
+.or-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #777;
+    position: relative;
+    width: 100%;
+}
+
+.or-divider::before,
+.or-divider::after {
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.or-divider span {
+    padding: 0 10px; 
+    background: white;
+    z-index: 1;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.social-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.social-btn i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.google-btn {
+    background: white;
+    border: 1px solid #db4437;
+    color: #db4437;
+}
+
+.google-btn:hover {
+    background: #db4437;
+    color: white;
+}
+
+.facebook-btn {
+    background: white;
+    border: 1px solid #1877f2;
+    color: #1877f2;
+}
+
+.facebook-btn:hover {
+    background: #1877f2;
+    color: white;
+}
+
+.login-link {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.login-link a {
+    color: #D4AF37;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
