@@ -1,4 +1,5 @@
 import React from "react";
+import "./ProductCard.css";
 
 const ProductCard = () => {
   return (
@@ -6,12 +7,12 @@ const ProductCard = () => {
       <div className="h-[20rem]">
         <img
           className="h-full w-full object-cover object-left-top"
-          src=""
+          src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
         />
       </div>
 
-      <div className="textPart bg-white mt-4 flex flex-col">
+      <div className="textPart bg-white p-3 flex flex-col">
         <p className="font-bold opacity-60">Name of product</p>
         <p>This is description about my product. (Coming soon)</p>
 
