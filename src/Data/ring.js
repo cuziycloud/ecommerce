@@ -1,6 +1,6 @@
 export const mens_kurta=[
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/l5h2xe80/kurta/x/6/n/xl-kast-tile-green-majestic-man-original-imagg4z33hu4kzpv.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/240/sp-gnxmxmw062088-nhan-vang-trang-10k-dinh-da-ecz-pnj-1.png",
         "brand": "Majestic Man",
         "title": "Men Printed Pure Cotton Straight Kurta",
         "color": "Green",
@@ -28,7 +28,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/l/f/r/xl-k-spl668-yellow-sg-leman-original-imagznqcrahgq9rf.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/239/sp-gnxmxmw062083-nhan-vang-trang-10k-dinh-da-ecz-pnj-1.png",
         "brand": "SG LEMAN",
         "title": "Men Embroidered Jacquard Straight Kurta",
         "color": "Yellow",
@@ -56,7 +56,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/g/6/k/m-sksh-dt1105-pcbl-fubar-original-imafux247zhqym2z-bb.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/240/sp-gnddddc002037-nhan-kim-cuong-vang-14k-pnj-1.png",
         "brand": "FUBAR",
         "title": "Men Printed Cotton Blend Straight Kurta",
         "color": "Blue",
@@ -84,7 +84,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/i/v/x/xxl-br-ad-kt-105-adwyn-peter-original-imagj4zyd2q7t6cg.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/240/sp-gn0000y060871-nhan-vang-18k-pnj-1.png",
         "brand": "ALY JOHN",
         "title": "Men Solid Pure Cotton Straight Kurta",
         "color": "White",
@@ -112,7 +112,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/j/a/r/l-poch521835-peter-england-original-imag7jg47g7cxhg3-bb.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/242/sp-gnzt00x000006-nhan-vang-14k-dinh-da-synthetic-pnj-0001.png",
         "brand": "PETER ENGLAND",
         "title": "Men Woven Design Pure Cotton Straight Kurta",
         "color": "Grey",
@@ -140,7 +140,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/y/c/x/xl-kast107hp-majestic-man-original-imafw49u5uty4agx-bb.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/239/sp-snxm00c000042-nhan-bac-dinh-da-style-by-pnj-1.png",
         "brand": "Majestic Man",
         "title": "Men Solid Pure Cotton Straight Kurta",
         "color": "Pink",
@@ -168,7 +168,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/kpodocw0/t-shirt/x/o/4/xl-wr-64-wrodss-original-imag3upwgq9n9fbv.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/239/sp-snxmxmc000029-nhan-bac-dinh-da-style-by-pnj-01.png",
         "brand": "WRODSS",
         "title": "Men Solid Cotton Blend Straight Kurta",
         "color": "Black",
@@ -196,7 +196,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/l4zxn680/kurta/i/g/u/s-mtml0039-341-manthan-original-imagfrz3gwgdtczm.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/detailed/239/sp-gntpxmw000761-nhan-vang-dinh-da-topaz-pnj-1.png",
         "brand": "Manthan",
         "title": "Men Printed Cotton Blend Straight Kurta",
         "color": "Blue",
@@ -224,7 +224,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/m/e/e/s-kurta-rahul-look-original-imaga2g6qmhbywdf-bb.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/239/sp-gnspxmx000004-nhan-vang-14k-dinh-da-sapphire-pnj-1.png",  
         "brand": "RAHUL LOOK",
         "title": "Men Solid Pure Cotton Straight Kurta",
         "color": "Green",
@@ -252,7 +252,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/u/v/m/l-grey-106-yellow-freluro-original-imagc26vdpwxgztu-bb.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/239/sp-gnsv00y000006-nhan-vang-18k-dinh-da-tsavorite-pnj-1.png",
         "brand": "FRELURO",
         "title": "Men Printed Cotton Blend Straight Kurta",
         "color": "Yellow",
@@ -280,7 +280,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/jsj90280/kurta/j/z/g/l-mtmkos0004-326-manthan-original-imafe35wha5ry36p.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gnxmxmw005864-nhan-vang-dinh-da-ecz-pnj-1.png",
         "brand": "Manthan",
         "title": "Men Self Design Cotton Blend Straight Kurta",
         "color": "Light Blue",
@@ -308,7 +308,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/g/f/f/xl-grey-sws4503-allan-peter-original-imag6xxgvvh59gh5-bb.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gn0000w060377-nhan-vang-trang-y-pnj-1.png",
         "brand": "allan peter",
         "title": "Men Solid Pure Cotton Straight Kurta",
         "color": "Green",
@@ -336,7 +336,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/u/g/z/xl-8button-kurta-elepants-original-imagk57kfg2bwvhd.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gn0000y060899-nhan-vang-pnj-1.png",
         "brand": "COMBRAIDED",
         "title": "Men Solid Cotton Blend Straight Kurta",
         "color": "Dark Blue",
@@ -364,7 +364,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/7/b/q/xl-short-button-yellow-101-deal4mens-original-imagf6nzhwufyygg.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gnxmxmw005912-nhan-vang-trang-14k-dinh-da-ecz-pnj-1.png",
         "brand": "FOLGEN",
         "title": "Men Solid Cotton Blend Straight Kurta",
         "color": "Yellow",
@@ -1092,7 +1092,7 @@ export const mens_kurta=[
           "description":"A traditional garment embodying elegance and grace. Crafted from fine fabrics, it features intricate embroidery and a relaxed fit, providing comfort and style."
     },
     {
-        "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/kurta/x/f/6/xxl-new-white-nofilter-original-imaghzggudfezpr8.jpeg?q=70",
+        "imageUrl": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gnxmxmw005912-nhan-vang-trang-14k-dinh-da-ecz-pnj-1.png",
         "brand": "Nofilter",
         "title": "Men Solid Pure Cotton Straight Kurta",
         "color": "White",
