@@ -358,9 +358,7 @@ export default function Product() {
               {/* Product grid */}
               <div className="lg:col-span-4 w-full">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 bg-white py-5">
-                  {mens_kurta.map((item, index) => (
-                    <ProductCard key={index} />
-                  ))}
+                  {mens_kurta.map((item) => <ProductCard product={item} />)}
                 </div>
               </div>
             </div>
