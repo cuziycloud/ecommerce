@@ -24,7 +24,8 @@ This project incorporates several design patterns, including:
 - **Frontend**: 
 - **Database**: MySQL
 - **Authentication**: JWT (JSON Web Token)
-- **Version Control**: Git, GitLab
+- **Version Control**: Git
+- **Repository Hosting**: GitLab
 ## Installation
 Follow these steps to set up the project locally:
 1. Clone the repository:
@@ -55,8 +56,8 @@ Follow these steps to set up the project locally:
 2. Duong Thi Thuy Linh - 522H0015
 3. Tran My Van - 522H0083
 
-## License
-This project is licensed under the MIT License.
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file (if one exists) for details.
 
-## Project Status
-Actively maintained with ongoing improvements. Contributions and feedback are welcome!
+## 📊 Project Status
+Actively maintained with ongoing improvements planned. Feedback and contributions are highly encouraged!
