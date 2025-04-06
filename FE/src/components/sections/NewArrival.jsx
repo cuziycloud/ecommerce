@@ -1,13 +1,13 @@
 import React from 'react'
-import SectionHeading from './SecHeading_tmp/sectionHeading_tmp'
-import Card from '../Card/Card';
+import SectionHeading from './secHeading/SecHeading'
+import Card from '../card_tmp/Card';
 import Jeans from '../../assets/img/j1.jpg'
 import Shirts from '../../assets/img/j2.jpg'
 import Tshirt from '../../assets/img/j3.jpg'
 import dresses from '../../assets/img/j4.jpg'
 import Carousel from 'react-multi-carousel';
 import { responsive } from '../../utils/sectionConstants';
-import './NewArrivals.css';
+import './NewArrival.css';
 
 const items = [{
     'title':'Jeans',
