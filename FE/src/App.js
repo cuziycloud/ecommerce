@@ -1,0 +1,14 @@
+import './App.css';
+import HeroSection from './components/heroSection/HeroSection';
+import Navigation from './components/Navigation/Navigation';
+import { BrowserRouter } from 'react-router-dom';
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Navigation />
+      <HeroSection />
+    </BrowserRouter>
+    
+  )
+}
