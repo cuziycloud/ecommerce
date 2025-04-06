@@ -1,0 +1,202 @@
+{
+    "pages": {
+      "shop": {
+        "sections": [
+          {
+            "title": "Jewelry For Women",
+            "data": [
+              {
+                "title": "Earrings",
+                "description": "Discover Elegance!",
+                "image": "./images/jewelry-women-earrings.jpg"
+              },
+              {
+                "title": "Necklaces",
+                "description": "Shine Bright!",
+                "image": "./images/jewelry-women-necklaces.jpg"
+              },
+              {
+                "title": "Bracelets",
+                "description": "Style Your Wrist!",
+                "image": "./images/jewelry-women-bracelets.jpg"
+              },
+              {
+                "title": "Rings",
+                "description": "Find the Perfect Ring!",
+                "image": "./images/jewelry-women-rings.jpg"
+              },
+              {
+                "title": "Earrings",
+                "description": "Discover Elegance!",
+                "image": "./images/jewelry-women-earrings.jpg"
+              },
+              {
+                "title": "Earrings",
+                "description": "Discover Elegance!",
+                "image": "./images/jewelry-women-earrings.jpg"
+              },
+              {
+                "title": "Earrings",
+                "description": "Discover Elegance!",
+                "image": "./images/jewelry-women-earrings.jpg"
+              }
+            ]
+          },
+          {
+            "title": "Jewelry For Men",
+            "data": [
+              {
+                "title": "Chains",
+                "description": "Explore Now!",
+                "image": "./images/jewelry-men-chains.jpg"
+              },
+              {
+                "title": "Bracelets",
+                "description": "Bold & Stylish!",
+                "image": "./images/jewelry-men-bracelets.jpg"
+              },
+              {
+                "title": "Rings",
+                "description": "Make a Statement!",
+                "image": "./images/jewelry-men-rings.jpg"
+              },
+              {
+                "title": "Earrings",
+                "description": "Subtle Shine!",
+                "image": "./images/jewelry-men-earrings.jpg"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "footer": {
+      "items": [
+        {
+          "title": "Need Help",
+          "list": [
+            { "label": "Contact Us", "path": "/contact-us" },
+            { "label": "Track Order", "path": "/track-order" },
+            { "label": "Returns & Refunds", "path": "/refunds" },
+            { "label": "FAQ's", "path": "/faq" },
+            { "label": "Career", "path": "/career" }
+          ]
+        },
+        {
+          "title": "Company",
+          "list": [
+            { "label": "About Us", "path": "/about" },
+            { "label": "Media", "path": "/media" }
+          ]
+        },
+        {
+          "title": "More Info",
+          "list": [
+            { "label": "Terms and Conditions", "path": "/terms-conditions" },
+            { "label": "Privacy Policy", "path": "/policies" },
+            { "label": "Shipping Policy", "path": "/policies" }
+          ]
+        },
+        {
+          "title": "Location",
+          "description": "Global Jewelry Hub"
+        }
+      ],
+      "copyright": "Copyright © 2024 JewelEase"
+    },
+    "categories": [
+      {
+        "id": 1,
+        "name": "Women",
+        "code": "WOMEN",
+        "path": "/women-jewelry",
+        "description": "Elegant jewelry for women",
+        "types": [
+          { "id": 1, "name": "Necklaces", "description": "Stylish necklaces for women" },
+          { "id": 2, "name": "Rings", "description": "Beautiful rings for women" },
+          { "id": 3, "name": "Bracelets", "description": "Charming bracelets" },
+          { "id": 4, "name": "Earrings", "description": "Elegant earrings" }
+        ],
+        "meta_data": {
+          "materials": ["Gold", "Silver", "Diamond", "Pearl", "Platinum"],
+          "sizes": ["S", "M", "L"]
+        }
+      },
+      {
+        "id": 2,
+        "name": "Men",
+        "code": "MEN",
+        "path": "/men-jewelry",
+        "description": "Bold and stylish jewelry for men",
+        "types": [
+          { "id": 5, "name": "Chains", "description": "Men's chains" },
+          { "id": 6, "name": "Rings", "description": "Men's rings" },
+          { "id": 7, "name": "Bracelets", "description": "Men's bracelets" },
+          { "id": 8, "name": "Earrings", "description": "Men's earrings" }
+        ],
+        "meta_data": {
+          "materials": ["Gold", "Silver", "Leather", "Steel"],
+          "sizes": ["M", "L", "XL"]
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": 1,
+        "title": "Gold Plated Necklace",
+        "description": "Elegant 18K gold plated necklace perfect for every occasion.",
+        "category_id": 1,
+        "type_id": 1,
+        "brand": "JewelCraft",
+        "price": 89.99,
+        "size": ["M"],
+        "color": ["Gold"],
+        "material": "Gold Plated",
+        "discount": 10,
+        "thumbnail": "https://example.com/images/gold-necklace.jpg",
+        "images": [
+          "https://example.com/images/gold-necklace.jpg",
+          "https://example.com/images/gold-necklace-close.jpg"
+        ],
+        "rating": 4.7
+      },
+      {
+        "id": 2,
+        "title": "Silver Hoop Earrings",
+        "description": "Classic silver hoops that complement any outfit.",
+        "category_id": 1,
+        "type_id": 4,
+        "brand": "ElegantWear",
+        "price": 39.99,
+        "size": ["S", "M"],
+        "color": ["Silver"],
+        "material": "Sterling Silver",
+        "discount": 5,
+        "thumbnail": "https://example.com/images/silver-earrings.jpg",
+        "images": [
+          "https://example.com/images/silver-earrings.jpg",
+          "https://example.com/images/silver-earrings-model.jpg"
+        ],
+        "rating": 4.5
+      },
+      {
+        "id": 3,
+        "title": "Men's Steel Chain",
+        "description": "Rugged and stylish chain made of stainless steel.",
+        "category_id": 2,
+        "type_id": 5,
+        "brand": "BoldLine",
+        "price": 59.99,
+        "size": ["L"],
+        "color": ["Silver"],
+        "material": "Stainless Steel",
+        "discount": 15,
+        "thumbnail": "https://example.com/images/steel-chain.jpg",
+        "images": [
+          "https://example.com/images/steel-chain.jpg",
+          "https://example.com/images/steel-chain-close.jpg"
+        ],
+        "rating": 4.6
+      }
+    ]
+  }
