@@ -1,5 +1,5 @@
 import React from 'react'
-import SectionHeading from './SecHeading/sectionHeading'
+import SectionHeading from './SecHeading_tmp/sectionHeading_tmp'
 import Card from '../Card/Card';
 import Jeans from '../../assets/img/j1.jpg'
 import Shirts from '../../assets/img/j2.jpg'
