@@ -2,9 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import FilterIcon from '../../components/common/FilterIcon';
 import content from '../../data/content.json';
 import ProductCard from './ProductCard';
-import { getAllProducts } from '../../api/fetchProducts';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading } from '../../store/features/common'
 const categories = content?.categories;
 
 const ProductList = ({categoryType}) => {
@@ -20,18 +18,6 @@ const ProductList = ({categoryType}) => {
   const category = useMemo(()=>{
     return categoryData?.find(element => element?.code === categoryType);
   },[categoryData, categoryType]);
-
-  useEffect(()=>{
-    dispatch(setLoading(true));
-    getAllProducts(category?.id).then(res=>{
-      setProducts(res);
-    }).catch(err=>{
-      
-    }).finally(()=>{
-      dispatch(setLoading(false));
-    })
-    
-  },[category?.id, dispatch]);
 
 
   return (
