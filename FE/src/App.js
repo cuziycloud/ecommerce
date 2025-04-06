@@ -1,19 +1,14 @@
 import './App.css';
-import Navigation from './customer/components/Navigation/Navigation';
-import Product from './customer/components/Product/Product';
-import ProductCard from './customer/components/Product/ProductCard';
-import HomePage from './customer/pages/HomePage/HomePage';
+import HeroSection from './components/heroSection/HeroSection';
+import Navigation from './components/Navigation/Navigation';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
-    <div className="">
-      <Navigation/>
-      <div>
-      {/*<HomePage/>*/}
-      <Product/>
-      </div>
-    </div>
-  );
+    <BrowserRouter>
+      <Navigation />
+      <HeroSection />
+    </BrowserRouter>
+    
+  )
 }
-
-export default App;
