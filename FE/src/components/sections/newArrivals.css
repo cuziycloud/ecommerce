@@ -1,0 +1,45 @@
+.react-slider-custom-item {
+  max-width: 220px;
+  img {
+    height: 220px;
+  }
+}
+
+.carousel-item {
+  display: flex;
+  flex-direction: column; 
+  align-items: right; 
+  justify-content: center; 
+  padding: 10px; 
+  text-align: center;
+  transition: transform 0.3s ease-in-out; 
+}
+
+.carousel-item:hover {
+  transform: scale(1.05); 
+}
+
+.carousel-image {
+  width: 100%; 
+  max-width: 250px; 
+  height: auto; 
+  border-radius: 8px; 
+}
+
+.carousel-title {
+  margin-top: 10px; 
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.react-slider-custom-item {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
