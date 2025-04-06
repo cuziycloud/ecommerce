@@ -1,32 +1,45 @@
-import React from 'react'
+import React from 'react';
+import './Footer.css';
 import FbIcon from '../common/FbIcon'
 import IgIcon from '../common/IgIcon'
 
-
-const Footer = ({content}) => {
+const Footer = () => {
   return (
-    <div className='bg-black text-white py-8'>
-        <div className='flex justify-around'>
-            {content?.items && content?.items?.map((item,index)=>{
-                return (
-                    <div className='flex flex-col'>
-                    <p className='text-[16px] pb-[10px]'>{item?.title}</p>
-                    {item?.list && item?.list?.map((listItem,index)=><a className='flex flex-col text-[12px] py-2'
-                     href={listItem?.path}>{listItem?.label}</a>)}
-                     {item?.description && <p>{item?.description}</p>}
-                    </div>
-                )
-            })}
-        </div>
-        <div className='flex gap-2 items-center justify-center py-4'>
-          <a href='/fb'><FbIcon /></a>
-          <a href='/ig'><IgIcon /></a>  
-        </div>
-        <p className='text-sm text-white text-center content-center'>{content?.copyright}</p>
-
-    </div>
-  )
+    <footer className="footer">
+      <div className="waves">
+        <div className="wave" id="wave1"></div>
+        <div className="wave" id="wave2"></div>
+        <div className="wave" id="wave3"></div>
+        <div className="wave" id="wave4"></div>
+      </div>
+      <ul className="social-icon">
+        <li className="social-icon__item">
+        <a href='/fb'><FbIcon /></a>
+        </li>
+        <li className="social-icon__item">
+        <a href='/ig'><IgIcon /></a>
+        </li>
+      </ul>
+      <ul className="menu">
+        <li className="menu__item">
+          <a className="menu__link" href="#">Home</a>
+        </li>
+        <li className="menu__item">
+          <a className="menu__link" href="#">About</a>
+        </li>
+        <li className="menu__item">
+          <a className="menu__link" href="#">Services</a>
+        </li>
+        <li className="menu__item">
+          <a className="menu__link" href="#">Team</a>
+        </li>
+        <li className="menu__item">
+          <a className="menu__link" href="#">Contact</a>
+        </li>
+      </ul>
+      <p>&copy;2025 Jeweluxe | All Rights Reserved</p>
+    </footer>
+  );
 }
 
-
-export default Footer
+export default Footer;
