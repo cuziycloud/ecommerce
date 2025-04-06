@@ -1,7 +1,7 @@
-.react-slider-custom-item{
+.react-slider-custom-item {
   max-width: 220px;
-  img {
-      height: 220px;
-  }
 }
 
+.react-slider-custom-item img {
+  height: 220px;
+}

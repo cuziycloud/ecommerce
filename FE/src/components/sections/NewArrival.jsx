@@ -1,41 +1,47 @@
-import React from 'react'
-import SectionHeading from './secHeading/SecHeading'
-import Card from '../card_tmp/Card';
-import Jeans from '../../assets/img/j1.jpg'
-import Shirts from '../../assets/img/j2.jpg'
-import Tshirt from '../../assets/img/j3.jpg'
-import dresses from '../../assets/img/j4.jpg'
+import React from 'react';
+import SectionHeading from './secHeading/SecHeading';
+import Card from '../card/Card';
+import Ring from '../../assets/img/j1.jpg';
+import Necklace from '../../assets/img/j2.jpg';
+import Earrings from '../../assets/img/j3.jpg';
+import Bracelet from '../../assets/img/j4.jpg';
 import Carousel from 'react-multi-carousel';
 import { responsive } from '../../utils/sectionConstants';
+import 'react-multi-carousel/lib/styles.css';
 import './NewArrival.css';
 
-const items = [{
-    'title':'Jeans',
-    imagePath:Jeans
-},{
-    'title':'Shirts',
-    imagePath:Shirts
-},{
-    'title':'T-Shirts',
-    imagePath:Tshirt
-},{
-    'title':'Dresses',
-    imagePath:dresses
-},
-{
-    'title':'Joggers',
-    imagePath:require('../../assets/img/j5.jpg')
-},
-{
-    'title':'Kurtis',
-    imagePath:require('../../assets/img/j6.png')
-}];
+const items = [
+  {
+    title: 'Rings',
+    imagePath: Ring,
+  },
+  {
+    title: 'Necklaces',
+    imagePath: Necklace,
+  },
+  {
+    title: 'Earrings',
+    imagePath: Earrings,
+  },
+  {
+    title: 'Bracelets',
+    imagePath: Bracelet,
+  },
+  {
+    title: 'Watches',
+    imagePath: require('../../assets/img/j5.jpg'),
+  },
+  {
+    title: 'Gold Sets',
+    imagePath: require('../../assets/img/j6.png'),
+  },
+];
 
 const NewArrivals = () => {
   return (
     <>
-    <SectionHeading title={'New Arrivals'}/>
-    <Carousel
+      <SectionHeading title={'New Arrivals'} />
+      <Carousel
         responsive={responsive}
         autoPlay={false}
         swipeable={true}
@@ -46,11 +52,17 @@ const NewArrivals = () => {
         itemClass={'react-slider-custom-item'}
         className='px-8'
       >
-        {items && items?.map((item,index)=> <Card key={item?.title +index} title={item.title} imagePath={item.imagePath}/>)}
-
+        {items &&
+          items.map((item, index) => (
+            <Card
+              key={item?.title + index}
+              title={item.title}
+              imagePath={item.imagePath}
+            />
+          ))}
       </Carousel>
     </>
-  )
-}
+  );
+};
 
-export default NewArrivals
+export default NewArrivals;
