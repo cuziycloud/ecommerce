@@ -40,7 +40,7 @@
 
 .social-icon__link:hover {
   transform: translateY(-5px);
-  color: #4e9fd7; /* Highlight color on hover */
+  color: #4e9fd7;
 }
 
 .menu__link {

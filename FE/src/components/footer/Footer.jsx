@@ -20,9 +20,9 @@ const Footer = () => {
         <a href='/ig'><IgIcon /></a>
         </li>
       </ul>
-      <ul className="menu">
+      {/* <ul className="menu">
         <li className="menu__item">
-          <a className="menu__link" href="#">Home</a>
+          <a className="menu__link" href="">Home</a>
         </li>
         <li className="menu__item">
           <a className="menu__link" href="#">About</a>
@@ -36,7 +36,7 @@ const Footer = () => {
         <li className="menu__item">
           <a className="menu__link" href="#">Contact</a>
         </li>
-      </ul>
+      </ul> */}
       <p>&copy;2025 Jeweluxe | All Rights Reserved</p>
     </footer>
   );
