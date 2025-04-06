@@ -15,7 +15,7 @@ export default function App() {
       <HeroSection />
       <NewArrivals />
       {content?.pages?.shop?.sections && content?.pages?.shop?.sections?.map((item, index) => <Category key={item?.title+index} {...item} />)}
-      <Footer />
+      <Footer content={content?.footer}/>
     </BrowserRouter>
     
   )

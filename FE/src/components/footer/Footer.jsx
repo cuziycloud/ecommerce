@@ -1,6 +1,6 @@
 import React from 'react'
 import FbIcon from '../common/FbIcon'
-import InstaIcon from '../common/IgIcon'
+import IgIcon from '../common/IgIcon'
 
 
 const Footer = ({content}) => {
@@ -20,7 +20,7 @@ const Footer = ({content}) => {
         </div>
         <div className='flex gap-2 items-center justify-center py-4'>
           <a href='/fb'><FbIcon /></a>
-          <a href='/insta'><InstaIcon /></a>  
+          <a href='/ig'><IgIcon /></a>  
         </div>
         <p className='text-sm text-white text-center content-center'>{content?.copyright}</p>
 

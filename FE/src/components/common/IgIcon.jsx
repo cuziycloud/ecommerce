@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InstaIcon = () => {
+const IgIcon = () => {
     return (
         <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="-0.00799561" y="0.000213623" width="37.024" height="37.024" rx="10.68" fill="#F6F6F6" />
@@ -10,4 +10,4 @@ const InstaIcon = () => {
     )
 }
 
-export default InstaIcon
+export default IgIcon
