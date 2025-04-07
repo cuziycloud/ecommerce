@@ -7,7 +7,7 @@ import ColorsFilter from '../../components/filters/ColorsFilter';
 import SizeFilter from '../../components/filters/SizeFilter';
 import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
-const categories = content?.categories;
+const categories = content?.categories; //lay trong content.json
 
 const ProductListPage = ({categoryType}) => {
 

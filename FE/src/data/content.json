@@ -1,202 +1,290 @@
 {
-    "pages": {
-      "shop": {
-        "sections": [
-          {
-            "title": "Jewelry For Women",
-            "data": [
-              {
-                "title": "Earrings",
-                "description": "Discover Elegance!",
-                "image": "./images/jewelry-women-earrings.jpg"
-              },
-              {
-                "title": "Necklaces",
-                "description": "Shine Bright!",
-                "image": "./images/jewelry-women-necklaces.jpg"
-              },
-              {
-                "title": "Bracelets",
-                "description": "Style Your Wrist!",
-                "image": "./images/jewelry-women-bracelets.jpg"
-              },
-              {
-                "title": "Rings",
-                "description": "Find the Perfect Ring!",
-                "image": "./images/jewelry-women-rings.jpg"
-              },
-              {
-                "title": "Earrings",
-                "description": "Discover Elegance!",
-                "image": "./images/jewelry-women-earrings.jpg"
-              },
-              {
-                "title": "Earrings",
-                "description": "Discover Elegance!",
-                "image": "./images/jewelry-women-earrings.jpg"
-              },
-              {
-                "title": "Earrings",
-                "description": "Discover Elegance!",
-                "image": "./images/jewelry-women-earrings.jpg"
-              }
-            ]
-          },
-          {
-            "title": "Jewelry For Men",
-            "data": [
-              {
-                "title": "Chains",
-                "description": "Explore Now!",
-                "image": "./images/jewelry-men-chains.jpg"
-              },
-              {
-                "title": "Bracelets",
-                "description": "Bold & Stylish!",
-                "image": "./images/jewelry-men-bracelets.jpg"
-              },
-              {
-                "title": "Rings",
-                "description": "Make a Statement!",
-                "image": "./images/jewelry-men-rings.jpg"
-              },
-              {
-                "title": "Earrings",
-                "description": "Subtle Shine!",
-                "image": "./images/jewelry-men-earrings.jpg"
-              }
-            ]
-          }
+  "pages": {
+    "shop": {
+      "sections": [
+        {
+          "title": "Jewelry Collection",
+          "data": [
+            {
+              "title": "Rings",
+              "description": "Explore Now!",
+              "image": "./images/jewelry-rings.jpg"
+            },
+            {
+              "title": "Bracelets",
+              "description": "Explore Now!",
+              "image": "./images/jewelry-bracelets.jpg"
+            },
+            {
+              "title": "Necklaces",
+              "description": "Explore Now!",
+              "image": "./images/jewelry-necklaces.jpg"
+            },
+            {
+              "title": "Earrings",
+              "description": "Explore Now!",
+              "image": "./images/jewelry-earrings.jpg"
+            },
+            {
+              "title": "Anklets",
+              "description": "Explore Now!",
+              "image": "./images/jewelry-anklets.jpg"
+            },
+            {
+              "title": "Cufflinks",
+              "description": "Explore Now!",
+              "image": "./images/jewelry-cufflinks.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "footer": {
+    "items": [
+      {
+        "title": "Need Help",
+        "list": [
+          { "label": "Contact Us", "path": "/contact-us" },
+          { "label": "Track Order", "path": "/track-order" },
+          { "label": "Returns & Refunds", "path": "/refunds" },
+          { "label": "FAQ's", "path": "/faq" },
+          { "label": "Career", "path": "/career" }
         ]
+      },
+      {
+        "title": "Company",
+        "list": [
+          { "label": "About Us", "path": "/about" },
+          { "label": "Media", "path": "/media" }
+        ]
+      },
+      {
+        "title": "More Info",
+        "list": [
+          { "label": "Term and Conditions", "path": "/terms-conditions" },
+          { "label": "Privacy Policy", "path": "/policies" },
+          { "label": "Shipping Policy", "path": "/policies" }
+        ]
+      },
+      {
+        "title": "Location",
+        "description": "Location Country"
+      }
+    ],
+    "copyright": "Copyright © 2024 JewelEase"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Rings",
+      "code": "RINGS",
+      "path": "/rings",
+      "description": "Collection of elegant rings for every occasion.",
+      "types": [
+        { "id": 1, "name": "Engagement Rings", "description": "Special rings for engagement" },
+        { "id": 2, "name": "Wedding Bands", "description": "Classic and modern wedding bands" },
+        { "id": 3, "name": "Gemstone Rings", "description": "Rings with precious gemstones" }
+      ],
+      "meta_data": {
+        "colors": ["Gold", "Silver", "Platinum", "Rose Gold", "Black"],
+        "sizes": ["5", "6", "7", "8", "9", "10"]
       }
     },
-    "footer": {
-      "items": [
-        {
-          "title": "Need Help",
-          "list": [
-            { "label": "Contact Us", "path": "/contact-us" },
-            { "label": "Track Order", "path": "/track-order" },
-            { "label": "Returns & Refunds", "path": "/refunds" },
-            { "label": "FAQ's", "path": "/faq" },
-            { "label": "Career", "path": "/career" }
-          ]
-        },
-        {
-          "title": "Company",
-          "list": [
-            { "label": "About Us", "path": "/about" },
-            { "label": "Media", "path": "/media" }
-          ]
-        },
-        {
-          "title": "More Info",
-          "list": [
-            { "label": "Terms and Conditions", "path": "/terms-conditions" },
-            { "label": "Privacy Policy", "path": "/policies" },
-            { "label": "Shipping Policy", "path": "/policies" }
-          ]
-        },
-        {
-          "title": "Location",
-          "description": "Global Jewelry Hub"
-        }
+    {
+      "id": 2,
+      "name": "Bracelets",
+      "code": "BRACELETS",
+      "path": "/bracelets",
+      "description": "Bracelets in various styles and materials.",
+      "types": [
+        { "id": 4, "name": "Charm Bracelets", "description": "Bracelets with charms" },
+        { "id": 5, "name": "Cuff Bracelets", "description": "Bold statement cuffs" },
+        { "id": 6, "name": "Chain Bracelets", "description": "Delicate and classic chains" }
       ],
-      "copyright": "Copyright © 2024 JewelEase"
+      "meta_data": {
+        "colors": ["Gold", "Silver", "Black", "White", "Rose Gold"],
+        "sizes": ["S", "M", "L"]
+      }
     },
-    "categories": [
+    {
+      "id": 3,
+      "name": "Necklaces",
+      "code": "NECKLACES",
+      "path": "/necklaces",
+      "description": "Necklaces from delicate to statement pieces.",
+      "types": [
+        { "id": 7, "name": "Pendant Necklaces", "description": "Minimalist with a touch of charm" },
+        { "id": 8, "name": "Chain Necklaces", "description": "Chains in various thickness" },
+        { "id": 9, "name": "Statement Necklaces", "description": "For bold looks" }
+      ],
+      "meta_data": {
+        "colors": ["Gold", "Silver", "Platinum"],
+        "sizes": ["16in", "18in", "20in", "22in"]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Earrings",
+      "code": "EARRINGS",
+      "path": "/earrings",
+      "description": "Studs, hoops and more for your ears.",
+      "types": [
+        { "id": 10, "name": "Stud Earrings", "description": "Simple and elegant" },
+        { "id": 11, "name": "Hoop Earrings", "description": "Classic style" },
+        { "id": 12, "name": "Drop Earrings", "description": "Long and elegant" }
+      ],
+      "meta_data": {
+        "colors": ["Gold", "Silver", "Rose Gold"],
+        "sizes": ["Small", "Medium", "Large"]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Anklets",
+      "code": "ANKLETS",
+      "path": "/anklets",
+      "description": "Stylish anklets for summer or everyday wear.",
+      "types": [
+        { "id": 13, "name": "Beaded Anklets", "description": "Colorful and fun" },
+        { "id": 14, "name": "Chain Anklets", "description": "Sleek and minimalist" }
+      ],
+      "meta_data": {
+        "colors": ["Gold", "Silver", "Rose Gold"],
+        "sizes": ["Adjustable"]
+      }
+    },
+    {
+      "id": 6,
+      "name": "Cufflinks",
+      "code": "CUFFLINKS",
+      "path": "/cufflinks",
+      "description": "Add a touch of class to your formal look.",
+      "types": [
+        { "id": 15, "name": "Classic Cufflinks", "description": "Timeless and elegant" },
+        { "id": 16, "name": "Engraved Cufflinks", "description": "Customizable with initials or logos" }
+      ],
+      "meta_data": {
+        "colors": ["Silver", "Gold", "Black"],
+        "sizes": ["One Size"]
+      }
+    }
+  ],
+  "products": [
       {
         "id": 1,
-        "name": "Women",
-        "code": "WOMEN",
-        "path": "/women-jewelry",
-        "description": "Elegant jewelry for women",
-        "types": [
-          { "id": 1, "name": "Necklaces", "description": "Stylish necklaces for women" },
-          { "id": 2, "name": "Rings", "description": "Beautiful rings for women" },
-          { "id": 3, "name": "Bracelets", "description": "Charming bracelets" },
-          { "id": 4, "name": "Earrings", "description": "Elegant earrings" }
+        "title": "Gold Engagement Ring",
+        "description": "A stunning gold engagement ring featuring a diamond center stone. Perfect for the special moment.",
+        "category_id": 1,
+        "type_id": 10,
+        "brand": "Luxury Jewelers",
+        "price": 999.99,
+        "size": ["6", "7", "8", "9"],
+        "color": ["Gold"],
+        "discount": 10,
+        "thumbnail": "https://example.com/products/gold-engagement-ring.jpg",
+        "images": [
+          "https://example.com/products/gold-engagement-ring.jpg",
+          "https://example.com/products/diamond-engagement-ring-close-up.jpg",
+          "https://example.com/products/gold-ring-on-hand.jpg"
         ],
-        "meta_data": {
-          "materials": ["Gold", "Silver", "Diamond", "Pearl", "Platinum"],
-          "sizes": ["S", "M", "L"]
-        }
+        "rating": 4.8
       },
       {
         "id": 2,
-        "name": "Men",
-        "code": "MEN",
-        "path": "/men-jewelry",
-        "description": "Bold and stylish jewelry for men",
-        "types": [
-          { "id": 5, "name": "Chains", "description": "Men's chains" },
-          { "id": 6, "name": "Rings", "description": "Men's rings" },
-          { "id": 7, "name": "Bracelets", "description": "Men's bracelets" },
-          { "id": 8, "name": "Earrings", "description": "Men's earrings" }
-        ],
-        "meta_data": {
-          "materials": ["Gold", "Silver", "Leather", "Steel"],
-          "sizes": ["M", "L", "XL"]
-        }
-      }
-    ],
-    "products": [
-      {
-        "id": 1,
-        "title": "Gold Plated Necklace",
-        "description": "Elegant 18K gold plated necklace perfect for every occasion.",
-        "category_id": 1,
-        "type_id": 1,
-        "brand": "JewelCraft",
-        "price": 89.99,
-        "size": ["M"],
-        "color": ["Gold"],
-        "material": "Gold Plated",
-        "discount": 10,
-        "thumbnail": "https://example.com/images/gold-necklace.jpg",
+        "title": "Sterling Silver Bracelet",
+        "description": "A sleek and timeless sterling silver bracelet, perfect for daily wear or special occasions.",
+        "category_id": 2,
+        "type_id": 15,
+        "brand": "SilverCraft",
+        "price": 79.99,
+        "size": ["S", "M", "L"],
+        "color": ["Silver"],
+        "discount": 5,
+        "thumbnail": "https://example.com/products/sterling-silver-bracelet.jpg",
         "images": [
-          "https://example.com/images/gold-necklace.jpg",
-          "https://example.com/images/gold-necklace-close.jpg"
+          "https://example.com/products/sterling-silver-bracelet.jpg",
+          "https://example.com/products/bracelet-close-up.jpg",
+          "https://example.com/products/bracelet-on-wrist.jpg"
+        ],
+        "rating": 4.3
+      },
+      {
+        "id": 3,
+        "title": "Pearl Necklace",
+        "description": "A classic freshwater pearl necklace, perfect for adding elegance to any outfit.",
+        "category_id": 3,
+        "type_id": 12,
+        "brand": "Pearl Elegance",
+        "price": 199.99,
+        "size": ["18in", "20in", "22in"],
+        "color": ["White"],
+        "discount": 15,
+        "thumbnail": "https://example.com/products/pearl-necklace.jpg",
+        "images": [
+          "https://example.com/products/pearl-necklace.jpg",
+          "https://example.com/products/pearl-necklace-close-up.jpg",
+          "https://example.com/products/pearl-necklace-worn.jpg"
         ],
         "rating": 4.7
       },
       {
-        "id": 2,
-        "title": "Silver Hoop Earrings",
-        "description": "Classic silver hoops that complement any outfit.",
-        "category_id": 1,
-        "type_id": 4,
-        "brand": "ElegantWear",
-        "price": 39.99,
-        "size": ["S", "M"],
-        "color": ["Silver"],
-        "material": "Sterling Silver",
-        "discount": 5,
-        "thumbnail": "https://example.com/images/silver-earrings.jpg",
+        "id": 4,
+        "title": "Gold Hoop Earrings",
+        "description": "Simple and elegant gold hoop earrings, ideal for both everyday wear and special occasions.",
+        "category_id": 4,
+        "type_id": 16,
+        "brand": "Classic Gold",
+        "price": 129.99,
+        "size": ["Small", "Medium", "Large"],
+        "color": ["Gold"],
+        "discount": 8,
+        "thumbnail": "https://example.com/products/gold-hoop-earrings.jpg",
         "images": [
-          "https://example.com/images/silver-earrings.jpg",
-          "https://example.com/images/silver-earrings-model.jpg"
+          "https://example.com/products/gold-hoop-earrings.jpg",
+          "https://example.com/products/gold-hoop-earrings-close-up.jpg",
+          "https://example.com/products/hoop-earrings-on-model.jpg"
         ],
         "rating": 4.5
       },
       {
-        "id": 3,
-        "title": "Men's Steel Chain",
-        "description": "Rugged and stylish chain made of stainless steel.",
-        "category_id": 2,
-        "type_id": 5,
-        "brand": "BoldLine",
-        "price": 59.99,
-        "size": ["L"],
-        "color": ["Silver"],
-        "material": "Stainless Steel",
-        "discount": 15,
-        "thumbnail": "https://example.com/images/steel-chain.jpg",
+        "id": 5,
+        "title": "Charm Anklet",
+        "description": "A trendy charm anklet made of gold, featuring small beads and charms for a stylish look.",
+        "category_id": 5,
+        "type_id": 18,
+        "brand": "Bead & Charm",
+        "price": 49.99,
+        "size": ["Adjustable"],
+        "color": ["Gold", "Silver"],
+        "discount": 10,
+        "thumbnail": "https://example.com/products/charm-anklet.jpg",
         "images": [
-          "https://example.com/images/steel-chain.jpg",
-          "https://example.com/images/steel-chain-close.jpg"
+          "https://example.com/products/charm-anklet.jpg",
+          "https://example.com/products/charm-anklet-on-foot.jpg",
+          "https://example.com/products/anklet-detail.jpg"
+        ],
+        "rating": 4.2
+      },
+      {
+        "id": 6,
+        "title": "Silver Cufflinks",
+        "description": "Elegant silver cufflinks, perfect for formal attire, adding a touch of class to any shirt.",
+        "category_id": 6,
+        "type_id": 20,
+        "brand": "SilverCraft",
+        "price": 89.99,
+        "size": ["One Size"],
+        "color": ["Silver"],
+        "discount": 5,
+        "thumbnail": "https://example.com/products/silver-cufflinks.jpg",
+        "images": [
+          "https://example.com/products/silver-cufflinks.jpg",
+          "https://example.com/products/cufflinks-close-up.jpg",
+          "https://example.com/products/cufflinks-in-box.jpg"
         ],
         "rating": 4.6
       }
     ]
+  
   }

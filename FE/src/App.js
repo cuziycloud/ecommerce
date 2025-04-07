@@ -8,6 +8,7 @@ import Footer from './components/footer/Footer';
 export default function App() {
   return (
     <>
+      {/* <Navigation />  in pages/pdctP/pdctL.js*/}
       <HeroSection />
       <NewArrivals />
       {content?.pages?.shop?.sections && content?.pages?.shop?.sections?.map((item, index) => <Category key={item?.title+index} {...item} />)}
