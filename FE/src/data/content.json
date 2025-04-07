@@ -87,7 +87,7 @@
         { "id": 3, "name": "Gemstone Rings", "description": "Rings with precious gemstones" }
       ],
       "meta_data": {
-        "colors": ["Gold", "Silver", "Platinum", "Rose Gold", "Black"],
+        "colors": ["Gold", "Silver", "Platinum", "Black"],
         "sizes": ["5", "6", "7", "8", "9", "10"]
       }
     },
@@ -103,8 +103,8 @@
         { "id": 6, "name": "Chain Bracelets", "description": "Delicate and classic chains" }
       ],
       "meta_data": {
-        "colors": ["Gold", "Silver", "Black", "White", "Rose Gold"],
-        "sizes": ["S", "M", "L"]
+        "colors": ["Gold", "Silver", "Platinum", "Black"],
+        "sizes": ["5", "6", "7", "8", "9", "10"]
       }
     },
     {
@@ -119,8 +119,8 @@
         { "id": 9, "name": "Statement Necklaces", "description": "For bold looks" }
       ],
       "meta_data": {
-        "colors": ["Gold", "Silver", "Platinum"],
-        "sizes": ["16in", "18in", "20in", "22in"]
+        "colors": ["Gold", "Silver", "Platinum", "Black"],
+        "sizes": ["5", "6", "7", "8", "9", "10"]
       }
     },
     {
@@ -135,7 +135,7 @@
         { "id": 12, "name": "Drop Earrings", "description": "Long and elegant" }
       ],
       "meta_data": {
-        "colors": ["Gold", "Silver", "Rose Gold"],
+        "colors": ["Gold", "Silver"],
         "sizes": ["Small", "Medium", "Large"]
       }
     },
@@ -150,7 +150,7 @@
         { "id": 14, "name": "Chain Anklets", "description": "Sleek and minimalist" }
       ],
       "meta_data": {
-        "colors": ["Gold", "Silver", "Rose Gold"],
+        "colors": ["Gold", "Silver"],
         "sizes": ["Adjustable"]
       }
     },

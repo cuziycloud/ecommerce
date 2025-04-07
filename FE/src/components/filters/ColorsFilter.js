@@ -1,19 +1,19 @@
 import React, { useCallback, useState } from 'react';
 
 export const colorSelector = {
-    "Purple":"#8434E1",
-    "Black":"#252525",
-    "White":"#FFFFFF",
-    "Gray": "#808080",
-    "Blue": "#0000FF",
-    "Red": "#FF0000",
-    "Orange": "#FFA500",
-    "Navy": "#000080",
-    "Grey": "#808080",
-    "Yellow": "#FFFF00",
-    "Pink": "#FFC0CB",
-    "Green": "#008000"
-
+  "Gold": "#FFD700",        // Màu vàng kim loại
+  "Silver": "#C0C0C0",      // Màu bạc
+  "Platinum": "#E5E4E2",    // Màu bạch kim
+  "Black": "#252525",       // Màu đen
+  "White": "#FFFFFF",       // Màu trắng
+  "Gray": "#808080",        // Màu xám
+  "Blue": "#0000FF",        // Màu xanh dương
+  "Red": "#FF0000",         // Màu đỏ
+  "Orange": "#FFA500",      // Màu cam
+  "Navy": "#000080",        // Màu xanh biển
+  "Yellow": "#FFFF00",      // Màu vàng
+  "Pink": "#FFC0CB",        // Màu hồng
+  "Green": "#008000"        // Màu xanh lá cây
 }
 
 const ColorsFilter = ({colors}) => {

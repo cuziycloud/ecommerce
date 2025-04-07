@@ -15,11 +15,11 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path:"/ring",
-        element:<ProductList categoryType={'RING'}/>,
+        path:"/rings",
+        element:<ProductList categoryType={'RINGS'}/>,
     },
     {
-      path:"/necklace",
-      element:<ProductList categoryType={'NECKLACE'}/>,
+      path:"/bracelets",
+      element:<ProductList categoryType={'BRACELETS'}/>,
     }
 ]);
