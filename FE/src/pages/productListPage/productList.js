@@ -1,11 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import FilterIcon from '../../components/common/FilterIcon';
 import content from '../../data/content.json';
+import Categories from '../../components/filters/Categories';
+import PriceFilter from '../../components/filters/PriceFilter';
+import ColorsFilter from '../../components/filters/ColorsFilter';
+import SizeFilter from '../../components/filters/SizeFilter';
 import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 const categories = content?.categories;
 
-const ProductList = ({categoryType}) => {
+const ProductListPage = ({categoryType}) => {
 
   const categoryData = useSelector((state)=> state?.categoryState?.categories);
   const dispatch = useDispatch();
@@ -14,6 +18,10 @@ const ProductList = ({categoryType}) => {
   const categoryContent = useMemo(()=>{
     return categories?.find((category)=> category.code === categoryType);
   },[categoryType]);
+  
+  const productListItems = useMemo(()=>{
+    return content?.products?.filter((product)=> product?.category_id === categoryContent?.id );
+  },[categoryContent]);
 
   const category = useMemo(()=>{
     return categoryData?.find(element => element?.code === categoryType);
@@ -30,6 +38,20 @@ const ProductList = ({categoryType}) => {
                 <FilterIcon />
                 
                 </div>
+                <div>
+                  {/* Product types */}
+                <p className='text-[16px] text-black mt-5'>Categories</p>
+                <Categories types={categoryContent?.types}/>
+                <hr></hr>
+                </div>
+                  {/* Price */}
+                  <PriceFilter />
+                  <hr></hr>
+                  {/* Colors */}
+                  <ColorsFilter colors={categoryContent?.meta_data?.colors}/>
+                  <hr></hr>
+                   {/* Sizes */}
+                   <SizeFilter sizes={categoryContent?.meta_data?.sizes}/>
             </div>
 
             <div className='p-[15px]'>
@@ -48,4 +70,4 @@ const ProductList = ({categoryType}) => {
   )
 }
 
-export default ProductList
+export default ProductListPage
