@@ -1,28 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import FilterIcon from '../../components/common/FilterIcon';
 import content from '../../data/content.json';
-import Categories from '../../components/Filters/Categories';
-import PriceFilter from '../../components/Filters/PriceFilter';
-import ColorsFilter from '../../components/Filters/ColorsFilter';
-import SizeFilter from '../../components/Filters/SizeFilter';
+import Categories from '../../components/filters/Categories';
+import PriceFilter from '../../components/filters/PriceFilter';
+import ColorsFilter from '../../components/filters/ColorsFilter';
+import SizeFilter from '../../components/filters/SizeFilter';
 import ProductCard from './ProductCard';
-import { getAllProducts } from '../../api/fetchProducts';
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 const categories = content?.categories;  //lay trong content.json
 
 const ProductList = ({categoryType}) => {
 
   const categoryData = useSelector((state)=> state?.categoryState?.categories);
-  const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
+  const [products] = useState([]);
 
   const categoryContent = useMemo(()=>{
     return categories?.find((category)=> category.code === categoryType);
   },[categoryType]);
-  
-  const productListItems = useMemo(()=>{
-    return content?.products?.filter((product)=> product?.category_id === categoryContent?.id );
-  },[categoryContent]);
 
   const category = useMemo(()=>{
     return categoryData?.find(element => element?.code === categoryType);

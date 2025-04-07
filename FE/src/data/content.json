@@ -24,16 +24,6 @@
               "title": "Earrings",
               "description": "Explore Now!",
               "image": "./images/jewelry-earrings.jpg"
-            },
-            {
-              "title": "Anklets",
-              "description": "Explore Now!",
-              "image": "./images/jewelry-anklets.jpg"
-            },
-            {
-              "title": "Cufflinks",
-              "description": "Explore Now!",
-              "image": "./images/jewelry-cufflinks.jpg"
             }
           ]
         }
@@ -138,153 +128,84 @@
         "colors": ["Gold", "Silver"],
         "sizes": ["Small", "Medium", "Large"]
       }
-    },
-    {
-      "id": 5,
-      "name": "Anklets",
-      "code": "ANKLETS",
-      "path": "/anklets",
-      "description": "Stylish anklets for summer or everyday wear.",
-      "types": [
-        { "id": 13, "name": "Beaded Anklets", "description": "Colorful and fun" },
-        { "id": 14, "name": "Chain Anklets", "description": "Sleek and minimalist" }
-      ],
-      "meta_data": {
-        "colors": ["Gold", "Silver"],
-        "sizes": ["Adjustable"]
-      }
-    },
-    {
-      "id": 6,
-      "name": "Cufflinks",
-      "code": "CUFFLINKS",
-      "path": "/cufflinks",
-      "description": "Add a touch of class to your formal look.",
-      "types": [
-        { "id": 15, "name": "Classic Cufflinks", "description": "Timeless and elegant" },
-        { "id": 16, "name": "Engraved Cufflinks", "description": "Customizable with initials or logos" }
-      ],
-      "meta_data": {
-        "colors": ["Silver", "Gold", "Black"],
-        "sizes": ["One Size"]
-      }
     }
   ],
   "products": [
-      {
-        "id": 1,
-        "title": "Gold Engagement Ring",
-        "description": "A stunning gold engagement ring featuring a diamond center stone. Perfect for the special moment.",
-        "category_id": 1,
-        "type_id": 10,
-        "brand": "Luxury Jewelers",
-        "price": 999.99,
-        "size": ["6", "7", "8", "9"],
-        "color": ["Gold"],
-        "discount": 10,
-        "thumbnail": "https://example.com/products/gold-engagement-ring.jpg",
-        "images": [
-          "https://example.com/products/gold-engagement-ring.jpg",
-          "https://example.com/products/diamond-engagement-ring-close-up.jpg",
-          "https://example.com/products/gold-ring-on-hand.jpg"
-        ],
-        "rating": 4.8
-      },
-      {
-        "id": 2,
-        "title": "Sterling Silver Bracelet",
-        "description": "A sleek and timeless sterling silver bracelet, perfect for daily wear or special occasions.",
-        "category_id": 2,
-        "type_id": 15,
-        "brand": "SilverCraft",
-        "price": 79.99,
-        "size": ["S", "M", "L"],
-        "color": ["Silver"],
-        "discount": 5,
-        "thumbnail": "https://example.com/products/sterling-silver-bracelet.jpg",
-        "images": [
-          "https://example.com/products/sterling-silver-bracelet.jpg",
-          "https://example.com/products/bracelet-close-up.jpg",
-          "https://example.com/products/bracelet-on-wrist.jpg"
-        ],
-        "rating": 4.3
-      },
-      {
-        "id": 3,
-        "title": "Pearl Necklace",
-        "description": "A classic freshwater pearl necklace, perfect for adding elegance to any outfit.",
-        "category_id": 3,
-        "type_id": 12,
-        "brand": "Pearl Elegance",
-        "price": 199.99,
-        "size": ["18in", "20in", "22in"],
-        "color": ["White"],
-        "discount": 15,
-        "thumbnail": "https://example.com/products/pearl-necklace.jpg",
-        "images": [
-          "https://example.com/products/pearl-necklace.jpg",
-          "https://example.com/products/pearl-necklace-close-up.jpg",
-          "https://example.com/products/pearl-necklace-worn.jpg"
-        ],
-        "rating": 4.7
-      },
-      {
-        "id": 4,
-        "title": "Gold Hoop Earrings",
-        "description": "Simple and elegant gold hoop earrings, ideal for both everyday wear and special occasions.",
-        "category_id": 4,
-        "type_id": 16,
-        "brand": "Classic Gold",
-        "price": 129.99,
-        "size": ["Small", "Medium", "Large"],
-        "color": ["Gold"],
-        "discount": 8,
-        "thumbnail": "https://example.com/products/gold-hoop-earrings.jpg",
-        "images": [
-          "https://example.com/products/gold-hoop-earrings.jpg",
-          "https://example.com/products/gold-hoop-earrings-close-up.jpg",
-          "https://example.com/products/hoop-earrings-on-model.jpg"
-        ],
-        "rating": 4.5
-      },
-      {
-        "id": 5,
-        "title": "Charm Anklet",
-        "description": "A trendy charm anklet made of gold, featuring small beads and charms for a stylish look.",
-        "category_id": 5,
-        "type_id": 18,
-        "brand": "Bead & Charm",
-        "price": 49.99,
-        "size": ["Adjustable"],
-        "color": ["Gold", "Silver"],
-        "discount": 10,
-        "thumbnail": "https://example.com/products/charm-anklet.jpg",
-        "images": [
-          "https://example.com/products/charm-anklet.jpg",
-          "https://example.com/products/charm-anklet-on-foot.jpg",
-          "https://example.com/products/anklet-detail.jpg"
-        ],
-        "rating": 4.2
-      },
-      {
-        "id": 6,
-        "title": "Silver Cufflinks",
-        "description": "Elegant silver cufflinks, perfect for formal attire, adding a touch of class to any shirt.",
-        "category_id": 6,
-        "type_id": 20,
-        "brand": "SilverCraft",
-        "price": 89.99,
-        "size": ["One Size"],
-        "color": ["Silver"],
-        "discount": 5,
-        "thumbnail": "https://example.com/products/silver-cufflinks.jpg",
-        "images": [
-          "https://example.com/products/silver-cufflinks.jpg",
-          "https://example.com/products/cufflinks-close-up.jpg",
-          "https://example.com/products/cufflinks-in-box.jpg"
-        ],
-        "rating": 4.6
-      }
-    ]
-  
-  }
+    {
+      "id": 1,
+      "title": "Gold Engagement Ring",
+      "description": "A stunning gold engagement ring featuring a diamond center stone. Perfect for the special moment.",
+      "category_id": 1,
+      "type_id": 10,
+      "brand": "Luxury Jewelers",
+      "price": 999.99,
+      "size": ["6", "7", "8", "9"],
+      "color": ["Gold"],
+      "discount": 10,
+      "thumbnail": "https://example.com/products/gold-engagement-ring.jpg",
+      "images": [
+        "https://example.com/products/gold-engagement-ring.jpg",
+        "https://example.com/products/diamond-engagement-ring-close-up.jpg",
+        "https://example.com/products/gold-ring-on-hand.jpg"
+      ],
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "title": "Sterling Silver Bracelet",
+      "description": "A sleek and timeless sterling silver bracelet, perfect for daily wear or special occasions.",
+      "category_id": 2,
+      "type_id": 15,
+      "brand": "SilverCraft",
+      "price": 79.99,
+      "size": ["S", "M", "L"],
+      "color": ["Silver"],
+      "discount": 5,
+      "thumbnail": "https://example.com/products/sterling-silver-bracelet.jpg",
+      "images": [
+        "https://example.com/products/sterling-silver-bracelet.jpg",
+        "https://example.com/products/bracelet-close-up.jpg",
+        "https://example.com/products/bracelet-on-wrist.jpg"
+      ],
+      "rating": 4.3
+    },
+    {
+      "id": 3,
+      "title": "Pearl Necklace",
+      "description": "A classic freshwater pearl necklace, perfect for adding elegance to any outfit.",
+      "category_id": 3,
+      "type_id": 12,
+      "brand": "Pearl Elegance",
+      "price": 199.99,
+      "size": ["18in", "20in", "22in"],
+      "color": ["White"],
+      "discount": 15,
+      "thumbnail": "https://example.com/products/pearl-necklace.jpg",
+      "images": [
+        "https://example.com/products/pearl-necklace.jpg",
+        "https://example.com/products/pearl-necklace-close-up.jpg",
+        "https://example.com/products/pearl-necklace-worn.jpg"
+      ],
+      "rating": 4.7
+    },
+    {
+      "id": 4,
+      "title": "Gold Hoop Earrings",
+      "description": "Simple and elegant gold hoop earrings, ideal for both everyday wear and special occasions.",
+      "category_id": 4,
+      "type_id": 16,
+      "brand": "Classic Gold",
+      "price": 129.99,
+      "size": ["Small", "Medium", "Large"],
+      "color": ["Gold"],
+      "discount": 8,
+      "thumbnail": "https://example.com/products/gold-hoop-earrings.jpg",
+      "images": [
+        "https://example.com/products/gold-hoop-earrings.jpg",
+        "https://example.com/products/gold-hoop-earrings-close-up.jpg",
+        "https://example.com/products/hoop-earrings-on-model.jpg"
+      ],
+      "rating": 4.5
+    }
+  ]
+}
