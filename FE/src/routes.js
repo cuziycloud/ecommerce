@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import ProductList from "./pages/productListPage/ProductList";
+import ProductList from "./pages/productListPage/ProductCard";
 import ShopApplicationWrapper from "./pages/ShopApplicationWrapper";
 
 export const router = createBrowserRouter([
@@ -11,15 +11,15 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <App />
+            },
+            {
+                path:"/rings",
+                element:<ProductList categoryType={'RINGS'}/>,
+            },
+            {
+              path:"/bracelets",
+              element:<ProductList categoryType={'BRACELETS'}/>,
             }
         ]
-    },
-    {
-        path:"/rings",
-        element:<ProductList categoryType={'RINGS'}/>,
-    },
-    {
-      path:"/bracelets",
-      element:<ProductList categoryType={'BRACELETS'}/>,
     }
 ]);
