@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import commonReducer from './slices/commonSlice';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-export const store = configureStore({
-  reducer: {
-    commonState: commonReducer,
-  },
-});
+
+const rootReducer = combineReducers({
+    
+})
+
+const store = configureStore({
+    reducer : rootReducer
+})
+
+export default store;
