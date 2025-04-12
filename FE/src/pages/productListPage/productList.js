@@ -14,6 +14,8 @@ const categories = content?.categories;  //lay trong content.json
 const ProductList = ({categoryType}) => {
 
   const categoryData = useSelector((state)=> state?.categoryState?.categories);
+  console.log("categoryData:", categoryData);
+
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
@@ -21,25 +23,38 @@ const ProductList = ({categoryType}) => {
     return categories?.find((category)=> category.code === categoryType);
   },[categoryType]);
   
+  
   const productListItems = useMemo(()=>{
-    return content?.products?.filter((product)=> product?.category_id === categoryContent?.id );
+    return content?.products?.filter((product) =>
+      String(product?.category_id) === String(categoryContent?.id)
+    );
+    
   },[categoryContent]);
 
+
+
   const category = useMemo(()=>{
+    // console.log("categoryData:", categoryData); 
+    // console.log("categoryType:", categoryType);
     return categoryData?.find(element => element?.code === categoryType);
   },[categoryData, categoryType]);
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!category?.id) {
+      // console.log("break")
+      return; // Nếu chưa có id thì không gọi API
+    }
     dispatch(setLoading(true));
-    getAllProducts(category?.id).then(res=>{
-      setProducts(res);
-    }).catch(err=>{
-      
-    }).finally(()=>{
-      dispatch(setLoading(false));
-    })
-    
-  },[category?.id, dispatch]);
+    getAllProducts(category.id)
+      .then(res => {
+        console.log("API response:", res); // Kiểm tra dữ liệu từ API
+        setProducts(res);
+      })
+      .catch(err => console.error("getAllProducts error", err))
+      .finally(() => dispatch(setLoading(false)));
+  }, [category?.id, dispatch]);
+  
+  
 
 
   return (
@@ -74,7 +89,7 @@ const ProductList = ({categoryType}) => {
                 <div className='pt-4 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8 px-2'>
                 {/* <ProductCard {... productListItems[0]}/> */}
                 {productListItems?.map((item, index) => (
-                    <ProductCard key={item?.id+"_"+index} {...item} title={item?.name}/>
+                  <ProductCard key={item?.id+"_"+index} {...item} title={item?.name}/>
                 ))}
                 </div>
 
