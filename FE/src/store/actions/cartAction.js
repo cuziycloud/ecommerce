@@ -1,6 +1,5 @@
 import { addToCart, deleteCart, removeFromCart, updateQuantity } from "../features/cart"
 
-
 export const addItemToCartAction = (productItem)=>{
     return (dispatch,state) =>{
         dispatch(addToCart(productItem));

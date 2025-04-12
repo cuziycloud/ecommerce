@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useLoaderData, useParams } from 'react-router-dom'
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+//import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import content from '../../data/content.json'
-import Rating from '../../components/Rating/Rating';
+//import Rating from '../../components/Rating/Rating';
 import SizeFilter from '../../components/filters/SizeFilter';
 import ProductColors from './ProductColors';
 import SvgCreditCard from '../../components/common/SvgCreditCard';
@@ -151,9 +151,9 @@ const ProductDetails = () => {
       </div>
       <div className='w-[60%] px-10'>
         {/* Product Description */}
-        <Breadcrumb links={breadCrumbLinks} />
+        {/* <Breadcrumb links={breadCrumbLinks} /> */}
         <p className='text-3xl pt-4'>{product?.name}</p>
-        <Rating rating={product?.rating} />
+        {/* <Rating rating={product?.rating} /> */}
         {/* Price Tag */}
         <p className='text-xl bold py-2'>${product?.price}</p>
         <div className='flex flex-col py-2'>
