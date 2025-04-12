@@ -6,21 +6,41 @@ import PriceFilter from '../../components/filters/PriceFilter';
 import ColorsFilter from '../../components/filters/ColorsFilter';
 import SizeFilter from '../../components/filters/SizeFilter';
 import ProductCard from './ProductCard';
-import {useSelector } from 'react-redux';
+import { getAllProducts } from '../../api/fetchProducts';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '../../store/features/common'
 const categories = content?.categories;  //lay trong content.json
 
 const ProductList = ({categoryType}) => {
 
   const categoryData = useSelector((state)=> state?.categoryState?.categories);
-  const [products] = useState([]);
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
 
   const categoryContent = useMemo(()=>{
     return categories?.find((category)=> category.code === categoryType);
   },[categoryType]);
+  
+  const productListItems = useMemo(()=>{
+    return content?.products?.filter((product)=> product?.category_id === categoryContent?.id );
+  },[categoryContent]);
 
   const category = useMemo(()=>{
     return categoryData?.find(element => element?.code === categoryType);
   },[categoryData, categoryType]);
+
+  useEffect(()=>{
+    dispatch(setLoading(true));
+    getAllProducts(category?.id).then(res=>{
+      setProducts(res);
+    }).catch(err=>{
+      
+    }).finally(()=>{
+      dispatch(setLoading(false));
+    })
+    
+  },[category?.id, dispatch]);
+
 
   return (
     <div>
