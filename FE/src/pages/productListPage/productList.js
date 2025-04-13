@@ -89,10 +89,10 @@ const ProductList = ({categoryType}) => {
             <p className='text-black text-lg'>{categoryContent?.description}</p>
                 {/* Products */}
                 <div className='pt-4 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8 px-2'>
-                <ProductCard {... productListItems[1]}/>
+                {/* <ProductCard {... productListItems[1]}/> */}
                 
                 {productListItems?.map((item, index) => (
-                  <ProductCard key={index} {...item}/>
+                  <ProductCard key={item?.id+"_"+index} {...item} title={item?.name}/>
                 ))}
                 </div>
 
