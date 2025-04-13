@@ -9,33 +9,35 @@ import ProductCard from './ProductCard';
 import { getAllProducts } from '../../api/fetchProducts';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading } from '../../store/features/common'
+
 const categories = content?.categories;  //lay trong content.json
 
 const ProductList = ({categoryType}) => {
 
   const categoryData = useSelector((state)=> state?.categoryState?.categories);
-  console.log("categoryData:", categoryData);
 
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
+  console.log("categoryType: ", categoryType)
 
   const categoryContent = useMemo(()=>{
     return categories?.find((category)=> category.code === categoryType);
   },[categoryType]);
+
+  console.log("hi", categoryContent)
   
   
   const productListItems = useMemo(()=>{
     return content?.products?.filter((product) =>
-      String(product?.category_id) === String(categoryContent?.id)
+      (product?.category_id) === (categoryContent?.id)
     );
-    
   },[categoryContent]);
+
+  console.log(productListItems)
 
 
 
   const category = useMemo(()=>{
-    // console.log("categoryData:", categoryData); 
-    // console.log("categoryType:", categoryType);
     return categoryData?.find(element => element?.code === categoryType);
   },[categoryData, categoryType]);
 
@@ -84,12 +86,13 @@ const ProductList = ({categoryType}) => {
             </div>
 
             <div className='p-[15px]'>
-            <p className='text-black text-lg'>{category?.description}</p>
+            <p className='text-black text-lg'>{categoryContent?.description}</p>
                 {/* Products */}
                 <div className='pt-4 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8 px-2'>
-                {/* <ProductCard {... productListItems[0]}/> */}
+                <ProductCard {... productListItems[1]}/>
+                
                 {productListItems?.map((item, index) => (
-                  <ProductCard key={item?.id+"_"+index} {...item} title={item?.name}/>
+                  <ProductCard key={index} {...item}/>
                 ))}
                 </div>
 
