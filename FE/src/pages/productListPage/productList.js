@@ -92,7 +92,7 @@ const ProductList = ({categoryType}) => {
                 {/* <ProductCard {... productListItems[1]}/> */}
                 
                 {productListItems?.map((item, index) => (
-                  <ProductCard key={item?.id+"_"+index} {...item} title={item?.name}/>
+                  <ProductCard key={item?.id+"_"+index} {...item} title={item?.title}/>
                 ))}
                 </div>
 

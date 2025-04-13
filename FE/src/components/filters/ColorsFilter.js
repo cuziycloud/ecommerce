@@ -13,7 +13,21 @@ export const colorSelector = {
   "Navy": "#000080",        // Màu xanh biển
   "Yellow": "#FFFF00",      // Màu vàng
   "Pink": "#FFC0CB",        // Màu hồng
-  "Green": "#008000"        // Màu xanh lá cây
+  "Green": "#008000",       // Màu xanh lá cây
+
+  "Vàng": "#FFD700",        // Map từ "Gold"
+  "Bạc": "#C0C0C0",        // Map từ "Silver"
+  "Vàng Hồng": "#B76E79",    // Màu Vàng Hồng (Rose Gold)
+  "Bạch Kim": "#E5E4E2",    // Map từ "Platinum"
+  "Đen": "#252525",       // Map từ "Black"
+  "Kim Cương": "#F5F5F5",    // Màu Kim Cương (Trắng/Xám rất nhạt)
+  "Đá Topaz": "#ADD8E6",    // Màu Đá Topaz (Xanh nhạt phổ biến)
+  "Đá CZ": "#F5F5F5",       // Màu Đá CZ (Giống Kim Cương)
+  "Ngọc Trai": "#FAF0E6",    // Màu Ngọc Trai (Trắng ngà/Linen)
+  "Vàng Trắng": "#E1E1E1",    // Màu Vàng Trắng (Xám nhạt/Bạc)
+  "Da": "#D2B48C",        // Màu Da (Tan)
+  "Đá Màu": "#BEBEBE",       // Màu Đá Màu (Xám trung tính làm đại diện)
+  "Đá Amethyst": "#9966CC"
 }
 
 const ColorsFilter = ({colors}) => {

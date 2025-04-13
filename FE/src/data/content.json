@@ -75,9 +75,9 @@
       }
   ],
 "products":[
-  { "id": 1, "title": "Nhẫn Kim Cương Vàng Trắng", "description": "Nhẫn đính hôn vàng trắng 14k với viên kim cương trung tâm rực rỡ 0.5 carat. Thiết kế cổ điển, vượt thời gian cho khoảnh khắc đặc biệt.", "category_id": 1, "type_id": 1, "brand": "Luxury Gems", "price": 1599.99, "size": ["6", "7", "8"], "color": ["Vàng Trắng", "Kim Cương"], "discount": 10,
+  { "id": 1, "title": "Nhẫn Kim Cương Bạc", "description": "Nhẫn đính hôn vàng trắng 14k với viên kim cương trung tâm rực rỡ 0.5 carat. Thiết kế cổ điển, vượt thời gian cho khoảnh khắc đặc biệt.", "category_id": 1, "type_id": 1, "brand": "Luxury Gems", "price": 1599.99, "size": ["6", "7", "8"], "color": ["Vàng Trắng", "Kim Cương"], "discount": 10,
     "thumbnail": "https://cdn.pnj.io/images/detailed/240/sp-gnxmxmw062088-nhan-vang-trang-10k-dinh-da-ecz-pnj-1.png",
-    "images": ["https://cdn.pnj.io/images/detailed/240/sp-gnxmxmw062088-nhan-vang-trang-10k-dinh-da-ecz-pnj-1.png","https://cdn.pnj.i o/images/thumbnails/485/485/detailed/230/sp-gnddddw060613-nhan-kim-cuong-vang-trang-14k-pnj-1.png","https://cdn.pnj.io/images/detailed/240/sp-gnddddc002037-nhan-kim-cuong-vang-14k-pnj-1.png"],
+    "images": ["https://cdn.pnj.io/images/detailed/240/sp-gn0000y060871-nhan-vang-18k-pnj-1.png","https://cdn.pnj.io/images/detailed/239/sp-snxm00c000042-nhan-bac-dinh-da-style-by-pnj-1.png","https://cdn.pnj.io/images/detailed/240/sp-gnddddc002037-nhan-kim-cuong-vang-14k-pnj-1.png"],
     "rating": 4.9
   },
   { "id": 2, "title": "Dây Chuyền Bạc Trái Tim", "description": "Dây chuyền bạc 925 thanh mảnh với mặt dây chuyền hình trái tim nhỏ xinh. Món quà ý nghĩa cho người thương.", "category_id": 2, "type_id": 5, "brand": "PNJ Silver", "price": 79.99, "size": ["45cm"], "color": ["Bạc"], "discount": 15,
@@ -100,7 +100,7 @@
     "images": ["https://cdn.pnj.io/images/thumbnails/300/300/detailed/239/sp-gnsv00y000006-nhan-vang-18k-dinh-da-tsavorite-pnj-1.png","https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gnxmxmw005864-nhan-vang-dinh-da-ecz-pnj-1.png"],
     "rating": 4.4
   },
-  { "id": 6, "title": "Dây Chuyền Vàng Trắng Chữ Cái", "description": "Dây chuyền vàng trắng 10k với mặt dây chuyền hình chữ cái tùy chọn. Món quà cá nhân hóa độc đáo.", "category_id": 2, "type_id": 5, "brand": "PNJ", "price": 249.99, "size": ["40cm", "45cm"], "color": ["Vàng Trắng"], "discount": 5,
+  { "id": 6, "title": "Dây Chuyền Vàng Trắng", "description": "Dây chuyền vàng trắng 10k với mặt dây chuyền hình chữ cái tùy chọn. Món quà cá nhân hóa độc đáo.", "category_id": 2, "type_id": 5, "brand": "PNJ", "price": 249.99, "size": ["40cm", "45cm"], "color": ["Vàng Trắng"], "discount": 5,
     "thumbnail": "https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gn0000w060377-nhan-vang-trang-y-pnj-1.png",
     "images": ["https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gn0000w060377-nhan-vang-trang-y-pnj-1.png","https://cdn.pnj.io/images/thumbnails/300/300/detailed/237/sp-gn0000y060899-nhan-vang-pnj-1.png"],
     "rating": 4.8
@@ -130,7 +130,7 @@
     "images": ["https://cdn.pnj.io/images/thumbnails/485/485/detailed/127/gn0000y001968-nhan-cuoi-nam-vang-18k-pnj-1.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/237/sp-snxm00h000056-nhan-bac-dinh-da-pnjsilver-1.png"],
     "rating": 4.6
   },
-  { "id": 12, "title": "Dây Chuyền Vàng Trắng Ngọc Trai", "description": "Sự kết hợp hoàn hảo giữa vàng trắng 10k và viên ngọc trai Akoya tròn đẹp, mang lại vẻ đẹp sang trọng.", "category_id": 2, "type_id": 8, "brand": "PNJ", "price": 399.00, "size": ["45cm"], "color": ["Vàng Trắng", "Ngọc Trai"], "discount": 0,
+  { "id": 12, "title": "Dây Chuyền Ngọc Trai", "description": "Sự kết hợp hoàn hảo giữa vàng trắng 10k và viên ngọc trai Akoya tròn đẹp, mang lại vẻ đẹp sang trọng.", "category_id": 2, "type_id": 8, "brand": "PNJ", "price": 399.00, "size": ["45cm"], "color": ["Vàng Trắng", "Ngọc Trai"], "discount": 0,
     "thumbnail": "https://cdn.pnj.io/images/thumbnails/485/485/detailed/237/sp-snxmxmw000156-nhan-bac-dinh-da-pnjsilver-1.png",
     "images": ["https://cdn.pnj.io/images/thumbnails/485/485/detailed/237/sp-snxmxmw000156-nhan-bac-dinh-da-pnjsilver-1.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/135/snxmxmw060078-nhan-bac-pnjsilver-01.png"],
     "rating": 4.8
@@ -140,7 +140,7 @@
     "images": ["https://cdn.pnj.io/images/thumbnails/485/485/detailed/236/sp-snxmxmy060022-nhan-bac-dinh-da-pnjsilver-1.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/230/sp-snxm00y060007-nhan-bac-dinh-da-pnjsilver-1.png"],
     "rating": 4.5
   },
-  { "id": 14, "title": "Bông Tai Vàng Đá Amethyst", "description": "Bông tai vàng 10k nhỏ xinh với viên đá Amethyst tím hình giọt nước, mang lại vẻ đẹp quyến rũ.", "category_id": 4, "type_id": 16, "brand": "PNJ", "price": 109.99, "size": ["Nhỏ"], "color": ["Vàng", "Đá Amethyst"], "discount": 0,
+  { "id": 14, "title": "Bông Tai Đá Amethyst", "description": "Bông tai vàng 10k nhỏ xinh với viên đá Amethyst tím hình giọt nước, mang lại vẻ đẹp quyến rũ.", "category_id": 4, "type_id": 16, "brand": "PNJ", "price": 109.99, "size": ["Nhỏ"], "color": ["Vàng", "Đá Amethyst"], "discount": 0,
     "thumbnail": "https://cdn.pnj.io/images/thumbnails/485/485/detailed/238/sp-gn0000c000749-nhan-nam-vang-14k-mancode-by-pnj-1.png",
     "images": ["https://cdn.pnj.io/images/thumbnails/485/485/detailed/238/sp-gn0000c000749-nhan-nam-vang-14k-mancode-by-pnj-1.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/240/sp-gn0000y060893-nhan-vang-24k-pnj-chu-phuc-1.png"],
     "rating": 4.6
@@ -160,7 +160,7 @@
     "images": ["https://cdn.pnj.io/images/thumbnails/485/485/detailed/32/snxm00k000149-nhan-bac-dinh-da-pnjsilver-my-princess-001.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/209/sp-snxmxmk000139-nhan-bac-dinh-da-pnjsilver-hinh-vo-cuc-1.png"],
     "rating": 4.4
   },
-  { "id": 18, "title": "Nhẫn Cưới Vàng Kim Cương PNJ", "description": "Nhẫn cưới vàng 18k 'Chung Đôi Vàng' đính kim cương tấm tinh tế, là minh chứng cho tình yêu bền chặt.", "category_id": 1, "type_id": 2, "brand": "PNJ", "price": 550.00, "size": ["5","6", "7", "8"], "color": ["Vàng", "Kim Cương"], "discount": 0,
+  { "id": 18, "title": "Nhẫn Cưới Kim Cương", "description": "Nhẫn cưới vàng 18k 'Chung Đôi Vàng' đính kim cương tấm tinh tế, là minh chứng cho tình yêu bền chặt.", "category_id": 1, "type_id": 2, "brand": "PNJ", "price": 550.00, "size": ["5","6", "7", "8"], "color": ["Vàng", "Kim Cương"], "discount": 0,
     "thumbnail": "https://cdn.pnj.io/images/thumbnails/485/485/detailed/192/sp-snxm00w000076-nhan-bac-dinh-da-style-by-pnj-feminine-1.png",
     "images": ["https://cdn.pnj.io/images/thumbnails/485/485/detailed/192/sp-snxm00w000076-nhan-bac-dinh-da-style-by-pnj-feminine-1.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/192/sp-gnxmxmw004435-nhan-vang-14k-dinh-da-ecz-disney-pnj-general-disney-princess-d100-1.png","https://cdn.pnj.io/images/thumbnails/485/485/detailed/219/sp-snxm00c000034-nhan-bac-dinh-da-style-by-pnj-dna-1.png"],
     "rating": 4.9
