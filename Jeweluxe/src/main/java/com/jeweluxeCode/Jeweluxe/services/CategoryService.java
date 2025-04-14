@@ -18,7 +18,7 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public Category getCategory(UUID categoryId){
+    public Category getCategory(Long categoryId){
         Optional<Category> category = categoryRepository.findById(categoryId);
         return category.orElse(null);
     }
@@ -59,7 +59,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Category updateCategory(CategoryDto categoryDto, UUID categoryId) {
+    public Category updateCategory(CategoryDto categoryDto, Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(()-> new ResourceNotFoundEx("Category not found with Id "+categoryDto.getId()));
 
@@ -101,7 +101,7 @@ public class CategoryService {
         return  categoryRepository.save(category);
     }
 
-    public void deleteCategory(UUID categoryId) {
+    public void deleteCategory(Long categoryId) {
         categoryRepository.deleteById(categoryId);
     }
 }

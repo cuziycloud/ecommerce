@@ -7,11 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// import java.io.Serializable; // Không cần nếu dùng Lombok @Data
 import java.math.BigDecimal;
 import java.util.Date; // Import Date cho createdAt/updatedAt
 import java.util.List;
-// import java.util.UUID; // Bỏ import UUID
 
 @Entity
 @Table(name = "products")
@@ -23,12 +21,12 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Đổi chiến lược
-    private Long id; // Đổi kiểu dữ liệu sang Long
+    private Long id;
 
     @Column(nullable = false)
-    private String name; // Giữ lại name nếu bạn dùng name
+    private String name;
 
-    @Column(columnDefinition = "TEXT") // Nên dùng TEXT cho mô tả dài
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false, precision = 19, scale = 2) // Dùng BigDecimal

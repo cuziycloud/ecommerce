@@ -15,32 +15,33 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private ProductMapper productMapper;
 
     @Override
-    @Transactional
     public Product addProduct(ProductDTO ProductDTO) {
-        // Ánh xạ từ DTO sang Entity
         Product product = productMapper.mapToProductEntity(ProductDTO);
         return productRepository.save(product);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<ProductDTO> getAllProducts(Long categoryId, Long typeId) {
-        Specification<Product> productSpecification = Specification.where(null);
 
-        if (categoryId != null) { // ktra null
+        Specification<Product> productSpecification= Specification.where(null);
+
+        if(null != categoryId){
             productSpecification = productSpecification.and(ProductSpecification.hasCategoryId(categoryId));
         }
-        if (typeId != null) {
-            productSpecification = productSpecification.and(ProductSpecification.hasCategoryTypeId(typeId)); // Truyền Long vào Specification
+        if(null != typeId){
+            productSpecification = productSpecification.and(ProductSpecification.hasCategoryTypeId(typeId));
         }
 
         List<Product> products = productRepository.findAll(productSpecification);
@@ -48,56 +49,41 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public ProductDTO getProductBySlug(String slug) {
-        Product product = productRepository.findBySlug(slug)
-                .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found with slug: " + slug));
-
-        // Ánh xạ sang DTO
+        Product product= productRepository.findBySlug(slug);
+        if(null == product){
+            throw new ResourceNotFoundEx("Product Not Found!");
+        }
         ProductDTO ProductDTO = productMapper.mapProductToDto(product);
-        ProductDTO.setCategoryId(product.getCategory() != null ? product.getCategory().getId() : null);
-        ProductDTO.setCategoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null);
+        ProductDTO.setCategoryId(product.getCategory().getId());
+        ProductDTO.setCategoryTypeId(product.getCategoryType().getId());
         ProductDTO.setVariants(productMapper.mapProductVariantListToDto(product.getProductVariants()));
         ProductDTO.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
         return ProductDTO;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public ProductDTO getProductById(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found with ID: " + id)); // Thêm ID vào exception
-
+        Product product= productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundEx("Product Not Found!"));
         ProductDTO ProductDTO = productMapper.mapProductToDto(product);
-        ProductDTO.setCategoryId(product.getCategory() != null ? product.getCategory().getId() : null);
-        ProductDTO.setCategoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null);
+        ProductDTO.setCategoryId(product.getCategory().getId());
+        ProductDTO.setCategoryTypeId(product.getCategoryType().getId());
         ProductDTO.setVariants(productMapper.mapProductVariantListToDto(product.getProductVariants()));
         ProductDTO.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
         return ProductDTO;
     }
 
     @Override
-    @Transactional
     public Product updateProduct(ProductDTO ProductDTO, Long id) {
-        // Tìm Product entity hiện có
-        Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found with ID: " + id));
-
-        existingProduct.setName(ProductDTO.getName());
-        existingProduct.setDescription(ProductDTO.getDescription());
-        existingProduct.setPrice(ProductDTO.getPrice());
-        existingProduct.setBrand(ProductDTO.getBrand());
-        existingProduct.setRating(ProductDTO.getRating());
-        existingProduct.setNewArrival(ProductDTO.isNewArrival());
-        existingProduct.setSlug(ProductDTO.getSlug());
-
-        return productRepository.save(existingProduct);
+        Product product= productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundEx("Product Not Found!"));
+        ProductDTO.setId(product.getId());
+        return productRepository.save(productMapper.mapToProductEntity(ProductDTO));
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Product fetchProductById(Long id) throws BadRequestException {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundEx("Product entity Not Found with ID: " + id));
+    public Product fetchProductById(Long id) throws Exception {
+        return productRepository.findById(id).orElseThrow(BadRequestException::new);
     }
+
+
 }
