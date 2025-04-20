@@ -18,7 +18,7 @@ const Breadcrumb = ({ links }) => {
                     </li>
                 ))}
             </ol>
-        </nav>
+        </nav>  
     )
 }
 

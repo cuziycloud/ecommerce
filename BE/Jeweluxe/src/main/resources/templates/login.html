@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base_minimal::minimal_layout(~{::section})}">
+<head>
+  <meta charset="UTF-8">
+  <!-- Title vẫn giữ nguyên hoặc có thể thêm "Account" -->
+  <title>Sign In - Jeweluxe</title>
+</head>
+<body>
+<section class="login-container">
+  <div class="login-card">
+    <div class="card-header">
+      <!-- Thay đổi icon thương hiệu -->
+      <div class="brand-icon"><i class="fa-regular fa-gem"></i></div> <!-- Sử dụng icon gem -->
+      <p>Sign in to Jeweluxe</p>
+    </div>
+
+    <div class="card-body">
+      <!-- Các khối thông báo lỗi/logout/đăng ký/msg giữ nguyên cấu trúc và logic -->
+      <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center" role="alert">
+        <i class="fas fa-times-circle me-2"></i>
+        <div>
+          <th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null}">
+            [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+          </th:block>
+          <th:block th:unless="${session.SPRING_SECURITY_LAST_EXCEPTION != null}">
+            Invalid credentials provided.
+          </th:block>
+        </div>
+      </div>
+      <div th:if="${param.logout}" class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        <div>You have been logged out.</div>
+      </div>
+      <div th:if="${param.registerSuccess}" class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        <div>Registration successful! Please sign in.</div>
+      </div>
+      <div th:if="${msg != null}" class="alert alert-info d-flex align-items-center" role="alert">
+        <i class="fas fa-info-circle me-2"></i>
+        <div>[[${msg}]]</div>
+      </div>
+
+      <!-- Form Login giữ nguyên cấu trúc -->
+      <form th:action="@{/login}" method="post" id="loginForm">
+        <div class="mb-3">
+          <label for="loginEmail" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="loginEmail" name="username" placeholder="name@example.com" required autofocus>
+        </div>
+
+        <div class="mb-3">
+          <label for="loginPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="loginPassword" name="password" placeholder="••••••••" required>
+        </div>
+
+        <div class="d-grid mt-4">
+          <!-- Nút Sign In giữ nguyên cấu trúc, có thể thay đổi class btn-primary ở file CSS chính nếu muốn đổi màu chủ đạo -->
+          <button type="submit" class="btn btn-primary login-btn w-100">
+            <i class="fas fa-sign-in-alt me-1"></i> Sign In
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer">
+      <!-- Các link phụ giữ nguyên cấu trúc -->
+      <div class="text-center mb-2">
+        <a th:href="@{/forgot-password}" class="small">Forgot Password?</a>
+      </div>
+      <div class="divider"></div>
+      <div class="text-center mt-2">
+        <span class="text-muted small">New to Jeweluxe?</span>
+        <a th:href="@{/register}" class="ms-1 small">Create an account</a>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
