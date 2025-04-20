@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.Category;
 import com.tdtu.DesignPattern.Jeweluxe.model.Product;
@@ -482,9 +484,6 @@ public class AdminController {
         return "admin/add_user"; // Trỏ đến file templates/admin/add_user.html
     }
 
-
-
-    // --- Xử lý Lưu User/Admin Mới ---
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute User user,
                            @RequestParam("img") MultipartFile file,
