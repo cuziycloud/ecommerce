@@ -29,10 +29,10 @@ import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private OrderItemRepository orderRepository;
+    private OrderItemRepository orderRepository; // Nhận Singleton Repository
 
     @Autowired
-    private CartRepository cartRepository;
+    private CartRepository cartRepository;  // Nhận Singleton Repository
 
     @Autowired
     private CommonUtil commonUtil;
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 
-        List<Cart> carts = cartRepository.findByUserId(userid);
+        List<Cart> carts = cartRepository.findByUserId(userid); //đang dùng Singleton instance
         List<OrderItem> savedOrders = new ArrayList<>();
 
         for (Cart cart : carts) {
@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(OrderStatus.IN_PROGRESS);
             order.setOrderAddress(address);
 
-            OrderItem savedOrder = orderRepository.save(order);
+            OrderItem savedOrder = orderRepository.save(order); //đang dùng Singleton instance
 
             savedOrders.add(savedOrder);
         }
