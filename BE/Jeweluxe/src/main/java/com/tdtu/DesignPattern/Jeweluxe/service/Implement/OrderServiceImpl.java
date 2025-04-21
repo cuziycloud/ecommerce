@@ -24,7 +24,8 @@ import com.tdtu.DesignPattern.Jeweluxe.service.OrderService;
 import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
 import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 
-@Service
+@Service // Đánh dấu lớp này là một Spring Bean, mặc định là Singleton.
+        // Spring Container sẽ tạo duy nhất 1 instance của lớp này.
 public class OrderServiceImpl implements OrderService {
 
     @Autowired

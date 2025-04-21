@@ -43,7 +43,7 @@ import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+@Controller // Đánh dấu lớp này là một Spring Bean, mặc định là Singleton
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -67,6 +67,13 @@ public class AdminController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public AdminController(OrderService orderService) {
+        this.orderService = orderService;
+         System.out.println("Creating AdminController instance: " + this.hashCode()); // Log khi tạo
+         System.out.println("Injecting OrderService instance: " + orderService.hashCode()); // Log instance được inject
+    }
 
     @ModelAttribute
     public void getUserDetails(Principal p, Model m) {
@@ -421,6 +428,8 @@ public class AdminController {
     public String cancelOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
         try {
             orderService.cancelOrder(id);
+            // Khi gọi orderService.cancelOrder(), chúng ta đang gọi đến
+            // đối tượng OrderServiceImpl Singleton duy nhất.
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được hủy.");
         } catch (EntityNotFoundException | IllegalStateException e) {
             redirectAttributes.addFlashAttribute("errorMsg", "Lỗi: " + e.getMessage());

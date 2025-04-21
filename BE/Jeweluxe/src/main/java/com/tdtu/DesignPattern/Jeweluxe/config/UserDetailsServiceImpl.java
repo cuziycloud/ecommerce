@@ -17,12 +17,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+        // username ở đây thực chất là email theo logic của CustomUser
         User user = userRepository.findByEmail(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("user not found");
         }
+
+        // Tạo Adapter (CustomUser) bao bọc User và trả về UserDetails
         return new CustomUser(user);
     }
 
