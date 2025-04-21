@@ -20,18 +20,17 @@
 			</div>
 
 			<!-- Success Message -->
-			<div class="col-12" th:if="${session.succMsg}">
+			<div class="col-12" th:if="${succMsg}">
 				<div class="alert alert-success text-center fw-bold" role="alert">
-					[[${session.succMsg}]]
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+					[[${succMsg}]]
+
 				</div>
 			</div>
 
 			<!-- Error Message -->
-			<div class="col-12" th:if="${session.errorMsg}">
+			<div class="col-12" th:if="${errorMsg}">
 				<div class="alert alert-danger text-center fw-bold" role="alert">
-					[[${session.errorMsg}]]
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+					[[${errorMsg}]]
 				</div>
 			</div>
 
@@ -69,33 +68,41 @@
 										Total: [[${orderDtls.quantity * orderDtls.price}]]
 									</td>
 									<td class="text-center">
-                                                <span th:class="'badge bg-' + (${orderDtls.status == 'Delivered' ? 'success' : (orderDtls.status == 'Cancelled' ? 'danger' : 'warning')})">
-                                                    [[${orderDtls.status}]]
-                                                </span>
+										<span th:classappend="${orderDtls.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).DELIVERED ? 'bg-success' : (orderDtls.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).CANCELLED ? 'bg-danger' : 'bg-warning')}"
+											  class="badge">
+                                            [[${orderDtls.status.name}]]
+                                        </span>
 									</td>
-									<td>
-										<form action="/admin/update-order-status" method="post" class="d-flex flex-column align-items-center gap-2">
-											<select class="form-select" name="st">
-												<option>--select--</option>
-												<option value="1">In Progress</option>
-												<option value="2">Order Received</option>
-												<option value="3">Product Packed</option>
-												<option value="4">Out for Delivery</option>
-												<option value="5">Delivered</option>
-												<option value="6">Cancelled</option>
-											</select>
-											<input th:value="${orderDtls.id}" name="id" type="hidden">
-											<button class="btn btn-primary btn-sm w-100"
-													th:classappend="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered'} ? 'disabled' : ''">
-												Update
-											</button>
-										</form>
+									<td class="text-center align-middle">
+										<div class="d-flex flex-column gap-1">
+											<form th:if="${orderDtls.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).ORDER_RECEIVED}"
+												  th:action="@{/admin/pack-order}" method="post" class="d-grid">
+												<input type="hidden" name="id" th:value="${orderDtls.id}" />
+												<button type="submit" class="btn btn-info btn-sm">Pack</button>
+											</form>
+											<form th:if="${orderDtls.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).PRODUCT_PACKED}"
+												  th:action="@{/admin/ship-order}" method="post" class="d-grid">
+												<input type="hidden" name="id" th:value="${orderDtls.id}" />
+												<button type="submit" class="btn btn-warning btn-sm">Ship</button>
+											</form>
+											<form th:if="${orderDtls.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).OUT_FOR_DELIVERY}"
+												  th:action="@{/admin/deliver-order}" method="post" class="d-grid">
+												<input type="hidden" name="id" th:value="${orderDtls.id}" />
+												<button type="submit" class="btn btn-success btn-sm">Deliver</button>
+											</form>
+											<form th:if="${orderDtls.status != T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).DELIVERED and orderDtls.status != T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).CANCELLED}"
+												  th:action="@{/admin/cancel-order}" method="post" class="d-grid"
+												  onsubmit="return confirm('Are you sure you want to cancel this order item?');"> <!-- Thêm xác nh?n -->
+												<input type="hidden" name="id" th:value="${orderDtls.id}" />
+												<button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+											</form>
+										</div>
 									</td>
 								</tr>
 							</th:block>
 							<th:block th:unless="${orderDtls!=null}">
 								<tr>
-									<td colspan="6" class="text-center text-danger fs-4">[[${errorMsg}]]</td>
+									<td colspan="6" class="text-center text-danger fs-4">Order not found or Error.</td>
 								</tr>
 							</th:block>
 						</th:block>
@@ -119,27 +126,39 @@
 									Total: [[${o.quantity * o.price}]]
 								</td>
 								<td class="text-center">
-                                            <span th:class="'badge bg-' + (${o.status == 'Delivered' ? 'success' : (o.status == 'Cancelled' ? 'danger' : 'warning')})">
-                                                [[${o.status}]]
-                                            </span>
+									<span th:classappend="${o.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).DELIVERED ? 'bg-success' : (o.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).CANCELLED ? 'bg-danger' : 'bg-warning')}"
+										  class="badge">
+                                        [[${o.status.name}]]
+                                    </span>
 								</td>
-								<td>
-									<form action="/admin/update-order-status" method="post" class="d-flex flex-column align-items-center gap-2">
-										<select class="form-select" name="st">
-											<option>--select--</option>
-											<option value="1">In Progress</option>
-											<option value="2">Order Received</option>
-											<option value="3">Product Packed</option>
-											<option value="4">Out for Delivery</option>
-											<option value="5">Delivered</option>
-											<option value="6">Cancelled</option>
-										</select>
-										<input th:value="${o.id}" name="id" type="hidden">
-										<button class="btn btn-primary btn-sm w-100"
-												th:classappend="${o.status=='Cancelled' || o.status=='Delivered'} ? 'disabled' : ''">
-											Update
-										</button>
-									</form>
+								<td class="text-center align-middle">
+									<div class="d-flex flex-column gap-1">
+										<!-- Nút Pack -->
+										<form th:if="${o.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).ORDER_RECEIVED}"
+											  th:action="@{/admin/pack-order}" method="post" class="d-grid">
+											<input type="hidden" name="id" th:value="${o.id}" />
+											<button type="submit" class="btn btn-info btn-sm">Pack</button>
+										</form>
+										<!-- Nút Ship -->
+										<form th:if="${o.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).PRODUCT_PACKED}"
+											  th:action="@{/admin/ship-order}" method="post" class="d-grid">
+											<input type="hidden" name="id" th:value="${o.id}" />
+											<button type="submit" class="btn btn-warning btn-sm">Ship</button>
+										</form>
+										<!-- Nút Deliver -->
+										<form th:if="${o.status == T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).OUT_FOR_DELIVERY}"
+											  th:action="@{/admin/deliver-order}" method="post" class="d-grid">
+											<input type="hidden" name="id" th:value="${o.id}" />
+											<button type="submit" class="btn btn-success btn-sm">Deliver</button>
+										</form>
+										<!-- Nút Cancel -->
+										<form th:if="${o.status != T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).DELIVERED and o.status != T(com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus).CANCELLED}"
+											  th:action="@{/admin/cancel-order}" method="post" class="d-grid"
+											  onsubmit="return confirm('Are you sure you want to cancel this order item?');">
+											<input type="hidden" name="id" th:value="${o.id}" />
+											<button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+										</form>
+									</div>
 								</td>
 							</tr>
 						</th:block>

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.OrderRequest;
 import com.tdtu.DesignPattern.Jeweluxe.model.OrderItem;
+import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 
 public interface OrderService {
 
@@ -13,12 +14,18 @@ public interface OrderService {
 
     public List<OrderItem> getOrdersByUser(Integer userId);
 
-    public OrderItem updateOrderStatus(Integer id, String status);
+    //public OrderItem updateOrderStatus(Integer id, OrderStatus newStatus);
 
     public List<OrderItem> getAllOrders();
 
     public OrderItem getOrdersByOrderId(String orderId);
 
     public Page<OrderItem> getAllOrdersPagination(Integer pageNo,Integer pageSize);
+
+    public OrderItem shipOrder(Integer orderItemId);
+    public OrderItem cancelOrder(Integer orderItemId);
+    public OrderItem receiveOrder(Integer orderItemId);
+    public OrderItem packOrder(Integer orderItemId);
+    public OrderItem deliverOrder(Integer orderItemId);
 }
 

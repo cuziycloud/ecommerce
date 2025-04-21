@@ -10,6 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityNotFoundException;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.Cart;
 import com.tdtu.DesignPattern.Jeweluxe.model.OrderAddress;
@@ -48,7 +51,8 @@ public class OrderServiceImpl implements OrderService {
             order.setPrice(cart.getProduct().getDiscountPrice());
             order.setQuantity(cart.getQuantity());
             order.setUser(cart.getUser());
-            order.setStatus(OrderStatus.IN_PROGRESS.getName());
+            //order.setStatus(OrderStatus.IN_PROGRESS.getName());
+            order.setStatus(OrderStatus.IN_PROGRESS);
             order.setPaymentType(orderRequest.getPaymentType());
 
             OrderAddress address = new OrderAddress();
@@ -61,16 +65,14 @@ public class OrderServiceImpl implements OrderService {
             address.setState(orderRequest.getState());
             address.setPincode(orderRequest.getPincode());
 
+            order.setStatus(OrderStatus.IN_PROGRESS);
             order.setOrderAddress(address);
 
-            // Lưu order vô db
             OrderItem savedOrder = orderRepository.save(order);
 
-            // Thêm vào ds savedOrders
             savedOrders.add(savedOrder);
         }
 
-        // Gửi email với ds orders đã lưu
         commonUtil.sendMailForOrderItem(savedOrders, "success");
     }
 
@@ -81,15 +83,53 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderItem updateOrderStatus(Integer id, String status) {
-        Optional<OrderItem> findById = orderRepository.findById(id);
-        if (findById.isPresent()) {
-            OrderItem OrderItem = findById.get();
-            OrderItem.setStatus(status);
-            OrderItem updateOrder = orderRepository.save(OrderItem);
-            return updateOrder;
-        }
-        return null;
+    @Transactional
+    public OrderItem shipOrder(Integer orderItemId) {
+        OrderItem orderItem = orderRepository.findById(orderItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy OrderItem với ID: " + orderItemId));
+        orderItem.ship(); 
+        return orderRepository.save(orderItem); 
+    }
+
+    @Override
+    @Transactional
+    public OrderItem cancelOrder(Integer orderItemId) {
+        OrderItem orderItem = orderRepository.findById(orderItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy OrderItem với ID: " + orderItemId));
+        orderItem.cancel();
+        return orderRepository.save(orderItem);
+    }
+
+    @Override
+    @Transactional
+    public OrderItem receiveOrder(Integer orderItemId) {
+        OrderItem orderItem = orderRepository.findById(orderItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy OrderItem với ID: " + orderItemId));
+        orderItem.receive();
+
+        return orderRepository.save(orderItem);
+    }
+
+    @Override
+    @Transactional
+    public OrderItem packOrder(Integer orderItemId) {
+        OrderItem orderItem = orderRepository.findById(orderItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy OrderItem với ID: " + orderItemId));
+        orderItem.pack();
+
+        return orderRepository.save(orderItem);
+    }
+
+    @Override
+    @Transactional
+    public OrderItem deliverOrder(Integer orderItemId) {
+        OrderItem orderItem = orderRepository.findById(orderItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy OrderItem với ID: " + orderItemId));
+
+        // Gọi 'deliver' trên OrderItem
+        orderItem.deliver();
+
+        return orderRepository.save(orderItem);
     }
 
     @Override

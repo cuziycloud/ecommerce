@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.persistence.EntityNotFoundException;
+import java.security.Principal;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.Cart;
 import com.tdtu.DesignPattern.Jeweluxe.model.Category;
@@ -143,30 +146,30 @@ public class UserController {
         return "/user/my_orders";
     }
 
-    @GetMapping("/update-status")
-    public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, HttpSession session) {
-
-        OrderStatus[] values = OrderStatus.values();
-        String status = null;
-
-        for (OrderStatus orderSt : values) {
-            if (orderSt.getId().equals(st)) {
-                status = orderSt.getName();
-            }
+    @PostMapping("/cancel-my-order")
+    public String cancelMyOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes, Principal p) {
+        if (p == null) {
+            return "redirect:/signin";
         }
-
-        OrderItem updateOrder = orderService.updateOrderStatus(id, status);
 
         try {
-            commonUtil.sendMailForOrderItem((List<OrderItem>) updateOrder, status);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            User currentUser = getLoggedInUserDetails(p);
 
-        if (!ObjectUtils.isEmpty(updateOrder)) {
-            session.setAttribute("succMsg", "Status Updated");
-        } else {
-            session.setAttribute("errorMsg", "status not updated");
+
+            orderService.cancelOrder(id); // Gọi service hủy đơn
+            redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng của bạn (ID " + id + ") đã được yêu cầu hủy.");
+
+        } catch (EntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Không tìm thấy đơn hàng để hủy.");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Không thể hủy đơn hàng ở trạng thái này: " + e.getMessage());
+        }
+        // catch (AccessDeniedException e) {
+        //     redirectAttributes.addFlashAttribute("errorMsg", "Bạn không có quyền hủy đơn hàng này.");
+        // }
+        catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi khi hủy đơn hàng.");
+            e.printStackTrace();
         }
         return "redirect:/user/user-orders";
     }
