@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.tdtu.DesignPattern.Jeweluxe.iterator.CartCollection;
+import com.tdtu.DesignPattern.Jeweluxe.iterator.CartIterator;
+import com.tdtu.DesignPattern.Jeweluxe.iterator.CartList;
 import com.tdtu.DesignPattern.Jeweluxe.model.Cart;
 import com.tdtu.DesignPattern.Jeweluxe.model.Product;
 import com.tdtu.DesignPattern.Jeweluxe.model.User;
@@ -57,12 +60,17 @@ public class CartServiceImpl implements CartService {
     public List<Cart> getCartsByUser(Integer userId) {
         List<Cart> carts = cartRepository.findByUserId(userId);
 
+        CartCollection cartCollection = new CartList(carts);
+        CartIterator iterator = cartCollection.createIterator();
+
         Double totalOrderPrice = 0.0;
         List<Cart> updateCarts = new ArrayList<>();
-        for (Cart c : carts) {
-            Double totalPrice = (c.getProduct().getDiscountPrice() * c.getQuantity());
+
+        while (iterator.hasNext()) {
+            Cart c = (Cart) iterator.next();
+            Double totalPrice = c.getProduct().getDiscountPrice() * c.getQuantity();
             c.setTotalPrice(totalPrice);
-            totalOrderPrice = totalOrderPrice + totalPrice;
+            totalOrderPrice += totalPrice;
             c.setTotalOrderPrice(totalOrderPrice);
             updateCarts.add(c);
         }
