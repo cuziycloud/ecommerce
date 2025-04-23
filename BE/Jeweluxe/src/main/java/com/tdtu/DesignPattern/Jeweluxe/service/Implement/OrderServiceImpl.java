@@ -23,6 +23,11 @@ import com.tdtu.DesignPattern.Jeweluxe.repository.OrderItemRepository;
 import com.tdtu.DesignPattern.Jeweluxe.service.OrderService;
 import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
 import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
+//
+import com.tdtu.DesignPattern.Jeweluxe.event.OrderCreatedEvent;
+import com.tdtu.DesignPattern.Jeweluxe.service.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 
 @Service // Đánh dấu lớp này là một Spring Bean, mặc định là Singleton.
         // Spring Container sẽ tạo duy nhất 1 instance của lớp này.
@@ -37,10 +42,27 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CommonUtil commonUtil;
 
+    private final ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    public OrderServiceImpl(OrderItemRepository orderRepository,
+                            CartRepository cartRepository,
+                            CommonUtil commonUtil,
+                            ApplicationEventPublisher eventPublisher) {
+        this.orderRepository = orderRepository;
+        this.cartRepository = cartRepository;
+        this.commonUtil = commonUtil;
+        this.eventPublisher = eventPublisher;
+    }
+
     @Override
     public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 
         List<Cart> carts = cartRepository.findByUserId(userid); //đang dùng Singleton instance
+        if (carts == null || carts.isEmpty()) {
+            System.out.println("Giỏ hàng trống, không tạo đơn hàng cho user: " + userid);
+            return;
+        }
         List<OrderItem> savedOrders = new ArrayList<>();
 
         for (Cart cart : carts) {
@@ -74,7 +96,13 @@ public class OrderServiceImpl implements OrderService {
             savedOrders.add(savedOrder);
         }
 
-        commonUtil.sendMailForOrderItem(savedOrders, "success");
+        if (!savedOrders.isEmpty()) {
+            OrderCreatedEvent orderEvent = new OrderCreatedEvent(this, savedOrders); // 'this' là OrderServiceImpl
+            eventPublisher.publishEvent(orderEvent); // Phát sự kiện đi
+        }
+
+        // Xóa giỏ hàng
+        cartRepository.deleteAll(carts);
     }
 
     @Override

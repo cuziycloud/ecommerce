@@ -9,7 +9,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import com.tdtu.DesignPattern.Jeweluxe.model.OrderItem;
 import com.tdtu.DesignPattern.Jeweluxe.model.User;
 import com.tdtu.DesignPattern.Jeweluxe.service.UserService;
 
@@ -64,51 +63,7 @@ public class CommonUtil {
 
     String msg=null;;
 
-    public Boolean sendMailForOrderItem(List<OrderItem> orders, String status) throws Exception {
-        String msg = "<p>Hello [[name]],</p>"
-                + "<p>Thank you for your order. Your order status is <b>[[orderStatus]]</b>.</p>"
-                + "<p><b>Product Details:</b></p>"
-                + "<table border='1' style='border-collapse: collapse; width: 100%;'>"
-                + "<tr>"
-                + "<th>Name</th>"
-                + "<th>Category</th>"
-                + "<th>Quantity</th>"
-                + "<th>Price</th>"
-                + "<th>Payment Type</th>"
-                + "</tr>";
 
-        OrderItem firstOrder = orders.get(0);
-        String customerName = firstOrder.getOrderAddress().getFirstName() + " " + firstOrder.getOrderAddress().getLastName();
-        String customerEmail = firstOrder.getOrderAddress().getEmail();
-
-        for (OrderItem order : orders) {
-            msg += "<tr>"
-                    + "<td>" + order.getProduct().getTitle() + "</td>"
-                    + "<td>" + order.getProduct().getCategory() + "</td>"
-                    + "<td>" + order.getQuantity().toString() + "</td>"
-                    + "<td>" + order.getPrice().toString() + "</td>"
-                    + "<td>" + order.getPaymentType() + "</td>"
-                    + "</tr>";
-        }
-
-        msg += "</table>";
-        msg = msg.replace("[[name]]", customerName);
-        msg = msg.replace("[[orderStatus]]", status);
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        // Đặt thông tin người gửi và người nhận
-        helper.setFrom("techstorehtt@gmail.com", "Shopping Cart");
-        helper.setTo(customerEmail);
-
-        helper.setSubject("Product Order Status");
-        helper.setText(msg, true);
-
-        mailSender.send(message);
-
-        return true;
-    }
 
     public User getLoggedInUserDetails(Principal p) {
         String email = p.getName();

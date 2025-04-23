@@ -14,7 +14,6 @@ public interface OrderService {
 
     public List<OrderItem> getOrdersByUser(Integer userId);
 
-    //public OrderItem updateOrderStatus(Integer id, OrderStatus newStatus);
 
     public List<OrderItem> getAllOrders();
 

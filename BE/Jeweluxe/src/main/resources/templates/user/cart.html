@@ -122,11 +122,16 @@
 					</table>
 				</div>
 
-				<div class="text-center mt-4">
-					<a href="/user/orders" class="btn proceed-btn">
+				<div class="text-center mt-4" th:if="${not #lists.isEmpty(carts)}">
+					<a th:href="@{/user/orders}" class="btn proceed-btn">
 						Proceed to Payment
 						<i class="fa-solid fa-credit-card ms-2"></i>
 					</a>
+				</div>
+
+				<div class="text-center mt-4" th:if="${#lists.isEmpty(carts)}">
+					<p class="text-muted">Your shopping cart is empty.</p>
+					<a th:href="@{/products}" class="btn btn-primary">Continue Shopping</a>
 				</div>
 
 			</div>
