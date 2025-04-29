@@ -3,7 +3,7 @@ package com.tdtu.DesignPattern.Jeweluxe.service.Implement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -55,22 +57,32 @@ public class OrderServiceImpl implements OrderService {
         this.eventPublisher = eventPublisher;
     }
 
+    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
+
     @Override
+    @Transactional
     public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 
         List<Cart> carts = cartRepository.findByUserId(userid); //đang dùng Singleton instance
         if (carts == null || carts.isEmpty()) {
-            System.out.println("Giỏ hàng trống, không tạo đơn hàng cho user: " + userid);
+            System.out.println("Giỏ hàng trống, ko tạo đơn hàng cho user: " + userid);
             return;
         }
         List<OrderItem> savedOrders = new ArrayList<>();
+        String newOrderId = "ORD-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
         for (Cart cart : carts) {
-
+            if(cart.getProduct() == null || cart.getUser() == null) {
+                System.out.println("Cart item không hợp lệ (thiếu product hoặc user) cho user: {}" + userid);
+                continue;
+            }
             OrderItem order = new OrderItem();
 
+            // gán gtri
+            order.setOrderId(newOrderId);
             order.setOrderDate(LocalDate.now());
             order.setProduct(cart.getProduct());
+            //
             order.setPrice(cart.getProduct().getDiscountPrice());
             order.setQuantity(cart.getQuantity());
             order.setUser(cart.getUser());
@@ -78,6 +90,7 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(OrderStatus.IN_PROGRESS);
             order.setPaymentType(orderRequest.getPaymentType());
 
+            //dchi
             OrderAddress address = new OrderAddress();
             address.setFirstName(orderRequest.getFirstName());
             address.setLastName(orderRequest.getLastName());
@@ -91,18 +104,42 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(OrderStatus.IN_PROGRESS);
             order.setOrderAddress(address);
 
-            OrderItem savedOrder = orderRepository.save(order); //đang dùng Singleton instance
+            order.setGiftWrap(cart.isWantsGiftWrap());
+            order.setInsurance(cart.isWantsInsurance());
 
-            savedOrders.add(savedOrder);
+            order.initializeStateAfterLoad();
+
+            try {
+                OrderItem savedOrder = orderRepository.save(order); //đang dùng Singleton instance
+                savedOrders.add(savedOrder);
+            } catch (Exception e) {
+                log.error("Lỗi khi lưu OrderItem (product ID: {}) cho user {}: {}",
+                        (cart.getProduct() != null ? cart.getProduct().getId() : "N/A"),
+                        userid, e.getMessage(), e);
+                throw new Exception("Không thể lưu chi tiết đơn hàng cho sản phẩm " + (cart.getProduct() != null ? cart.getProduct().getTitle() : "không xác định") + ".", e);
+            }
+
         }
+
+
 
         if (!savedOrders.isEmpty()) {
             OrderCreatedEvent orderEvent = new OrderCreatedEvent(this, savedOrders); // 'this' là OrderServiceImpl
             eventPublisher.publishEvent(orderEvent); // Phát sự kiện đi
+            try {
+                cartRepository.deleteAll(carts);
+                log.info("Đã xóa giỏ hàng cho user {} sau khi tạo đơn hàng {}", userid, newOrderId);
+            } catch (Exception e) {
+                // Lỗi khi xóa giỏ hàng không nên làm ảnh hưởng đến việc đã tạo đơn hàng
+                log.error("Lỗi khi xóa giỏ hàng cho user {}: {}", userid, e.getMessage(), e);
+            }
+        } else if (!carts.isEmpty()) {
+            // Trường hợp không có item nào được lưu thành công (do lỗi hoặc tất cả cart items đều không hợp lệ)
+            log.error("Không lưu được OrderItem nào cho user {}, đơn hàng {} không được tạo.", userid, newOrderId);
         }
 
-        // Xóa giỏ hàng
-        cartRepository.deleteAll(carts);
+//        // Xóa giỏ hàng
+//        cartRepository.deleteAll(carts);
     }
 
     @Override

@@ -323,9 +323,6 @@ public class AdminController {
     @GetMapping("/orders")
     public String getAllOrders(Model m, @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
-//		List<OrderItem> allOrders = orderService.getAllOrders();
-//		m.addAttribute("orders", allOrders);
-//		m.addAttribute("srch", false);
 
         Page<OrderItem> page = orderService.getAllOrdersPagination(pageNo, pageSize);
         m.addAttribute("orders", page.getContent());
@@ -341,79 +338,11 @@ public class AdminController {
         return "/admin/orders";
     }
 
-    // Trong AdminController.java
 
-//    @PostMapping("/update-order-status")
-//    public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, RedirectAttributes redirectAttributes) {
-//
-//        OrderStatus[] values = OrderStatus.values();
-//        String status = null;
-//        for (OrderStatus orderSt : values) {
-//            if (orderSt.getId().equals(st)) {
-//                status = orderSt.getName();
-//                break;
-//            }
-//        }
-//        if(status == null) {
-//            redirectAttributes.addFlashAttribute("errorMsg", "Invalid order status selected.");
-//            return "redirect:/admin/orders";
-//        }
-//
-//        try {
-//            OrderItem updatedOrder = orderService.updateOrderStatus(id, status); // Gọi đúng phương thức trả về OrderItem
-//
-//            // Kiểm tra kq có null k
-//            if (updatedOrder != null) {
-//                redirectAttributes.addFlashAttribute("succMsg", "Item Status Updated to " + status + " for Item ID: " + id);
-//
-//                try {
-//                } catch (Exception mailEx) {
-//                    System.err.println("Error sending order update email: " + mailEx.getMessage());
-//                }
-//
-//            } else {
-//                redirectAttributes.addFlashAttribute("errorMsg", "Order status not updated. Item not found or server error.");
-//            }
-//        } catch (Exception e) {
-//            redirectAttributes.addFlashAttribute("errorMsg", "Error updating order status: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        return "redirect:/admin/orders";
-//    }
-
-    // Trong AdminController.java
-//    @PostMapping("/update-order-status")
-//    public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, RedirectAttributes redirectAttributes) {
-//        OrderStatus newStatus = OrderStatus.fromId(st);
-//
-//        if (newStatus == null) {
-//            redirectAttributes.addFlashAttribute("errorMsg", "Trạng thái đơn hàng không hợp lệ.");
-//            return "redirect:/admin/orders";
-//        }
-//
-//        try {
-//            OrderItem updatedOrder = orderService.updateOrderStatus(id, newStatus);
-//
-//            if (updatedOrder != null) {
-//                redirectAttributes.addFlashAttribute("succMsg", "Trạng thái đơn hàng đã được cập nhật thành công thành: " + newStatus.getName());
-//            } else {
-//                redirectAttributes.addFlashAttribute("errorMsg", "Không thể cập nhật trạng thái. Không tìm thấy đơn hàng hoặc có lỗi máy chủ.");
-//            }
-//        } catch (IllegalStateException e) { // Bắt lỗi nếu service có kiểm tra logic chuyển đổi
-//            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi cập nhật: " + e.getMessage());
-//        } catch (Exception e) {
-//            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng.");
-//            e.printStackTrace();
-//        }
-//        return "redirect:/admin/orders";
-//    }
-
-    // Trong AdminController.java
-
-    @PostMapping("/ship-order") // Hoặc GetMapping tùy thiết kế URL
+    @PostMapping("/ship-order")
     public String shipOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
         try {
-            orderService.shipOrder(id); // Gọi phương thức nghiệp vụ mới
+            orderService.shipOrder(id);
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái gửi đi.");
         } catch (EntityNotFoundException | IllegalStateException e) {
             redirectAttributes.addFlashAttribute("errorMsg", "Lỗi: " + e.getMessage());

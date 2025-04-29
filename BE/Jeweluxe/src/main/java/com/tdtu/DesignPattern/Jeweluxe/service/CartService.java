@@ -14,4 +14,6 @@ public interface CartService {
 
     public void updateQuantity(String sy, Integer cid);
 
+    public Cart updateCartOption(Integer cartId, String optionType, boolean isChecked);
+
 }

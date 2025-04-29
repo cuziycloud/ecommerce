@@ -2,8 +2,12 @@ package com.tdtu.DesignPattern.Jeweluxe.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,26 +15,32 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import jakarta.persistence.EntityNotFoundException;
-import java.security.Principal;
+
+//decor
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.BaseOrderItemPriceCalculator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.GiftWrapDecorator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.InsuranceDecorator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.OrderItemPriceCalculator;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.Cart;
 import com.tdtu.DesignPattern.Jeweluxe.model.Category;
-import com.tdtu.DesignPattern.Jeweluxe.model.OrderRequest;
 import com.tdtu.DesignPattern.Jeweluxe.model.OrderItem;
+import com.tdtu.DesignPattern.Jeweluxe.model.OrderRequest;
 import com.tdtu.DesignPattern.Jeweluxe.model.User;
-//import com.tdtu.DesignPattern.Jeweluxe.repository.UserRepository;
 import com.tdtu.DesignPattern.Jeweluxe.service.CartService;
 import com.tdtu.DesignPattern.Jeweluxe.service.CategoryService;
 import com.tdtu.DesignPattern.Jeweluxe.service.OrderService;
 import com.tdtu.DesignPattern.Jeweluxe.service.UserService;
 import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
-import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
+// import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus; // Không dùng trong file này
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -40,19 +50,14 @@ public class UserController {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
     private CartService cartService;
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private CommonUtil commonUtil;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     @GetMapping("/")
     public String home() {
@@ -63,10 +68,12 @@ public class UserController {
     public void getUserDetails(Principal p, Model m) {
         if (p != null) {
             String email = p.getName();
-            User User = userService.getUserByEmail(email);
-            m.addAttribute("user", User);
-            Integer countCart = cartService.getCountCart(User.getId());
-            m.addAttribute("countCart", countCart);
+            User user = userService.getUserByEmail(email);
+            if (user != null) {
+                m.addAttribute("user", user);
+                Integer countCart = cartService.getCountCart(user.getId());
+                m.addAttribute("countCart", countCart);
+            }
         }
 
         List<Category> allActiveCategory = categoryService.getAllActiveCategory();
@@ -74,8 +81,13 @@ public class UserController {
     }
 
     @GetMapping("/addCart")
-    public String addToCart(@RequestParam Integer pid, @RequestParam Integer uid, HttpSession session) {
-        Cart saveCart = cartService.saveCart(pid, uid);
+    public String addToCart(@RequestParam Integer pid, Principal p, HttpSession session) {
+        if (p == null) {
+            session.setAttribute("errorMsg", "Please login to add items to cart.");
+            return "redirect:/signin";
+        }
+        User currentUser = getLoggedInUserDetails(p);
+        Cart saveCart = cartService.saveCart(pid, currentUser.getId());
 
         if (ObjectUtils.isEmpty(saveCart)) {
             session.setAttribute("errorMsg", "Product add to cart failed");
@@ -83,54 +95,112 @@ public class UserController {
             session.setAttribute("succMsg", "Product added to cart");
         }
         return "redirect:/product/" + pid;
+        // return "redirect:/user/cart";
     }
 
     @GetMapping("/cart")
     public String loadCartPage(Principal p, Model m) {
+        if (p == null) { return "redirect:/signin"; }
 
         User user = getLoggedInUserDetails(p);
         List<Cart> carts = cartService.getCartsByUser(user.getId());
-        m.addAttribute("carts", carts);
-        if (carts.size() > 0) {
-            Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
-            m.addAttribute("totalOrderPrice", totalOrderPrice);
+
+        // Tính toán giá decorate và tổng giá
+        double totalDecoratedPrice = 0;
+        for (Cart cart : carts) {
+            if(cart.getDecoratedPrice() == null) {
+                cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
+            }
+            totalDecoratedPrice += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
         }
+
+        m.addAttribute("carts", carts);
+        m.addAttribute("totalOrderPrice", totalDecoratedPrice);
+
         return "/user/cart";
     }
 
     @GetMapping("/cartQuantityUpdate")
-    public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid) {
+    public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid, Principal p) { // Thêm Principal
+        if (p == null) { return "redirect:/signin"; }
         cartService.updateQuantity(sy, cid);
         return "redirect:/user/cart";
     }
 
     private User getLoggedInUserDetails(Principal p) {
+        if (p == null) return null;
         String email = p.getName();
-        User User = userService.getUserByEmail(email);
-        return User;
+        return userService.getUserByEmail(email);
     }
 
+    // UserController.java
     @GetMapping("/orders")
     public String orderPage(Principal p, Model m) {
+        if (p == null) { return "redirect:/signin"; }
+
         User user = getLoggedInUserDetails(p);
-        List<Cart> carts = cartService.getCartsByUser(user.getId());
-        m.addAttribute("carts", carts);
-        if (carts.size() > 0) {
-            Double orderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
-            Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 250 + 100;
-            m.addAttribute("orderPrice", orderPrice);
-            m.addAttribute("totalOrderPrice", totalOrderPrice);
+        List<Cart> carts = cartService.getCartsByUser(user.getId()); // Lấy cart
+
+        // Tính toán giá decorate cho từng item và Subtotal
+        double subTotal = 0;
+        for(Cart cart : carts) {
+            // Tính lại hoặc lấy giá đã tính sẵn từ getCartsByUser
+            if(cart.getDecoratedPrice() == null) {
+                cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
+            }
+            subTotal += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
         }
-        return "/user/order";
+
+        // --- LOGIC TÍNH PHÍ SHIP ĐỘNG (VÍ DỤ) ---
+        double shippingFee;
+        String shippingDescription; // Mô tả mức phí ship
+
+        if (subTotal == 0) {
+            shippingFee = 0; // Không có hàng thì không có phí ship
+            shippingDescription = "N/A";
+        } else if (subTotal < 500000) { // Dưới 500k
+            shippingFee = 30000;
+            shippingDescription = "Standard Shipping";
+        } else if (subTotal < 1500000) { // Từ 500k đến dưới 1.5 triệu
+            shippingFee = 15000;
+            shippingDescription = "Reduced Shipping";
+        } else { // Từ 1.5 triệu trở lên
+            shippingFee = 0; // Miễn phí ship
+            shippingDescription = "Free Shipping";
+        }
+        // ------------------------------------------
+
+        // Thuế (ví dụ: 0)
+        double taxFee = 0;
+
+        // Tổng cuối cùng
+        double grandTotal = subTotal + shippingFee + taxFee;
+
+        m.addAttribute("carts", carts); // carts đã có decoratedPrice
+        m.addAttribute("subTotal", subTotal); // Tổng giá các item (Subtotal)
+        m.addAttribute("shippingFee", shippingFee);
+        m.addAttribute("shippingDescription", shippingDescription); // Thêm mô tả ship
+        m.addAttribute("taxFee", taxFee);
+        m.addAttribute("grandTotal", grandTotal); // Tổng cuối cùng
+
+        return "/user/order"; // Trả về view trang checkout
     }
 
     @PostMapping("/save-order")
-    public String saveOrder(@ModelAttribute OrderRequest request, Principal p) throws Exception {
-        // System.out.println(request);
-        User user = getLoggedInUserDetails(p);
-        orderService.saveOrder(user.getId(), request);
+    public String saveOrder(@ModelAttribute OrderRequest request, Principal p, RedirectAttributes redirectAttributes) { // Thêm RedirectAttributes
+        if (p == null) { return "redirect:/signin"; }
 
-        return "redirect:/user/success";
+        User user = getLoggedInUserDetails(p);
+        try {
+            orderService.saveOrder(user.getId(), request);
+            redirectAttributes.addFlashAttribute("succMsg", "Order placed successfully!");
+            return "redirect:/user/success";
+        } catch (Exception e) {
+            System.err.println("Error saving order: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMsg", "Failed to place order. Please try again. Error: " + e.getMessage());
+            return "redirect:/user/orders";
+        }
     }
 
     @GetMapping("/success")
@@ -140,6 +210,7 @@ public class UserController {
 
     @GetMapping("/user-orders")
     public String myOrder(Model m, Principal p) {
+        if (p == null) { return "redirect:/signin"; }
         User loginUser = getLoggedInUserDetails(p);
         List<OrderItem> orders = orderService.getOrdersByUser(loginUser.getId());
         m.addAttribute("orders", orders);
@@ -148,39 +219,37 @@ public class UserController {
 
     @PostMapping("/cancel-my-order")
     public String cancelMyOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes, Principal p) {
-        if (p == null) {
-            return "redirect:/signin";
-        }
+        if (p == null) { return "redirect:/signin"; }
 
         try {
-            User currentUser = getLoggedInUserDetails(p);
-
-
-            orderService.cancelOrder(id); // Gọi service hủy đơn
-            redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng của bạn (ID " + id + ") đã được yêu cầu hủy.");
-
+            orderService.cancelOrder(id);
+            redirectAttributes.addFlashAttribute("succMsg", "Your order (ID " + id + ") cancellation has been requested.");
         } catch (EntityNotFoundException e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Không tìm thấy đơn hàng để hủy.");
+            redirectAttributes.addFlashAttribute("errorMsg", "Order not found for cancellation.");
         } catch (IllegalStateException e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Không thể hủy đơn hàng ở trạng thái này: " + e.getMessage());
-        }
-        // catch (AccessDeniedException e) {
-        //     redirectAttributes.addFlashAttribute("errorMsg", "Bạn không có quyền hủy đơn hàng này.");
-        // }
-        catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi khi hủy đơn hàng.");
+            redirectAttributes.addFlashAttribute("errorMsg", "Cannot cancel order in its current state: " + e.getMessage());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMsg", "An error occurred while cancelling the order.");
             e.printStackTrace();
         }
         return "redirect:/user/user-orders";
     }
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Principal p) {
+        if (p == null) { return "redirect:/signin"; }
         return "/user/profile";
     }
 
     @PostMapping("/update-profile")
-    public String updateProfile(@ModelAttribute User user, @RequestParam MultipartFile img, HttpSession session) {
+    public String updateProfile(@ModelAttribute User user, @RequestParam MultipartFile img, HttpSession session, Principal p) {
+        if (p == null) { return "redirect:/signin"; }
+        User loggedInUser = getLoggedInUserDetails(p);
+        if (loggedInUser == null || !loggedInUser.getId().equals(user.getId())) {
+            session.setAttribute("errorMsg", "Unauthorized profile update attempt.");
+            return "redirect:/user/profile";
+        }
+
         User updateUserProfile = userService.updateUserProfile(user, img);
         if (ObjectUtils.isEmpty(updateUserProfile)) {
             session.setAttribute("errorMsg", "Profile not updated");
@@ -193,25 +262,143 @@ public class UserController {
     @PostMapping("/change-password")
     public String changePassword(@RequestParam String newPassword, @RequestParam String currentPassword, Principal p,
                                  HttpSession session) {
+        if (p == null) { return "redirect:/signin"; }
+
         User loggedInUserDetails = getLoggedInUserDetails(p);
+        if (loggedInUserDetails == null) { // Thêm kiểm tra null
+            session.setAttribute("errorMsg", "User not found.");
+            return "redirect:/user/profile";
+        }
 
-        boolean matches = passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword());
+        if (!passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword())) {
+            session.setAttribute("errorMsg", "Current Password incorrect");
+            return "redirect:/user/profile";
+        }
 
-        if (matches) {
-            String encodePassword = passwordEncoder.encode(newPassword);
-            loggedInUserDetails.setPassword(encodePassword);
+        if (newPassword == null || newPassword.length() < 6) {
+            session.setAttribute("errorMsg", "New password must be at least 6 characters long.");
+            return "redirect:/user/profile";
+        }
+
+        String encodePassword = passwordEncoder.encode(newPassword);
+        loggedInUserDetails.setPassword(encodePassword);
+        try {
             User updateUser = userService.updateUser(loggedInUserDetails);
             if (ObjectUtils.isEmpty(updateUser)) {
                 session.setAttribute("errorMsg", "Password not updated !! Error in server");
             } else {
-                session.setAttribute("succMsg", "Password Updated sucessfully");
+                session.setAttribute("succMsg", "Password Updated successfully"); // Sửa lỗi chính tả
             }
-        } else {
-            session.setAttribute("errorMsg", "Current Password incorrect");
+        } catch (Exception e) {
+            session.setAttribute("errorMsg", "Error updating password: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return "redirect:/user/profile";
     }
 
-}
 
+    @PutMapping("/cart/updateOption")
+    @ResponseBody
+    public ResponseEntity<?> updateCartOption(
+            @RequestParam Integer cartId,
+            @RequestParam String optionType,
+            @RequestParam Boolean isChecked,
+            Principal principal) {
+
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Vui lòng đăng nhập"));
+        }
+
+        try {
+            User currentUser = getLoggedInUserDetails(principal);
+            if (currentUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Không thể xác thực người dùng"));
+            }
+
+            List<Cart> currentCarts = cartService.getCartsByUser(currentUser.getId());
+            Cart cartToUpdate = currentCarts.stream()
+                    .filter(c -> c.getId() != null && c.getId().equals(cartId))
+                    .findFirst()
+                    .orElse(null);
+
+            if (cartToUpdate == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "ko có quyền truy cập giỏ hàng này hoặc giỏ hàng không tồn tại"));
+            }
+
+            // 1. Lưu thay đổi boolean vào DB
+            cartService.updateCartOption(cartId, optionType, isChecked);
+
+            // 2. Lấy lại toàn bộ giỏ hàng sau khi cập nhật DB
+            List<Cart> updatedCartList = cartService.getCartsByUser(currentUser.getId());
+
+            // 3. Tìm lại item vừa cập nhật trong list mới
+            Cart updatedCartItem = updatedCartList.stream()
+                    .filter(c -> c.getId() != null && c.getId().equals(cartId))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("ko tìm thấy cart item sau khi cập nhật"));
+
+            // 4. Tính giá decorate mới cho item đó
+            double newItemDecoratedPrice = calculateDecoratedPriceForItem(updatedCartItem);
+
+            // 5. Tính tổng giá decorate mới cho cả giỏ
+            double newTotalDecoratedPrice = 0;
+            for (Cart cart : updatedCartList) {
+                if(cart.getDecoratedPrice() == null) {
+                    cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
+                }
+                newTotalDecoratedPrice += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
+            }
+
+            // 6. KQ
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Tùy chọn giỏ hàng đã được cập nhật.",
+                    "cartId", cartId,
+                    "newItemPrice", newItemDecoratedPrice,
+                    "newTotalPrice", newTotalDecoratedPrice
+            ));
+
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            System.err.println("Lỗi xảy ra trong updateCartOption API: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Lỗi hệ thống khi cập nhật giỏ hàng."));
+        }
+    }
+
+    private double calculateDecoratedPriceForItem(Cart cartItem) {
+        if (cartItem == null || cartItem.getProduct() == null || cartItem.getProduct().getDiscountPrice() == null || cartItem.getQuantity() == null) {
+            return 0;
+        }
+
+        // Bước 1: Tạo đối tượng OrderItem tạm thời từ Cart
+        // Decorator hiện tại được thiết kế để làm việc với OrderItem
+        OrderItem tempItem = new OrderItem();
+        tempItem.setPrice(cartItem.getProduct().getDiscountPrice()); // Lấy giá gốc từ sản phẩm trong giỏ
+        tempItem.setQuantity(cartItem.getQuantity());  // Lấy sl từ giỏ
+        tempItem.setGiftWrap(cartItem.isWantsGiftWrap());
+        tempItem.setInsurance(cartItem.isWantsInsurance());
+
+        // Bước 2: Bắt đầu với bộ tính giá cơ bản (Concrete Component)
+        OrderItemPriceCalculator calculator = new BaseOrderItemPriceCalculator();
+
+        // Bước 3: "Trang trí" (wrap) dựa trên các tùy chọn của cartItem
+
+        // Nếu người dùng muốn gói quà, bọc thêm GiftWrapDecorator
+        if (tempItem.isGiftWrap()) {
+            calculator = new GiftWrapDecorator(calculator);
+        }
+
+        // Nếu người dùng muốn bảo hiểm, bọc thêm InsuranceDecorator
+        if (tempItem.hasInsurance()) {
+            calculator = new InsuranceDecorator(calculator);
+        }
+
+        // Bước 4: Thêm các decorator khác nếu có (khả năng mở rộng)
+    
+        // Bước 5: Gọi phương thức calculatePrice trên đối tượng calculator cuối cùng
+        return calculator.calculatePrice(tempItem);
+    }
+}

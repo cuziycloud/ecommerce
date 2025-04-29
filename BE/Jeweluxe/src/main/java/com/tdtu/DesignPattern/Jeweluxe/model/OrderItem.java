@@ -24,6 +24,7 @@ import com.tdtu.DesignPattern.Jeweluxe.state.DeliveredState;
 import com.tdtu.DesignPattern.Jeweluxe.state.CancelledState;
 
 import jakarta.persistence.Transient;
+import jakarta.persistence.Column;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -61,6 +62,12 @@ public class OrderItem {
     @Transient 
     private OrderStatusState currentState;
 
+    @Column(name = "is_gift_wrap", columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean giftWrap = false;
+
+    @Column(name = "has_insurance", columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean insurance = false;
+
     public void receive() {
         currentState.receiveOrder(this);
     }
@@ -81,7 +88,6 @@ public class OrderItem {
         currentState.cancelOrder(this);
     }
 
-    // --- Phương thức để các lớp State thay đổi trạng thái của OrderItem ---
     public void changeState(OrderStatusState newState) {
         this.currentState = newState;
         this.status = newState.getStatus(); 
@@ -112,12 +118,12 @@ public class OrderItem {
             case OUT_FOR_DELIVERY: return new ShippedState();
             case DELIVERED: return new DeliveredState();
             case CANCELLED: return new CancelledState();
-            default: throw new IllegalArgumentException("Trạng thái Enum không xác định: " + statusEnum);
+            default: throw new IllegalArgumentException("Trạng thái Enum ko xác định: " + statusEnum);
         }
     }
 
     @PostLoad
-    void initializeStateAfterLoad() {
+    public void initializeStateAfterLoad() {
          if (this.status != null && this.currentState == null) {
             this.currentState = createStateFromEnum(this.status);
          }
@@ -128,5 +134,12 @@ public class OrderItem {
 
     @OneToOne(cascade = CascadeType.ALL)
     private OrderAddress orderAddress;
+
+    public boolean isGiftWrap() { return giftWrap; }
+    public void setGiftWrap(boolean giftWrap) { this.giftWrap = giftWrap; }
+
+    public boolean hasInsurance() { return insurance; }
+    public void setInsurance(boolean insurance) { this.insurance = insurance; }
+
 
 }

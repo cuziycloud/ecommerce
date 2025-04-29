@@ -1,11 +1,6 @@
 package com.tdtu.DesignPattern.Jeweluxe.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +29,24 @@ public class Cart {
     private Double totalPrice;
 
     @Transient
-    private Double totalOrderPrice;
+    private Double baseTotalPrice;
 
+    @Transient
+    private Double decoratedPrice;
+
+    @Column(name = "wants_gift_wrap", columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean wantsGiftWrap = false;
+
+    @Column(name = "wants_insurance", columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean wantsInsurance = false;
+
+    public boolean isWantsGiftWrap() { return wantsGiftWrap; }
+    public void setWantsGiftWrap(boolean wantsGiftWrap) { this.wantsGiftWrap = wantsGiftWrap; }
+    public boolean isWantsInsurance() { return wantsInsurance; }
+    public void setWantsInsurance(boolean wantsInsurance) { this.wantsInsurance = wantsInsurance; }
+    public Double getBaseTotalPrice() { return baseTotalPrice; }
+    public void setBaseTotalPrice(Double baseTotalPrice) { this.baseTotalPrice = baseTotalPrice; }
+    public Double getDecoratedPrice() { return decoratedPrice; }
+    public void setDecoratedPrice(Double decoratedPrice) { this.decoratedPrice = decoratedPrice; }
 }
 
