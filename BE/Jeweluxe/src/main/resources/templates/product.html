@@ -144,11 +144,11 @@
 
 									<div class="mt-auto">
 										<div class="d-flex justify-content-between align-items-center mb-2">
-											<span class="fw-bold fs-5 text-primary">$[[${p.discountPrice}]]</span>
+											<span class="fw-bold fs-5 text-primary">[[${p.discountPrice}]] VND </span>
 											<span th:if="${p.discount > 0}" class="badge bg-danger rounded-pill">[[${p.discount}]]% OFF</span> <!-- rounded-pill cho đẹp hơn -->
 										</div>
 										<p th:if="${p.discount > 0}" class="card-text text-muted text-decoration-line-through mb-2 small">
-											Original: $[[${p.price}]]
+											Original: $[[${p.price}]] VND
 										</p>
 
 										<!-- Nút View Details -->

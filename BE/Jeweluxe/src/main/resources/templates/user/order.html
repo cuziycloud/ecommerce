@@ -87,18 +87,36 @@
 								<div class="fw-bold text-primary ms-2">[[${#numbers.formatCurrency(cart.decoratedPrice)}]]</div>
 							</div>
 
-							<div th:if="${not #lists.isEmpty(carts)}" class="pt-3 mt-3 border-top">
-								<div class="d-flex justify-content-between mb-2 text-muted">
+<!--							<div th:if="${not #lists.isEmpty(carts)}" class="pt-3 mt-3 border-top">-->
+<!--								<div class="d-flex justify-content-between mb-2 text-muted">-->
+<!--									<span>Subtotal</span>-->
+<!--									<span>[[${#numbers.formatCurrency(subtotal)}]]</span>-->
+<!--								</div>-->
+<!--								<div class="d-flex justify-content-between mb-2 text-muted">-->
+<!--									<span>Shipping</span>-->
+<!--									<span>[[${#numbers.formatCurrency(shippingFee)}]]</span>-->
+<!--								</div>-->
+<!--								<div class="d-flex justify-content-between mt-3 pt-3 border-top fs-5 fw-bold">-->
+<!--									<span>Total</span>-->
+<!--									<span class="text-primary">[[${#numbers.formatCurrency(totalAmount)}]]</span>-->
+<!--								</div>-->
+<!--							</div>-->
+							<div class="price-breakdown" th:if="${not #lists.isEmpty(carts)}">
+								<div class="price-line">
 									<span>Subtotal</span>
-									<span>[[${#numbers.formatCurrency(subtotal)}]]</span>
+									<span>[[${#numbers.formatCurrency(subTotal)}]]</span>
 								</div>
-								<div class="d-flex justify-content-between mb-2 text-muted">
-									<span>Shipping</span>
+								<div class="price-line">
+									<span>Shipping <small class="text-muted" th:if="${shippingDescription != 'N/A'}">([[${shippingDescription}]])</small></span>
 									<span>[[${#numbers.formatCurrency(shippingFee)}]]</span>
 								</div>
-								<div class="d-flex justify-content-between mt-3 pt-3 border-top fs-5 fw-bold">
-									<span>Total</span>
-									<span class="text-primary">[[${#numbers.formatCurrency(totalAmount)}]]</span>
+								<div class="price-line" th:if="${taxFee > 0}">
+									<span>Tax</span>
+									<span>[[${#numbers.formatCurrency(taxFee)}]]</span>
+								</div>
+								<div class="grand-total-line">
+									<span>Grand Total</span>
+									<span>[[${#numbers.formatCurrency(grandTotal)}]]</span>
 								</div>
 							</div>
 

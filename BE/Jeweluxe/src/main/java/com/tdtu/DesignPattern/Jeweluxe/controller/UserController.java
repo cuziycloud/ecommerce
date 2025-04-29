@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.tdtu.DesignPattern.Jeweluxe.strategy.shipping.ShippingCalculationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ import com.tdtu.DesignPattern.Jeweluxe.service.CategoryService;
 import com.tdtu.DesignPattern.Jeweluxe.service.OrderService;
 import com.tdtu.DesignPattern.Jeweluxe.service.UserService;
 import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
-// import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus; // Không dùng trong file này
+import com.tdtu.DesignPattern.Jeweluxe.service.ShippingService;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
@@ -58,6 +59,8 @@ public class UserController {
     private CommonUtil commonUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ShippingService shippingService;
 
     @GetMapping("/")
     public String home() {
@@ -133,57 +136,33 @@ public class UserController {
         return userService.getUserByEmail(email);
     }
 
-    // UserController.java
     @GetMapping("/orders")
     public String orderPage(Principal p, Model m) {
         if (p == null) { return "redirect:/signin"; }
 
         User user = getLoggedInUserDetails(p);
-        List<Cart> carts = cartService.getCartsByUser(user.getId()); // Lấy cart
+        List<Cart> carts = cartService.getCartsByUser(user.getId());
 
-        // Tính toán giá decorate cho từng item và Subtotal
         double subTotal = 0;
         for(Cart cart : carts) {
-            // Tính lại hoặc lấy giá đã tính sẵn từ getCartsByUser
             if(cart.getDecoratedPrice() == null) {
                 cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
             }
             subTotal += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
         }
 
-        // --- LOGIC TÍNH PHÍ SHIP ĐỘNG (VÍ DỤ) ---
-        double shippingFee;
-        String shippingDescription; // Mô tả mức phí ship
+        ShippingCalculationResult shippingResult = shippingService.calculateShipping(subTotal);
+        double shippingFee = shippingResult.fee();
+        String shippingDescription = shippingResult.description();
+        double grandTotal = subTotal + shippingFee;
 
-        if (subTotal == 0) {
-            shippingFee = 0; // Không có hàng thì không có phí ship
-            shippingDescription = "N/A";
-        } else if (subTotal < 500000) { // Dưới 500k
-            shippingFee = 30000;
-            shippingDescription = "Standard Shipping";
-        } else if (subTotal < 1500000) { // Từ 500k đến dưới 1.5 triệu
-            shippingFee = 15000;
-            shippingDescription = "Reduced Shipping";
-        } else { // Từ 1.5 triệu trở lên
-            shippingFee = 0; // Miễn phí ship
-            shippingDescription = "Free Shipping";
-        }
-        // ------------------------------------------
-
-        // Thuế (ví dụ: 0)
-        double taxFee = 0;
-
-        // Tổng cuối cùng
-        double grandTotal = subTotal + shippingFee + taxFee;
-
-        m.addAttribute("carts", carts); // carts đã có decoratedPrice
-        m.addAttribute("subTotal", subTotal); // Tổng giá các item (Subtotal)
+        m.addAttribute("carts", carts);
+        m.addAttribute("subTotal", subTotal);
         m.addAttribute("shippingFee", shippingFee);
-        m.addAttribute("shippingDescription", shippingDescription); // Thêm mô tả ship
-        m.addAttribute("taxFee", taxFee);
+        m.addAttribute("shippingDescription", shippingDescription);
         m.addAttribute("grandTotal", grandTotal); // Tổng cuối cùng
 
-        return "/user/order"; // Trả về view trang checkout
+        return "/user/order";
     }
 
     @PostMapping("/save-order")
@@ -401,4 +380,6 @@ public class UserController {
         // Bước 5: Gọi phương thức calculatePrice trên đối tượng calculator cuối cùng
         return calculator.calculatePrice(tempItem);
     }
+
+
 }
