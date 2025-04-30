@@ -140,7 +140,7 @@ public class CartServiceImpl implements CartService {
         }
 
         try {
-            return cartRepository.save(cart); // Lưu lại cart đã thay đổi
+            return cartRepository.save(cart);
         } catch (Exception e) {
             log.error("Lỗi khi lưu Cart ID {} sau khi cập nhật tùy chọn: {}", cartId, e.getMessage(), e);
             throw new RuntimeException("Lỗi khi lưu cập nhật giỏ hàng.", e);

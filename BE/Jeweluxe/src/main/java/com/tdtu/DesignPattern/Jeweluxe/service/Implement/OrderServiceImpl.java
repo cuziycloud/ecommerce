@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
             order.setQuantity(cart.getQuantity());
             order.setUser(cart.getUser());
             //order.setStatus(OrderStatus.IN_PROGRESS.getName());
-            order.setStatus(OrderStatus.IN_PROGRESS);
+            order.setStatus     (OrderStatus.IN_PROGRESS);
             order.setPaymentType(orderRequest.getPaymentType());
 
             //dchi

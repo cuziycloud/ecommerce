@@ -15,13 +15,7 @@ import jakarta.persistence.PostLoad;
 
 import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 import com.tdtu.DesignPattern.Jeweluxe.state.OrderStatusState;
-import com.tdtu.DesignPattern.Jeweluxe.state.InProgressState;
-
-import com.tdtu.DesignPattern.Jeweluxe.state.OrderReceivedState;
-import com.tdtu.DesignPattern.Jeweluxe.state.ProductPackedState;
-import com.tdtu.DesignPattern.Jeweluxe.state.ShippedState;     
-import com.tdtu.DesignPattern.Jeweluxe.state.DeliveredState;
-import com.tdtu.DesignPattern.Jeweluxe.state.CancelledState;
+import com.tdtu.DesignPattern.Jeweluxe.factory.OrderStatusStateFactory;
 
 import jakarta.persistence.Transient;
 import jakarta.persistence.Column;
@@ -56,17 +50,17 @@ public class OrderItem {
     @ManyToOne
     private User user;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
-
-    @Transient 
-    private OrderStatusState currentState;
-
     @Column(name = "is_gift_wrap", columnDefinition = "BOOLEAN DEFAULT false")
     private boolean giftWrap = false;
 
     @Column(name = "has_insurance", columnDefinition = "BOOLEAN DEFAULT false")
     private boolean insurance = false;
+    
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    @Transient 
+    private OrderStatusState currentState;
 
     public void receive() {
         currentState.receiveOrder(this);
@@ -103,31 +97,27 @@ public class OrderItem {
     }
 
     public void setStatus(OrderStatus status) {
-        this.status = status;
-        if (this.currentState == null || this.currentState.getStatus() != status) {
-            this.currentState = createStateFromEnum(status);
-        }
-    }
+        this.status = status; 
 
-    private OrderStatusState createStateFromEnum(OrderStatus statusEnum) {
-        if (statusEnum == null) return null;
-        switch (statusEnum) {
-            case IN_PROGRESS: return new InProgressState();
-            case ORDER_RECEIVED: return new OrderReceivedState();
-            case PRODUCT_PACKED: return new ProductPackedState();
-            case OUT_FOR_DELIVERY: return new ShippedState();
-            case DELIVERED: return new DeliveredState();
-            case CANCELLED: return new CancelledState();
-            default: throw new IllegalArgumentException("Trạng thái Enum ko xác định: " + statusEnum);
+        // Gọi Factory để tạo đối tượng State tương ứng
+
+        // không hề biết liệu createState sẽ trả về gì 
+        // => chỉ biết rằng nó sẽ nhận được một đối tượng nào đó implement OrderStatusState. 
+        // Lớp cụ thể nào được tạo ra là chi tiết ẩn đối với OrderItem
+        // Quyết định này được ủy thác hoàn toàn cho phương thức createState bên trong lớp OrderStatusStateFactory
+        this.currentState = OrderStatusStateFactory.createState(status); 
+
+        if (this.currentState == null && status != null) {
+            System.err.println("OrderStatusStateFactory trả về null cho     status: " + status + " đối với OrderItem ID: " + this.id);
         }
     }
 
     @PostLoad
     public void initializeStateAfterLoad() {
-         if (this.status != null && this.currentState == null) {
-            this.currentState = createStateFromEnum(this.status);
-         }
-     }
+        if (this.status != null && this.currentState == null) {
+            this.setStatus(this.status);
+        }
+    }
 
 
     private String paymentType;
