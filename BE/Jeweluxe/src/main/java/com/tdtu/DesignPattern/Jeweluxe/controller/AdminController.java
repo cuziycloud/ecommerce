@@ -39,6 +39,7 @@ import com.tdtu.DesignPattern.Jeweluxe.service.ProductService;
 import com.tdtu.DesignPattern.Jeweluxe.service.UserService;
 import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
 import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
+import com.tdtu.DesignPattern.Jeweluxe.command.*;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -341,39 +342,58 @@ public class AdminController {
 
     @PostMapping("/ship-order")
     public String shipOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
+        // 1. Tạo Command Object
+        OrderCommand shipCommand = new ShipOrderCommand(orderService, id);
+
         try {
-            orderService.shipOrder(id);
+            // 2. Thực thi Command
+            shipCommand.execute();
+
+            // 3. Xử lý thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái gửi đi.");
+
         } catch (EntityNotFoundException | IllegalStateException e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi cập nhật trạng thái gửi đi: " + e.getMessage());
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi hệ thống.");
-            // Log lỗi
+            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi hệ thống không mong muốn khi gửi hàng.");
+            e.printStackTrace();
         }
         return "redirect:/admin/orders";
     }
 
     @PostMapping("/cancel-order")
     public String cancelOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
+        // 1. Tạo Command Object
+        OrderCommand cancelCommand = new CancelOrderCommand(orderService, id);
+
         try {
-            orderService.cancelOrder(id);
-            // Khi gọi orderService.cancelOrder(), chúng ta đang gọi đến
-            // đối tượng OrderServiceImpl Singleton duy nhất.
-            redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được hủy.");
+            // 2. Thực thi Command
+            cancelCommand.execute();
+
+            // 3. Xử lý thành công
+            redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được hủy thành công.");
+
         } catch (EntityNotFoundException | IllegalStateException e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi hủy đơn hàng: " + e.getMessage());
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi hệ thống.");
-            // Log lỗi
+            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi hệ thống khi hủy đơn hàng.");
+            e.printStackTrace();
         }
         return "redirect:/admin/orders";
     }
 
     @PostMapping("/pack-order") // URL để đóng gói đơn hàng
     public String packOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
+        // 1. TẠO COMMAND OBJECT
+        OrderCommand packCommand = new PackOrderCommand(orderService, id);
+
         try {
-            orderService.packOrder(id); // Gọi service đóng gói
+            // 2. THỰC THI COMMAND
+            packCommand.execute();
+
+            // 3. Xử lý thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đóng gói.");
+
         } catch (EntityNotFoundException | IllegalStateException e) {
             redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi đóng gói: " + e.getMessage());
         } catch (Exception e) {
@@ -385,9 +405,15 @@ public class AdminController {
 
     @PostMapping("/deliver-order") // URL để xác nhận giao hàng
     public String deliverOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
+        // 1. Tạo Command Object
+        OrderCommand deliverCommand = new DeliverOrderCommand(orderService, id);
+
         try {
-            orderService.deliverOrder(id); // Gọi service giao hàng
+            // 2. Thực thi Command
+            deliverCommand.execute();
+
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đã giao.");
+
         } catch (EntityNotFoundException | IllegalStateException e) {
             redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi xác nhận giao hàng: " + e.getMessage());
         } catch (Exception e) {
@@ -399,13 +425,20 @@ public class AdminController {
 
     @PostMapping("/receive-order") // URL để xác nhận nhận đơn hàng
     public String receiveOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
+        // 1. TẠO COMMAND OBJECT
+        OrderCommand receiveCommand = new ReceiveOrderCommand(orderService, id);
+
         try {
-            orderService.receiveOrder(id); // Gọi service nhận đơn hàng
-            redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đã nhận.");
+            // 2. THỰC THI COMMAND
+            receiveCommand.execute(); // Gọi execute, không cần lưu kết quả OrderItem trả về
+
+            // 3. Xử lý thành công
+            redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được xác nhận nhận.");
+
         } catch (EntityNotFoundException | IllegalStateException e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi xác nhận nhận đơn: " + e.getMessage());
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Đã xảy ra lỗi hệ thống khi xác nhận nhận đơn.");
+            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi nhận đơn: " + e.getMessage());
+        } catch (Exception e) { // Giữ nguyên catch lỗi chung
+            redirectAttributes.addFlashAttribute("errorMsg", "Lỗi hệ thống khi nhận đơn hàng.");
             e.printStackTrace();
         }
         return "redirect:/admin/orders";

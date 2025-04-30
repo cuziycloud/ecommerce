@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.OrderRequest;
 import com.tdtu.DesignPattern.Jeweluxe.model.OrderItem;
-import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 
 public interface OrderService {
 
@@ -26,7 +25,6 @@ public interface OrderService {
     public OrderItem receiveOrder(Integer orderItemId);
     public OrderItem packOrder(Integer orderItemId);
     public OrderItem deliverOrder(Integer orderItemId);
-
 
 }
 
