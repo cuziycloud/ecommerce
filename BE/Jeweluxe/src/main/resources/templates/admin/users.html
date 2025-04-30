@@ -100,7 +100,8 @@
 								<a th:href="@{'/admin/edit-user/' + ${u.id} + '?type=' + ${userType}}" class="btn btn-info" title="Edit User"><i class="fas fa-edit"></i></a>
 								<a th:if="${u.isEnable}" th:href="@{'/admin/updateSts?status=false&id='+${u.id}+'&type='+${userType}}" class="btn btn-warning" title="Deactivate User"><i class="fas fa-toggle-off"></i></a>
 								<a th:unless="${u.isEnable}" th:href="@{'/admin/updateSts?status=true&id='+${u.id}+'&type='+${userType}}" class="btn btn-success" title="Activate User"><i class="fas fa-toggle-on"></i></a>
-								<a href="#" th:onclick="|confirmDelete('/admin/delete-user/[[${u.id}]]?type=[[${userType}]]')|" class="btn btn-danger" title="Delete User"><i class="fas fa-trash-alt"></i></a>
+<!--								<a href="#" th:onclick="|confirmDelete('/admin/delete-user/[[${u.id}]]?type=[[${userType}]]')|" class="btn btn-danger" title="Delete User"><i class="fas fa-trash-alt"></i></a>-->
+								<a href="#" th:onclick="'confirmDelete(\'' + @{/admin/delete-user/{id}(id=${u.id},type=${userType})} + '\'); return false;'" class="btn btn-danger" title="Delete User"><i class="fas fa-trash-alt"></i></a>
 							</td>
 						</tr>
 						</tbody>

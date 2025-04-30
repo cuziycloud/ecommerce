@@ -86,8 +86,7 @@ public class OrderServiceImpl implements OrderService {
             order.setPrice(cart.getProduct().getDiscountPrice());
             order.setQuantity(cart.getQuantity());
             order.setUser(cart.getUser());
-            //order.setStatus(OrderStatus.IN_PROGRESS.getName());
-            order.setStatus     (OrderStatus.IN_PROGRESS);
+            order.setStatus(OrderStatus.IN_PROGRESS);
             order.setPaymentType(orderRequest.getPaymentType());
 
             //dchi
@@ -101,7 +100,6 @@ public class OrderServiceImpl implements OrderService {
             address.setState(orderRequest.getState());
             address.setPincode(orderRequest.getPincode());
 
-            order.setStatus(OrderStatus.IN_PROGRESS);
             order.setOrderAddress(address);
 
             order.setGiftWrap(cart.isWantsGiftWrap());
