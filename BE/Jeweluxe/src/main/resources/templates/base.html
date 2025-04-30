@@ -235,10 +235,13 @@
 			<!-- Customer Service -->
 			<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
 				<h6 class="text-uppercase fw-bold mb-4">Customer Service</h6>
-				<p><a th:href="${user != null ? '/user/profile' : '/signin'}" class="text-reset">My Account</a></p>
-				<p><a th:href="${user != null ? '/user/user-orders' : '/signin'}" class="text-reset">Order History</a></p>
-				<p><a href="/shipping-returns" class="text-reset">Shipping & Returns</a></p> <!-- Added relevant link -->
-				<p><a href="/faq" class="text-reset">FAQ</a></p> <!-- Added relevant link -->
+				<p>
+					<a th:href="${user != null ? (user.role == 'ROLE_ADMIN' ? '/admin/profile' : '/user/profile') : '/signin'}"
+					   class="text-reset">My Account</a>
+				</p>
+				<p th:if="${user == null or user.role == 'ROLE_USER'}">
+					<a th:href="${user != null ? '/user/user-orders' : '/signin'}" class="text-reset">Order History</a>
+				</p>
 			</div>
 		</div>
 	</div>
