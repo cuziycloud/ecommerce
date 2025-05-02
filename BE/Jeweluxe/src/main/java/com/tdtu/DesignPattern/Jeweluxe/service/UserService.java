@@ -41,5 +41,6 @@ public interface UserService {
 
     boolean deleteUser(Integer id);
 
+    long countUsersByRole(String role);
 }
 

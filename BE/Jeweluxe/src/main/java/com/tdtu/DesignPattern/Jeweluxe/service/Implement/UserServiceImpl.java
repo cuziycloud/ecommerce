@@ -33,12 +33,13 @@ public class UserServiceImpl implements UserService {
         if (user.getId() == null && user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
+
         if (user.getId() == null) {
-            user.setRole("ROLE_USER");
-            user.setIsEnable(true); 
-            user.setAccountNonLocked(true); 
-            user.setFailedAttempt(0); 
+            user.setIsEnable(true);
+            user.setAccountNonLocked(true);
+            user.setFailedAttempt(0);
         }
+
         return userRepository.save(user);
     }
 
@@ -181,9 +182,6 @@ public class UserServiceImpl implements UserService {
                     }
                 } else {
                     System.err.println("CommonUtil not injected, cannot handle file operations automatically.");
-                    // File saveFile = new ClassPathResource("static/img").getFile();
-                    // Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator + img.getOriginalFilename());
-                    // Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                 }
             }
 
@@ -211,7 +209,6 @@ public class UserServiceImpl implements UserService {
     public boolean deleteUser(Integer id) {
         try {
             if (userRepository.existsById(id)) {
-                // Lấy user để xóa ảnh (nếu cần và CommonUtil đã được inject)
                 if (commonUtil != null) {
                     User userToDelete = getUserById(id);
                     if(userToDelete != null && userToDelete.getProfileImage() != null && !userToDelete.getProfileImage().equals("default.jpg")) {
@@ -232,5 +229,10 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public long countUsersByRole(String role) {
+        return userRepository.countByRole(role);
     }
 }

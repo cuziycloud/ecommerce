@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tdtu.DesignPattern.Jeweluxe.model.Category;
 import com.tdtu.DesignPattern.Jeweluxe.model.Product;
@@ -41,8 +40,8 @@ import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
 import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 import com.tdtu.DesignPattern.Jeweluxe.command.*;
 
-import jakarta.servlet.http.HttpSession;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.tdtu.DesignPattern.Jeweluxe.template.user.AdminCreator;
+import com.tdtu.DesignPattern.Jeweluxe.template.user.CustomerCreator;
 
 @Controller // Đánh dấu lớp này là một Spring Bean, mặc định là Singleton
 @RequestMapping("/admin")
@@ -69,25 +68,59 @@ public class AdminController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    private final AdminCreator adminCreator;
+    private final CustomerCreator customerCreator;
+
     @Autowired
-    public AdminController(OrderService orderService) {
+    public AdminController(OrderService orderService, AdminCreator adminCreator, CustomerCreator customerCreator) {
         this.orderService = orderService;
-         System.out.println("Creating AdminController instance: " + this.hashCode()); // Log khi tạo
-         System.out.println("Injecting OrderService instance: " + orderService.hashCode()); // Log instance được inject
+        this.adminCreator = adminCreator;
+        this.customerCreator = customerCreator;
+        System.out.println("Creating AdminController instance: " + this.hashCode());
+         System.out.println("Injecting OrderService instance: " + orderService.hashCode());
     }
 
     @ModelAttribute
     public void getUserDetails(Principal p, Model m) {
+        List<Category> allActiveCategory = null;
+        try {
+            allActiveCategory = categoryService.getAllActiveCategory();
+        } catch (Exception e) {
+            System.err.println("Error fetching active categories in getUserDetails: " + e.getMessage());
+            allActiveCategory = List.of();
+        }
+        m.addAttribute("categorys", allActiveCategory);
+
         if (p != null) {
             String email = p.getName();
-            User User = userService.getUserByEmail(email);
-            m.addAttribute("user", User);
-            Integer countCart = cartService.getCountCart(User.getId());
-            m.addAttribute("countCart", countCart);
-        }
+            User userDtls = null;
+            try {
+                userDtls = userService.getUserByEmail(email); // thtin  user
+            } catch (Exception e) {
+                System.err.println("Error fetching user by email '" + email + "' in getUserDetails: " + e.getMessage());
+            }
 
-        List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-        m.addAttribute("categorys", allActiveCategory);
+            if (userDtls != null) {
+                m.addAttribute("user", userDtls);
+                try {
+                    Integer countCart = cartService.getCountCart(userDtls.getId());
+                    m.addAttribute("countCart", countCart);
+                } catch (Exception e) {
+                    System.err.println("Error getting cart count for user ID " + userDtls.getId() + ": " + e.getMessage());
+                    m.addAttribute("countCart", 0);
+                }
+            } else {
+                System.err.println("Warning in getUserDetails: Principal found ('" + email + "'), but userService.getUserByEmail returned null.");
+                m.addAttribute("user", null);
+                m.addAttribute("countCart", 0);
+            }
+
+        } else {
+            // chưa đăng nhập
+            m.addAttribute("user", null);
+            m.addAttribute("countCart", 0);
+        }
     }
 
     @GetMapping("/")
@@ -310,6 +343,40 @@ public class AdminController {
         return "/admin/users";
     }
 
+
+    @PostMapping("/create-customer")
+    public String createCustomer(
+            @RequestParam String name, @RequestParam String email, @RequestParam String password,
+            @RequestParam(required = false) String mobileNumber, @RequestParam(required = false) String address,
+            @RequestParam(required = false) String city, @RequestParam(required = false) String state, @RequestParam(required = false) String pincode,
+            @RequestParam(defaultValue = "true") Boolean isEnable, @RequestParam("img") MultipartFile file,
+            RedirectAttributes redirectAttributes
+    ) {
+        boolean success = customerCreator.processUserCreation(
+                name, email, password, mobileNumber, address, city, state, pincode,
+                isEnable, file, redirectAttributes, commonUtil
+        );
+        if (!success) { return "redirect:/admin/add-user"; }
+        return "redirect:/admin/users?type=1";
+    }
+
+    @PostMapping("/create-admin")
+    public String createAdmin(
+            @RequestParam String name, @RequestParam String email, @RequestParam String password,
+            @RequestParam(required = false) String mobileNumber, @RequestParam(required = false) String address,
+            @RequestParam(required = false) String city, @RequestParam(required = false) String state, @RequestParam(required = false) String pincode,
+            @RequestParam(defaultValue = "true") Boolean isEnable, // isEnable này có thể bị override bởi AdminCreator
+            @RequestParam("img") MultipartFile file,
+            RedirectAttributes redirectAttributes
+    ) {
+        boolean success = adminCreator.processUserCreation(
+                name, email, password, mobileNumber, address, city, state, pincode,
+                isEnable, file, redirectAttributes, commonUtil
+        );
+        if (!success) { return "redirect:/admin/add-admin"; }
+        return "redirect:/admin/users?type=2";
+    }
+
     @GetMapping("/updateSts")
     public String updateUserAccountStatus(@RequestParam Boolean status, @RequestParam Integer id,@RequestParam Integer type, HttpSession session) {
         Boolean f = userService.updateAccountStatus(id, status);
@@ -346,10 +413,10 @@ public class AdminController {
         OrderCommand shipCommand = new ShipOrderCommand(orderService, id);
 
         try {
-            // 2. Thực thi Command
+            // 2. Command
             shipCommand.execute();
 
-            // 3. Xử lý thành công
+            // 3. Thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái gửi đi.");
 
         } catch (EntityNotFoundException | IllegalStateException e) {
@@ -367,10 +434,10 @@ public class AdminController {
         OrderCommand cancelCommand = new CancelOrderCommand(orderService, id);
 
         try {
-            // 2. Thực thi Command
+            // 2. Command
             cancelCommand.execute();
 
-            // 3. Xử lý thành công
+            // 3. Thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được hủy thành công.");
 
         } catch (EntityNotFoundException | IllegalStateException e) {
@@ -382,16 +449,16 @@ public class AdminController {
         return "redirect:/admin/orders";
     }
 
-    @PostMapping("/pack-order") // URL để đóng gói đơn hàng
+    @PostMapping("/pack-order") // URL  đóng gói đơn hàng
     public String packOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
         // 1. TẠO COMMAND OBJECT
         OrderCommand packCommand = new PackOrderCommand(orderService, id);
 
         try {
-            // 2. THỰC THI COMMAND
+            // 2. COMMAND
             packCommand.execute();
 
-            // 3. Xử lý thành công
+            // 3. Thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đóng gói.");
 
         } catch (EntityNotFoundException | IllegalStateException e) {
@@ -403,13 +470,13 @@ public class AdminController {
         return "redirect:/admin/orders";
     }
 
-    @PostMapping("/deliver-order") // URL để xác nhận giao hàng
+    @PostMapping("/deliver-order") // URL  xác nhận giao hàng
     public String deliverOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
         // 1. Tạo Command Object
         OrderCommand deliverCommand = new DeliverOrderCommand(orderService, id);
 
         try {
-            // 2. Thực thi Command
+            // 2. Command
             deliverCommand.execute();
 
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đã giao.");
@@ -423,21 +490,21 @@ public class AdminController {
         return "redirect:/admin/orders";
     }
 
-    @PostMapping("/receive-order") // URL để xác nhận nhận đơn hàng
+    @PostMapping("/receive-order") // URL  xác nhận nhận đơn hàng
     public String receiveOrderRequest(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
         // 1. TẠO COMMAND OBJECT
         OrderCommand receiveCommand = new ReceiveOrderCommand(orderService, id);
 
         try {
-            // 2. THỰC THI COMMAND
-            receiveCommand.execute(); // Gọi execute, không cần lưu kết quả OrderItem trả về
+            // 2. COMMAND
+            receiveCommand.execute();
 
-            // 3. Xử lý thành công
+            // 3.
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được xác nhận nhận.");
 
         } catch (EntityNotFoundException | IllegalStateException e) {
             redirectAttributes.addFlashAttribute("errorMsg", "Lỗi khi nhận đơn: " + e.getMessage());
-        } catch (Exception e) { // Giữ nguyên catch lỗi chung
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMsg", "Lỗi hệ thống khi nhận đơn hàng.");
             e.printStackTrace();
         }
@@ -479,33 +546,15 @@ public class AdminController {
 
         }
         return "/admin/orders";
-
     }
 
-    @PostMapping("/save-admin")
-    public String saveAdmin(@ModelAttribute User user, @RequestParam("img") MultipartFile file, HttpSession session)
-            throws IOException {
-
-        String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
-        user.setProfileImage(imageName);
-        User saveUser = userService.saveAdmin(user);
-
-        if (!ObjectUtils.isEmpty(saveUser)) {
-            if (!file.isEmpty()) {
-                File saveFile = new ClassPathResource("static/img").getFile();
-
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
-                        + file.getOriginalFilename());
-
-//				System.out.println(path);
-                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            }
-            session.setAttribute("succMsg", "Register successfully");
-        } else {
-            session.setAttribute("errorMsg", "something wrong on server");
-        }
-
-        return "redirect:/admin/add-admin";
+    @GetMapping("/add-admin")
+    public String loadAddAdminForm(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("formTitle", "Add New Admin");
+        model.addAttribute("isAdminForm", true);
+        model.addAttribute("userType", 2);
+        return "admin/add_user";
     }
 
     @GetMapping("/profile")
@@ -546,75 +595,18 @@ public class AdminController {
 
         return "redirect:/admin/profile";
     }
-    // --- Hiển thị Form Add User/Admin ---
+
     @GetMapping("/add-user")
     public String loadAddUserForm(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("formTitle", "Add New Customer"); // Bạn có thể dùng title này hoặc cái trong HTML
-        model.addAttribute("isAdminForm", false); // Đặt là false cho form add customer
+        model.addAttribute("formTitle", "Add New Customer");
+        model.addAttribute("isAdminForm", false);
         model.addAttribute("userType", 1);
-        return "admin/add_user"; // Trỏ đến file templates/admin/add_user.html
-    }
-
-    @PostMapping("/save-user")
-    public String saveUser(@ModelAttribute User user,
-                           @RequestParam("img") MultipartFile file,
-                           @RequestParam Integer userType,
-                           HttpSession session) {
-        try {
-            // Kiểm tra email tồn tại
-            Boolean existsEmail = userService.existsEmail(user.getEmail());
-            if (existsEmail) {
-                session.setAttribute("errorMsg", "Email already exists");
-                // Quay lại form tương ứng
-                return (userType == 1) ? "redirect:/admin/add-user" : "redirect:/admin/add-admin";
-            }
-
-            // Đặt vai trò và mã hóa mật khẩu
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setIsEnable(true); // Mặc định là active khi tạo mới
-            if (userType == 2) {
-                user.setRole("ROLE_ADMIN");
-            } else {
-                user.setRole("ROLE_USER"); // Mặc định là user
-            }
-
-
-            // Xử lý ảnh
-            String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
-            user.setProfileImage(imageName);
-
-            User savedUser = userService.saveUser(user); // Giả sử có phương thức này
-
-            if (savedUser != null) {
-                // Lưu ảnh nếu có
-                if (!file.isEmpty()) {
-                    commonUtil.uploadFile(file, "profile_img"); // Sử dụng CommonUtil nếu có
-                    // Hoặc dùng code copy file như cũ:
-                    /*
-                    File saveFile = new ClassPathResource("static/img").getFile();
-                    Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator + file.getOriginalFilename());
-                    Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-                    */
-                }
-                session.setAttribute("succMsg", (userType == 1 ? "Customer" : "Admin") + " added successfully");
-            } else {
-                session.setAttribute("errorMsg", "Something went wrong on server");
-            }
-
-        } catch (IOException e) {
-            session.setAttribute("errorMsg", "Error uploading image: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            session.setAttribute("errorMsg", "Server error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        // Quay về trang danh sách tương ứng
-        return "redirect:/admin/users?type=" + userType;
+        return "admin/add_user";
     }
 
 
-    // --- Hiển thị Form Edit User/Admin ---
+
     @GetMapping("/edit-user/{id}")
     public String loadEditUserForm(@PathVariable Integer id,
                                    @RequestParam Integer type,
@@ -626,11 +618,10 @@ public class AdminController {
         }
         model.addAttribute("user", user);
         model.addAttribute("formTitle", "Edit " + (type == 1 ? "Customer" : "Admin"));
-        model.addAttribute("userType", type); // Truyền type để form biết
-        return "admin/edit_user"; // Trỏ đến file edit_user.html
+        model.addAttribute("userType", type);
+        return "admin/edit_user";
     }
 
-    // --- Xử lý Cập nhật User/Admin ---
     @PostMapping("/update-user")
     public String updateUser(@ModelAttribute User userFromForm,
                              @RequestParam("img") MultipartFile file,
@@ -653,7 +644,7 @@ public class AdminController {
             existingUser.setIsEnable(userFromForm.getIsEnable());
 
             if (newPassword != null && !newPassword.isEmpty()) {
-                if (newPassword.length() >= 6) { // Kiểm tra độ dài tối thiểu
+                if (newPassword.length() >= 6) { // Độ dài pwd
                     existingUser.setPassword(passwordEncoder.encode(newPassword));
                 } else {
                     session.setAttribute("errorMsg", "New password must be at least 6 characters long.");
@@ -692,11 +683,9 @@ public class AdminController {
     }
 
 
-    // --- Xử lý Xóa User/Admin ---
     @GetMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable Integer id, @RequestParam Integer type, HttpSession session) {
         try {
-            // Có thể thêm kiểm tra không cho xóa chính mình hoặc admin cuối cùng
             boolean isDeleted = userService.deleteUser(id);
             if (isDeleted) {
                 session.setAttribute("succMsg", "User deleted successfully.");
