@@ -123,7 +123,7 @@ public class UserController {
         return "/user/cart";
     }
 
-    @GetMapping("/cartQuantityUpdate")
+    @GetMapping("/cartQuantity")
     public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid, Principal p) { // Thêm Principal
         if (p == null) { return "redirect:/signin"; }
         cartService.updateQuantity(sy, cid);

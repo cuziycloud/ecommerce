@@ -1,8 +1,8 @@
-package com.tdtu.DesignPattern.Jeweluxe.util;
+    package com.tdtu.DesignPattern.Jeweluxe.util;
 
-public class AppConstant {
+    public class AppConstant {
 
-    public static final long UNLOCK_DURATION_TIME = 3000;
+        public static final long UNLOCK_DURATION_TIME = 3000;
 
-    public static final long ATTEMPT_TIME = 3;
-}
+        public static final long ATTEMPT_TIME = 3;
+    }

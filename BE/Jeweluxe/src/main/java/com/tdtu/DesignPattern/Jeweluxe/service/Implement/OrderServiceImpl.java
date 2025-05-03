@@ -36,10 +36,10 @@ import org.springframework.context.ApplicationEventPublisher;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private OrderItemRepository orderRepository; // Nhận Singleton Repository
+    private OrderItemRepository orderRepository;
 
     @Autowired
-    private CartRepository cartRepository;  // Nhận Singleton Repository
+    private CartRepository cartRepository;
 
     @Autowired
     private CommonUtil commonUtil;
@@ -123,21 +123,17 @@ public class OrderServiceImpl implements OrderService {
 
         if (!savedOrders.isEmpty()) {
             OrderCreatedEvent orderEvent = new OrderCreatedEvent(this, savedOrders); // 'this' là OrderServiceImpl
-            eventPublisher.publishEvent(orderEvent); // Phát sự kiện đi
+            eventPublisher.publishEvent(orderEvent); // Phát sk đi
             try {
                 cartRepository.deleteAll(carts);
                 log.info("Đã xóa giỏ hàng cho user {} sau khi tạo đơn hàng {}", userid, newOrderId);
             } catch (Exception e) {
-                // Lỗi khi xóa giỏ hàng không nên làm ảnh hưởng đến việc đã tạo đơn hàng
                 log.error("Lỗi khi xóa giỏ hàng cho user {}: {}", userid, e.getMessage(), e);
             }
         } else if (!carts.isEmpty()) {
-            // Trường hợp không có item nào được lưu thành công (do lỗi hoặc tất cả cart items đều không hợp lệ)
             log.error("Không lưu được OrderItem nào cho user {}, đơn hàng {} không được tạo.", userid, newOrderId);
         }
 
-//        // Xóa giỏ hàng
-//        cartRepository.deleteAll(carts);
     }
 
     @Override
