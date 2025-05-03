@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="'Edit User: ' + ${user != null ? user.name : ''} + ' - Admin'"></title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body { display: flex; justify-content: center; align-items: flex-start; /* Căn trên */ padding: 2.5rem 1rem; background-color: #f4f7f9; /* Nền xám xanh nhạt */ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+
+    .edit-form-card {
+      max-width: 720px; /* Rộng hơn chút */
+      width: 100%;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0e5ec;
+    }
+    .edit-form-card .card-header {
+      background-color: #6c757d; /* Header màu xám */
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .edit-form-card .card-header h5 { margin: 0; font-size: 1.1rem; font-weight: 600; }
+    .edit-form-card .card-header h5 i { opacity: 0.9; }
+
+    .edit-form-card .card-body { padding: 2rem; }
+
+    .form-label { margin-bottom: 0.3rem; font-weight: 500; font-size: 0.85rem; color: #555; }
+    .required-field::after { content: " *"; color: var(--bs-danger); }
+    .form-control-sm, .form-select-sm { font-size: 0.9rem; padding: 0.5rem 0.75rem; border-radius: 4px; border: 1px solid #ced4da; }
+    .form-select-sm { padding-right: 2.2rem; }
+    .form-control:focus, .form-select:focus { border-color: var(--bs-primary); box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2); }
+    .form-control[readonly] { background-color: #e9ecef; opacity: 1; cursor: not-allowed; }
+    .form-text { font-size: 0.78rem; color: #6c757d; }
+
+    .section-divider { margin: 1.5rem 0; border-color: #e9ecef; }
+    .section-title { font-size: 0.8rem; font-weight: 600; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+
+    /* --- Current Image Preview (Nhỏ lại) --- */
+    .current-img-preview {
+      width: 45px; /* Kích thước nhỏ */
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #dee2e6; /* Viền rõ hơn */
+      vertical-align: middle; /* Căn với text */
+      margin-right: 8px;
+    }
+    .no-image-text {
+      font-style: italic;
+      color: #888;
+      font-size: 0.85rem;
+      vertical-align: middle;
+    }
+
+    .edit-form-card .card-footer {
+      background-color: #f8f9fa;
+      padding: 0.75rem 1.5rem;
+      border-top: 1px solid #dee2e6;
+      text-align: right;
+    }
+    .btn-update { font-weight: 600; background-color: #198754; border-color: #198754; } /* Nút update màu xanh lá */
+    .btn-update:hover { background-color: #157347; border-color: #146c43; }
+    .btn-cancel { font-weight: 500; }
+
+    label.error { color: #dc3545; font-size: 0.75rem; margin-top: 0.1rem; display: block; }
+    input.error, select.error { border-color: #dc3545 !important; }
+
+  </style>
+</head>
+<body>
+
+<!-- Card Form -->
+<div class="card edit-form-card" th:if="${user != null}">
+  <div class="card-header">
+    <h5>
+      <i class="fas fa-user-edit me-2"></i>
+      Edit <span th:text="${param.type == '1' ? 'Customer' : 'Admin'}">User</span>:
+      <span class="fw-normal" th:text="${user.name}">User Name</span>
+    </h5>
+  </div>
+  <div class="card-body">
+    <form th:action="@{/admin/update-user}" th:object="${user}" method="post" enctype="multipart/form-data" id="editUserForm" novalidate>
+      <input type="hidden" th:field="*{id}" />
+      <input type="hidden" name="userType" th:value="${param.type}" />
+
+      <!-- Basic Info -->
+      <div class="section-title">Basic Information</div>
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label for="editName" class="form-label required-field">Full Name</label>
+          <input type="text" class="form-control form-control-sm" id="editName" th:field="*{name}" required>
+        </div>
+        <div class="col-md-6">
+          <label for="editMobile" class="form-label">Mobile Number</label>
+          <input type="text" class="form-control form-control-sm" id="editMobile" th:field="*{mobileNumber}" pattern="[0-9]{10,11}">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="editEmail" class="form-label required-field">Email Address</label>
+        <input type="email" class="form-control form-control-sm" id="editEmail" th:field="*{email}" required readonly>
+        <div class="form-text small">Email cannot be changed.</div>
+      </div>
+
+      <!-- Address -->
+      <div class="section-title">Address Details</div>
+      <div class="row g-3 mb-3">
+        <div class="col-md-8">
+          <label for="editAddress" class="form-label">Street Address</label>
+          <input type="text" class="form-control form-control-sm" id="editAddress" th:field="*{address}">
+        </div>
+        <div class="col-md-4">
+          <label for="editCity" class="form-label">City</label>
+          <input type="text" class="form-control form-control-sm" id="editCity" th:field="*{city}">
+        </div>
+      </div>
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label for="editState" class="form-label">State/Province</label>
+          <input type="text" class="form-control form-control-sm" id="editState" th:field="*{state}">
+        </div>
+        <div class="col-md-6">
+          <label for="editPincode" class="form-label">Pincode</label>
+          <input type="text" class="form-control form-control-sm" id="editPincode" th:field="*{pincode}" pattern="[0-9]{5,7}">
+        </div>
+      </div>
+
+      <!-- Account Settings -->
+      <div class="section-title">Account Settings</div>
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label for="editPassword" class="form-label">New Password</label>
+          <input type="password" class="form-control form-control-sm" id="editPassword" name="newPassword" minlength="6" placeholder="Leave blank to keep current">
+        </div>
+        <div class="col-md-6">
+          <label for="editConfirmPassword" class="form-label">Confirm New Password</label>
+          <input type="password" class="form-control form-control-sm" id="editConfirmPassword" name="confirmNewPassword" equalTo="#editPassword">
+        </div>
+      </div>
+      <!-- Role (Display Only - Assuming not easily editable) -->
+      <div class="mb-3">
+        <label class="form-label">Account Role</label>
+        <input type="text" class="form-control form-control-sm" th:value="*{role == 'ROLE_ADMIN' ? 'Administrator' : 'Customer'}" readonly disabled>
+      </div>
+      <!-- Status -->
+      <div class="mb-3 form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="editIsEnable" th:field="*{isEnable}">
+        <label class="form-check-label" for="editIsEnable">Account Enabled</label>
+      </div>
+
+      <!-- Profile Image -->
+      <div class="section-title">Profile Image</div>
+      <div class="d-flex align-items-center mb-3">
+        <div class="me-3">
+          <label class="form-label mb-0">Current:</label>
+        </div>
+        <div>
+          <img th:if="*{profileImage != null and profileImage != 'default.jpg'}"
+               th:src="@{'/img/profile_img/' + *{profileImage}}"
+               class="current-img-preview" alt="Current Profile">
+          <span th:if="*{profileImage == null or profileImage == 'default.jpg'}" class="no-image-text">No image set</span>
+        </div>
+      </div>
+      <div>
+        <label for="editProfileImage" class="form-label">Upload New Image:</label>
+        <input class="form-control form-control-sm" id="editProfileImage" name="img" type="file" accept="image/png, image/jpeg, image/jpg">
+        <div class="form-text small mt-1">Leave blank to keep current image. Max 2MB.</div>
+      </div>
+
+    </form> <!-- Kết thúc form -->
+  </div> <!-- /.card-body -->
+
+  <div class="card-footer">
+    <a th:href="@{/admin/users(type=${param.type})}" class="btn btn-sm btn-outline-secondary btn-cancel me-2">Cancel</a>
+    <button type="submit" form="editUserForm" class="btn btn-sm btn-success btn-update"> <!-- Màu update -->
+      <i class="fas fa-save me-1"></i> Update User
+    </button>
+  </div>
+
+</div> <!-- /.edit-form-card -->
+
+<!-- Thông báo nếu user không tồn tại -->
+<div th:unless="${user != null}" class="alert alert-danger text-center" role="alert">
+  User not found or invalid ID. Please go back to the user list.
+</div>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script>
+  $(document).ready(function() {
+    $("#editUserForm").validate({
+      rules: {
+        name: "required",
+        mobileNumber: { pattern: /^[0-9]{10,11}$/ },
+        email: { required: true, email: true },
+        pincode: { pattern: /^[0-9]{5,7}$/ },
+        newPassword: { minlength: 6 },
+        confirmNewPassword: { equalTo: "#editPassword" },
+        img: { accept: "image/jpeg, image/png, image/jpg" }
+      },
+      messages: {
+        mobileNumber: { pattern: "Please enter a valid 10 or 11 digit mobile number." },
+        pincode: { pattern: "Please enter a valid pincode (5-7 digits)." },
+        newPassword: { minlength: "Password must be at least 6 characters long." },
+        confirmNewPassword: { equalTo: "New passwords do not match." },
+        img: { accept: "Please upload a valid image file (JPG, JPEG, PNG)." }
+      },
+      errorElement: 'div',
+      errorPlacement: function(error, element) { error.addClass('invalid-feedback small text-danger'); if (element.prop('type') === 'checkbox' || element.prop('type') === 'radio') { error.insertAfter(element.parent()); } else if (element.hasClass('form-select')) { error.insertAfter(element); } else { error.insertAfter(element); } },
+      highlight: function(element, errorClass, validClass) { $(element).addClass('is-invalid').removeClass('is-valid'); },
+      unhighlight: function(element, errorClass, validClass) { $(element).removeClass('is-invalid').addClass('is-valid'); }
+    });
+  });
+</script>
+
+</body>
+</html>
