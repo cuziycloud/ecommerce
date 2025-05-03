@@ -112,7 +112,7 @@ public class UserController {
         double totalDecoratedPrice = 0;
         for (Cart cart : carts) {
             if(cart.getDecoratedPrice() == null) {
-                cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
+                cart.setDecoratedPrice(cartService.calculateDecoratedPrice(cart));
             }
             totalDecoratedPrice += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
         }
@@ -146,7 +146,7 @@ public class UserController {
         double subTotal = 0;
         for(Cart cart : carts) {
             if(cart.getDecoratedPrice() == null) {
-                cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
+                cart.setDecoratedPrice(cartService.calculateDecoratedPrice(cart));
             }
             subTotal += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
         }
@@ -318,13 +318,13 @@ public class UserController {
                     .orElseThrow(() -> new IllegalStateException("ko tìm thấy cart item sau khi cập nhật"));
 
             // 4. Tính giá decorate mới cho item đó
-            double newItemDecoratedPrice = calculateDecoratedPriceForItem(updatedCartItem);
+            double newItemDecoratedPrice = cartService.calculateDecoratedPrice(updatedCartItem);
 
             // 5. Tính tổng giá decorate mới cho cả giỏ
             double newTotalDecoratedPrice = 0;
             for (Cart cart : updatedCartList) {
                 if(cart.getDecoratedPrice() == null) {
-                    cart.setDecoratedPrice(calculateDecoratedPriceForItem(cart));
+                    cart.setDecoratedPrice(cartService.calculateDecoratedPrice(cart));
                 }
                 newTotalDecoratedPrice += cart.getDecoratedPrice() != null ? cart.getDecoratedPrice() : 0;
             }
@@ -345,40 +345,6 @@ public class UserController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Lỗi hệ thống khi cập nhật giỏ hàng."));
         }
-    }
-
-    private double calculateDecoratedPriceForItem(Cart cartItem) {
-        if (cartItem == null || cartItem.getProduct() == null || cartItem.getProduct().getDiscountPrice() == null || cartItem.getQuantity() == null) {
-            return 0;
-        }
-
-        // Bước 1: Tạo đối tượng OrderItem tạm thời từ Cart
-        // Decorator hiện tại được thiết kế để làm việc với OrderItem
-        OrderItem tempItem = new OrderItem();
-        tempItem.setPrice(cartItem.getProduct().getDiscountPrice()); // Lấy giá gốc từ sản phẩm trong giỏ
-        tempItem.setQuantity(cartItem.getQuantity());  // Lấy sl từ giỏ
-        tempItem.setGiftWrap(cartItem.isWantsGiftWrap());
-        tempItem.setInsurance(cartItem.isWantsInsurance());
-
-        // Bước 2: Bắt đầu với bộ tính giá cơ bản (Concrete Component)
-        OrderItemPriceCalculator calculator = new BaseOrderItemPriceCalculator();
-
-        // Bước 3: "Trang trí" (wrap) dựa trên các tùy chọn của cartItem
-
-        // Nếu người dùng muốn gói quà, bọc thêm GiftWrapDecorator
-        if (tempItem.isGiftWrap()) {
-            calculator = new GiftWrapDecorator(calculator);
-        }
-
-        // Nếu người dùng muốn bảo hiểm, bọc thêm InsuranceDecorator
-        if (tempItem.hasInsurance()) {
-            calculator = new InsuranceDecorator(calculator);
-        }
-
-        // Bước 4: Thêm các decorator khác nếu có (khả năng mở rộng)
-    
-        // Bước 5: Gọi phương thức calculatePrice trên đối tượng calculator cuối cùng
-        return calculator.calculatePrice(tempItem);
     }
 
 

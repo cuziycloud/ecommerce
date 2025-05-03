@@ -4,8 +4,145 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7088569a-ed71-4a93-8910-b478ac160236" name="Changes" comment="">
+    <list default="true" id="9fc173a3-a19e-40b2-9677-b007c75b8aff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jewelrystore.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/JeweluxeApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/config/AuthFailureHandlerImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/config/AuthSucessHandlerImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/config/CustomUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/config/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/config/UserDetailsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/controller/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/controller/HomeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/controller/PageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/decorator/price/BaseOrderItemPriceCalculator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/decorator/price/GiftWrapDecorator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/decorator/price/InsuranceDecorator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/decorator/price/OrderItemPriceCalculator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/decorator/price/PriceDecorator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/event/OrderCreatedEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/iterator/CartCollection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/iterator/CartIterator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/iterator/CartList.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/iterator/CartListIterator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/listener/AdminNotificationListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/listener/OrderEmailNotifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/Cart.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/Category.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/OrderAddress.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/OrderItem$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/OrderItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/OrderRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/repository/CartRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/repository/CategoryRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/repository/OrderItemRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/repository/ProductRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/CartService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/CategoryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/CommonService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/EmailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/CartServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/CategoryServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/CommnServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/OrderServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/ProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/ShippingServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/Implement/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/OrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/ProductService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/ShippingService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/CancelledState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/DeliveredState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/InProgressState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/OrderReceivedState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/OrderStatusState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/ProductPackedState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/state/ShippedState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/strategy/shipping/FreeShippingStrategy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/strategy/shipping/ShippingCalculationResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/strategy/shipping/ShippingStrategy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/strategy/shipping/StandardShippingStrategy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/util/AppConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/util/CommonUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/com/tdtu/DesignPattern/Jeweluxe/util/OrderStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/category_img/bracelets.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/category_img/earrings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/category_img/necklaces.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/category_img/rings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/category_img/sets.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/jewelry.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/jewelry2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/prd1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/prd2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/prd3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/prd4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/prd5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/amethyst_ring.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/cz_studs.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/diamond_ring_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/emerald_ring_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/gold_chain_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/infinity_necklace.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/initial_necklace.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/leather_bracelet.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/pearl_earrings_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/rose_gold_hoops_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/ruby_drop_earrings.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/sapphire_pendant_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/silver_bangle.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/silver_bracelet_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/product_img/tungsten_band_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/profile_img/ava1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/img/profile_img/ava2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/static/js/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/about.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/add_product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/add_user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/category.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/edit_category.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/edit_product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/edit_user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/orders.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/admin/users.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/base_minimal.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/contact.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/forgot_password.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/message.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/reset_password.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/user/cart.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/user/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/user/my_orders.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/user/order.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/user/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/user/success.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/classes/templates/view_product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/Jeweluxe/target/test-classes/com/tdtu/DesignPattern/Jeweluxe/JeweluxeApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nhom_ĐA10.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/documents/pattern.docx" beforeDir="false" afterPath="$PROJECT_DIR$/documents/pattern.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/~$attern.docx" beforeDir="false" afterPath="$PROJECT_DIR$/documents/~$attern.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/~$roject.doc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/~WRL2096.tmp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,20 +160,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Unnamed.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ACER/Desktop/HK2-2425/DP/DO_AN/jewelrystore",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ACER/Desktop/HK2-2425/DP/DO_AN/jewelrystore&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Unnamed">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-23" />

@@ -39,6 +39,7 @@ import com.tdtu.DesignPattern.Jeweluxe.service.UserService;
 import com.tdtu.DesignPattern.Jeweluxe.util.CommonUtil;
 import com.tdtu.DesignPattern.Jeweluxe.util.OrderStatus;
 import com.tdtu.DesignPattern.Jeweluxe.command.*;
+import com.tdtu.DesignPattern.Jeweluxe.command.OrderCommandInvoker;
 
 import com.tdtu.DesignPattern.Jeweluxe.template.user.AdminCreator;
 import com.tdtu.DesignPattern.Jeweluxe.template.user.CustomerCreator;
@@ -68,17 +69,20 @@ public class AdminController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private final OrderCommandInvoker commandInvoker;
+
 
     private final AdminCreator adminCreator;
     private final CustomerCreator customerCreator;
 
     @Autowired
-    public AdminController(OrderService orderService, AdminCreator adminCreator, CustomerCreator customerCreator) {
+    public AdminController(OrderService orderService, AdminCreator adminCreator, CustomerCreator customerCreator, OrderCommandInvoker commandInvoker) {
         this.orderService = orderService;
         this.adminCreator = adminCreator;
         this.customerCreator = customerCreator;
-        System.out.println("Creating AdminController instance: " + this.hashCode());
-         System.out.println("Injecting OrderService instance: " + orderService.hashCode());
+        this.commandInvoker = commandInvoker;
+        //System.out.println("Creating AdminController instance: " + this.hashCode());
+        //System.out.println("Injecting OrderService instance: " + orderService.hashCode());
     }
 
     @ModelAttribute
@@ -420,7 +424,7 @@ public class AdminController {
 
         try {
             // 2. Command
-            shipCommand.execute();
+            commandInvoker.invoke(shipCommand);
 
             // 3. Thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái gửi đi.");
@@ -441,7 +445,7 @@ public class AdminController {
 
         try {
             // 2. Command
-            cancelCommand.execute();
+            commandInvoker.invoke(cancelCommand);
 
             // 3. Thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được hủy thành công.");
@@ -462,7 +466,7 @@ public class AdminController {
 
         try {
             // 2. COMMAND
-            packCommand.execute();
+            commandInvoker.invoke(packCommand);
 
             // 3. Thành công
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đóng gói.");
@@ -483,7 +487,7 @@ public class AdminController {
 
         try {
             // 2. Command
-            deliverCommand.execute();
+            commandInvoker.invoke(deliverCommand);
 
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được cập nhật trạng thái đã giao.");
 
@@ -503,7 +507,7 @@ public class AdminController {
 
         try {
             // 2. COMMAND
-            receiveCommand.execute();
+            commandInvoker.invoke(receiveCommand);
 
             // 3.
             redirectAttributes.addFlashAttribute("succMsg", "Đơn hàng ID " + id + " đã được xác nhận nhận.");

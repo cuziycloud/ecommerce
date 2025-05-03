@@ -22,6 +22,12 @@ import com.tdtu.DesignPattern.Jeweluxe.repository.ProductRepository;
 import com.tdtu.DesignPattern.Jeweluxe.repository.UserRepository;
 import com.tdtu.DesignPattern.Jeweluxe.service.CartService;
 
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.BaseOrderItemPriceCalculator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.GiftWrapDecorator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.InsuranceDecorator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.OrderItemPriceCalculator;
+import com.tdtu.DesignPattern.Jeweluxe.model.OrderItem;
+
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -69,19 +75,25 @@ public class CartServiceImpl implements CartService {
         CartCollection cartCollection = new CartList(carts);
         CartIterator iterator = cartCollection.createIterator();
 
-        Double totalOrderPrice = 0.0;
-        List<Cart> updateCarts = new ArrayList<>();
+        log.debug("Processing cart items for user {} using custom Iterator.", userId);
 
         while (iterator.hasNext()) {
-            Cart c = (Cart) iterator.next();
-            Double totalPrice = c.getProduct().getDiscountPrice() * c.getQuantity();
-            c.setTotalPrice(totalPrice);
-            totalOrderPrice += totalPrice;
-            c.setTotalPrice(totalOrderPrice);
-            updateCarts.add(c);
+            Cart cart = (Cart) iterator.next();
+
+            double itemBaseTotalPrice = 0;
+            if (cart.getProduct() != null && cart.getProduct().getDiscountPrice() != null && cart.getQuantity() != null) {
+                itemBaseTotalPrice = cart.getProduct().getDiscountPrice() * cart.getQuantity();
+            } else {
+                log.warn("Custom Iterator: Cart item ID {} for user {} has invalid data.", cart.getId(), userId);
+            }
+
+            cart.setTotalPrice(itemBaseTotalPrice);
+            cart.setDecoratedPrice(null);
+
+            log.trace("Custom Iterator processed cart item ID {}: baseTotalPrice = {}", cart.getId(), itemBaseTotalPrice);
         }
 
-        return updateCarts;
+        return carts;
     }
 
     @Override
@@ -146,6 +158,36 @@ public class CartServiceImpl implements CartService {
             throw new RuntimeException("Lỗi khi lưu cập nhật giỏ hàng.", e);
         }
     }
+
+    @Override
+    public double calculateDecoratedPrice(Cart cartItem) {
+        if (cartItem == null || cartItem.getProduct() == null || cartItem.getProduct().getDiscountPrice() == null || cartItem.getQuantity() == null) {
+            log.warn("Invalid Cart item provided for decorated price calculation: {}", cartItem != null ? cartItem.getId() : "null");
+            return 0;
+        }
+
+        // 1: Tạo đối tượng OrderItem tạm thời từ Cart
+        OrderItem tempItem = new OrderItem();
+        tempItem.setPrice(cartItem.getProduct().getDiscountPrice());
+        tempItem.setQuantity(cartItem.getQuantity());
+        tempItem.setGiftWrap(cartItem.isWantsGiftWrap());
+        tempItem.setInsurance(cartItem.isWantsInsurance());
+
+        // 2: Bắt đầu bộ tính giá cơ bản
+        OrderItemPriceCalculator calculator = new BaseOrderItemPriceCalculator();
+
+        // 3: "Trang trí" dựa trên các tùy chọn
+        if (tempItem.isGiftWrap()) {
+            calculator = new GiftWrapDecorator(calculator);
+        }
+        if (tempItem.hasInsurance()) {
+            calculator = new InsuranceDecorator(calculator);
+        }
+
+        // 4: Gọi phương thức calculatePrice
+        return calculator.calculatePrice(tempItem);
+    }
+
 
 }
 
