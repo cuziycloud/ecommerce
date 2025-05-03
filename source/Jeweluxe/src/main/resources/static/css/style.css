@@ -1,0 +1,137 @@
+@charset "ISO-8859-1";
+
+.card-sh {
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cat-div {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+  color: red;
+}
+
+footer {
+  background-color: #007bff; /* Thay đổi màu nền nếu cần */
+}
+
+footer h5 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+footer .social-icons a {
+  font-size: 1.5rem; /* Kích thước biểu tượng mạng xã hội */
+  transition: color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+footer .social-icons a:hover {
+  color: #ddd; /* Màu khi hover */
+}
+
+footer .links a {
+  text-decoration: none; /* Bỏ gạch chân */
+  transition: color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+footer .links a:hover {
+  color: #ddd; /* Màu khi hover */
+}
+
+.card {
+  transition: transform 0.2s; /* Hiệu ứng zoom khi hover */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Phóng to khi hover */
+}
+
+.card-body h5 {
+  font-size: 1.2rem; /* Kích thước chữ tiêu đề sản phẩm */
+}
+
+/* styles.css */
+
+/* Căn giữa cho hình ảnh sản phẩm */
+.img-fluid {
+  border-radius: 8px;
+}
+
+/* Định dạng cho tiêu đề sản phẩm */
+.fs-3 {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Định dạng cho các nhãn sản phẩm */
+.badge {
+  font-size: 0.9em;
+  border-radius: 20px;
+}
+
+/* Định dạng cho phần mô tả */
+p {
+  color: #555;
+}
+
+/* Nút Add to Cart */
+.btn-danger {
+  background-color: #ff4d4d;
+  border-color: #ff4d4d;
+  transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #ff1a1a;
+}
+
+/* Nút Out of Stock */
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  transition: background-color 0.3s;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+/* Tạo độ bóng cho thẻ sản phẩm */
+.card-sh {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
+
+.card-sh:hover {
+  transform: scale(1.02);
+}
+
+/* Tạo hiệu ứng hover cho icon */
+.row .text-center i {
+  transition: transform 0.3s;
+}
+
+.row .text-center i:hover {
+  transform: scale(1.1);
+}
+
+/* Thay đổi màu sắc cho các icon */
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+/* Định dạng cho ngăn cách giữa các phần */
+.mb-2 {
+  margin-bottom: 15px;
+}
