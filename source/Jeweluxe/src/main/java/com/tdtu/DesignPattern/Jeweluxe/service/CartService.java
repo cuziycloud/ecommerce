@@ -16,4 +16,6 @@ public interface CartService {
 
     public Cart updateCartOption(Integer cartId, String optionType, boolean isChecked);
 
+    public double calculateDecoratedPrice(Cart cartItem);
+
 }

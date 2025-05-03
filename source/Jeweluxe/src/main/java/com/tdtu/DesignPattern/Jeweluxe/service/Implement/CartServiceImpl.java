@@ -22,6 +22,12 @@ import com.tdtu.DesignPattern.Jeweluxe.repository.ProductRepository;
 import com.tdtu.DesignPattern.Jeweluxe.repository.UserRepository;
 import com.tdtu.DesignPattern.Jeweluxe.service.CartService;
 
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.BaseOrderItemPriceCalculator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.GiftWrapDecorator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.InsuranceDecorator;
+import com.tdtu.DesignPattern.Jeweluxe.decorator.price.OrderItemPriceCalculator;
+import com.tdtu.DesignPattern.Jeweluxe.model.OrderItem;
+
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -146,6 +152,36 @@ public class CartServiceImpl implements CartService {
             throw new RuntimeException("Lỗi khi lưu cập nhật giỏ hàng.", e);
         }
     }
+
+    @Override
+    public double calculateDecoratedPrice(Cart cartItem) {
+        if (cartItem == null || cartItem.getProduct() == null || cartItem.getProduct().getDiscountPrice() == null || cartItem.getQuantity() == null) {
+            log.warn("Invalid Cart item provided for decorated price calculation: {}", cartItem != null ? cartItem.getId() : "null");
+            return 0;
+        }
+
+        // 1: Tạo đối tượng OrderItem tạm thời từ Cart
+        OrderItem tempItem = new OrderItem();
+        tempItem.setPrice(cartItem.getProduct().getDiscountPrice());
+        tempItem.setQuantity(cartItem.getQuantity());
+        tempItem.setGiftWrap(cartItem.isWantsGiftWrap());
+        tempItem.setInsurance(cartItem.isWantsInsurance());
+
+        // 2: Bắt đầu bộ tính giá cơ bản
+        OrderItemPriceCalculator calculator = new BaseOrderItemPriceCalculator();
+
+        // 3: "Trang trí" dựa trên các tùy chọn
+        if (tempItem.isGiftWrap()) {
+            calculator = new GiftWrapDecorator(calculator);
+        }
+        if (tempItem.hasInsurance()) {
+            calculator = new InsuranceDecorator(calculator);
+        }
+
+        // 4: Gọi phương thức calculatePrice
+        return calculator.calculatePrice(tempItem);
+    }
+
 
 }
 
