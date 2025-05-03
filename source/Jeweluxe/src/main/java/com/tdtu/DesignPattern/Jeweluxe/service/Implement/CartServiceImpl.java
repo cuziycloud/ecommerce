@@ -75,19 +75,25 @@ public class CartServiceImpl implements CartService {
         CartCollection cartCollection = new CartList(carts);
         CartIterator iterator = cartCollection.createIterator();
 
-        Double totalOrderPrice = 0.0;
-        List<Cart> updateCarts = new ArrayList<>();
+        log.debug("Processing cart items for user {} using custom Iterator.", userId);
 
         while (iterator.hasNext()) {
-            Cart c = (Cart) iterator.next();
-            Double totalPrice = c.getProduct().getDiscountPrice() * c.getQuantity();
-            c.setTotalPrice(totalPrice);
-            totalOrderPrice += totalPrice;
-            c.setTotalPrice(totalOrderPrice);
-            updateCarts.add(c);
+            Cart cart = (Cart) iterator.next();
+
+            double itemBaseTotalPrice = 0;
+            if (cart.getProduct() != null && cart.getProduct().getDiscountPrice() != null && cart.getQuantity() != null) {
+                itemBaseTotalPrice = cart.getProduct().getDiscountPrice() * cart.getQuantity();
+            } else {
+                log.warn("Custom Iterator: Cart item ID {} for user {} has invalid data.", cart.getId(), userId);
+            }
+
+            cart.setTotalPrice(itemBaseTotalPrice);
+            cart.setDecoratedPrice(null);
+
+            log.trace("Custom Iterator processed cart item ID {}: baseTotalPrice = {}", cart.getId(), itemBaseTotalPrice);
         }
 
-        return updateCarts;
+        return carts;
     }
 
     @Override
