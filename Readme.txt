@@ -14,7 +14,7 @@ HƯỚNG DẪN CÀI ĐẶT VÀ CHẠY DỰ ÁN
 ---------------------------------
 1. Thiết lập Cơ sở dữ liệu MySQL:
 Sử dụng công cụ phpMyAdmin:
-- Tạo một database mới với tên là "jeweluxe". Đảm bảo sử dụng bảng mã (collation) là "utf8mb4_unicode_ci"
+- Tạo một database mới với tên là "jeweluxe". Sử dụng bảng mã là "utf8mb4_unicode_ci"
 - Chọn database jeweluxe vừa tạo. Import file "jeweluxe.sql" (nằm trong thư mục gốc source).
 
 2. Cấu hình ứng dụng (application.properties):
@@ -25,18 +25,25 @@ Lưu ý: Nếu port 8080 đã được sử dụng, vui lòng thay đổi giá t
 
 
 3. Build và Chạy ứng dụng:
-Sử dụng IDE (IntelliJ IDEA):
-- Import dự án vào IDE dưới dạng Maven project.
-- Chờ IDE tải và build dự án.
+a. Khởi động XAMPP Control Panel (bắt buộc)
+- Đảm bảo 1: Module Apache (truy cập phpMyAdmin qua trình duyệt) và Module MySQL đều đang ở trạng thái "Running" (hiện màu xanh lá). 
+- Đảm bảo 2: Đã tồn tại CSDL tên "jeweluxe" (thực hiên import file sql trước đó).
+
+b. Sử dụng IDE (IntelliJ IDEA):
+- Truy cập thư mục source, ta thấy có thư mục Jeweluxe, chuột phải và chọn "Open folder as IntelliJ IDEA project"
 - Tìm file "src/main/java/com/tdtu/DesignPattern/Jeweluxe/JeweluxeApplication.java".
-- Chuột phải vào file này và chọn "Run 'JeweluxeApplication.main()'".
+- Chuột phải vào file này và chọn "Run 'JeweluxeApplication....main()'".
 - Theo dõi cửa sổ Console/Terminal. Nếu thấy các dòng log tương tự như sau, ứng dụng đã khởi động thành công:
-    ... INFO ... Tomcat started on port 8080 (http) ...
+    ...
+    ... INFO ... Tomcat started on port 8080 (http) with context path '/' ...
     ... INFO ... Started JeweluxeApplication in X.XXX seconds ...
 
+Note: có thể xảy ra xung đột của Spring Boot DevTools trong lần đầu khởi động, lúc này bạn có thể dừng hoàn toàn project (restart) và tiến hành Build -> ReBuild Project để ổn định/ nhất quán lại
+
+
 4. Truy cập ứng dụng:
-- Mở trình duyệt web và truy cập: "http://localhost:8080/"
-=> Kết quả hiển thị ra là giao diện trang web cửa hàng chưa đăng nhập
+- Mở trình duyệt web và truy cập: "http://localhost:8080/" (nếu cổng 8080 đang bận hoặc đã thay đổi cổng trong file application.properties trước đó, hãy đổi lại đường dẫn với cổng tương ứng)
+=> Kết quả hiển thị ra là giao diện home trang web cửa hàng (chưa đăng nhập)
 Tùy chọn: Tiến hành đăng nhập hoặc đăng ký tài khoản mới
 
 ---------------------------------------------------------------
